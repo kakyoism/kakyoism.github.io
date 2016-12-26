@@ -1,111 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  <title>你好 Hexo | Kakyo Learns</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="为什么开博？为什么花力气自己在 GitHub 开这个博？原因有三。
-教学相长我想学习工作之外的东西。但是闲暇的碎片式学习，如果不想办法系统整理很容易走马观花，人也不思而殆，时间实际上白花了。于是博客是我能想到的最可行的办法。
-虽然 …
-
-Wisdom cannot be imparted. Wisdom that a wise man attempts to impart always sound">
-<meta property="og:type" content="article">
-<meta property="og:title" content="你好 Hexo">
-<meta property="og:url" content="http://yoursite.com/2016/12/25/Hello-Hexo-你好-Hexo/index.html">
-<meta property="og:site_name" content="Kakyo Learns">
-<meta property="og:description" content="为什么开博？为什么花力气自己在 GitHub 开这个博？原因有三。
-教学相长我想学习工作之外的东西。但是闲暇的碎片式学习，如果不想办法系统整理很容易走马观花，人也不思而殆，时间实际上白花了。于是博客是我能想到的最可行的办法。
-虽然 …
-
-Wisdom cannot be imparted. Wisdom that a wise man attempts to impart always sound">
-<meta property="og:updated_time" content="2016-12-26T00:50:42.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="你好 Hexo">
-<meta name="twitter:description" content="为什么开博？为什么花力气自己在 GitHub 开这个博？原因有三。
-教学相长我想学习工作之外的东西。但是闲暇的碎片式学习，如果不想办法系统整理很容易走马观花，人也不思而殆，时间实际上白花了。于是博客是我能想到的最可行的办法。
-虽然 …
-
-Wisdom cannot be imparted. Wisdom that a wise man attempts to impart always sound">
-  
-    <link rel="alternate" href="/atom.xml" title="Kakyo Learns" type="application/atom+xml">
+<?xml version="1.0" encoding="utf-8"?>
+<search>
   
   
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
-
-</head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Kakyo Learns</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">Kakyo 的学习笔记</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Hello-Hexo-你好-Hexo" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/12/25/Hello-Hexo-你好-Hexo/" class="article-date">
-  <time datetime="2016-12-25T18:54:17.000Z" itemprop="datePublished">2016-12-25</time>
-</a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Writing/">Writing</a>►<a class="article-category-link" href="/categories/Writing/Technology/">Technology</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      你好 Hexo
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="为什么开博？"><a href="#为什么开博？" class="headerlink" title="为什么开博？"></a>为什么开博？</h2><p>为什么花力气自己在 GitHub 开这个博？原因有三。</p>
+    <entry>
+      <title><![CDATA[你好 Hexo]]></title>
+      <url>http://yoursite.com/2016/12/25/Hello-Hexo-%E4%BD%A0%E5%A5%BD-Hexo/</url>
+      <content type="html"><![CDATA[<h2 id="为什么开博？"><a href="#为什么开博？" class="headerlink" title="为什么开博？"></a>为什么开博？</h2><p>为什么花力气自己在 GitHub 开这个博？原因有三。</p>
 <h3 id="教学相长"><a href="#教学相长" class="headerlink" title="教学相长"></a>教学相长</h3><p>我想学习工作之外的东西。但是闲暇的碎片式学习，如果不想办法系统整理很容易走马观花，人也不思而殆，时间实际上白花了。于是博客是我能想到的最可行的办法。</p>
 <p>虽然 …</p>
 <blockquote>
@@ -154,125 +55,24 @@ Wisdom cannot be imparted. Wisdom that a wise man attempts to impart always soun
 </ul>
 <p>Hexo 是上述测试过的系统中唯一做到了两分钟发布成功的。它不用像 Hugo 那样操心发布版（gh-pages），也没有复杂的 git 操作：new, generate, server, deploy 四个命令基本上可以解决创作、本地测试、远程发布的迭代。这些让我觉得设计者在 UX 方面很贴心。<a href="https://malekbenz.com/blog/2016/09/10/Create-Host-Blog-for-free-with-Hexo-Github" target="_blank" rel="external">上手教程</a>和<a href="http://fizzylogic.nl/2016/01/09/Get-started-with-Hexo/" target="_blank" rel="external">其它教程</a>中顾及了本地和远程。但缺点也不是没有，要替换发布内容中的图片素材这些操作还是要手动找到文件，并不太方便。完全不需要版本控制的结果就是自己也不方便做精细的控制。但这些对日常来说都是可以克服的，比如跟代码相关的文章中，源码可以独立开 repo 做版本控制。</p>
 <h1 id="怎么写？"><a href="#怎么写？" class="headerlink" title="怎么写？"></a>怎么写？</h1><p>三分钟热度，写着写着就不写了，最后说不定还是这个结局，能否坚持最终还是取决于学习热情，另外不求天天创新，只求有<a href="http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/" target="_blank" rel="external">经得起时间考验的东西</a>。但有方便的流程对克制懒病还是有用的吧：如果打开 Sublime 甚至 Terminal 就能开写，比起网速不详时登录第三方服务，用邮箱密码登录，然后冒所有在线编辑的风险长篇大论来说还是诱人多了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/25/Hello-Hexo-你好-Hexo/" data-id="cix5dbbak00007e37ugj1qxrm" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gitbook/">gitbook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hugo/">hugo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jekyll/">jekyll</a></li></ul>
-
-    </footer>
-  </div>
-  
+]]></content>
+    </entry>
     
-<nav id="article-nav">
-  
-  
-    <a href="/2016/12/25/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>http://yoursite.com/2016/12/25/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    </entry>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Writing/">Writing</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Writing/Technology/">Technology</a></li></ul></li></ul>
-    </div>
-  </div>
-
-
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitbook/">gitbook</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hugo/">hugo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a></li></ul>
-    </div>
-  </div>
-
-
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/gitbook/" style="font-size: 10px;">gitbook</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hugo/" style="font-size: 10px;">hugo</a> <a href="/tags/jekyll/" style="font-size: 10px;">jekyll</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2016/12/25/Hello-Hexo-你好-Hexo/">你好 Hexo</a>
-          </li>
-        
-          <li>
-            <a href="/2016/12/25/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2016 Kakyo Kickass<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-  </div>
-</body>
-</html>
+</search>
