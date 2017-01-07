@@ -4,12 +4,12 @@
   <subtitle>学无止境</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
-  <updated>2016-12-28T19:23:42.000Z</updated>
-  <id>http://yoursite.com/</id>
+  <link href="http://kakyoism.github.io/"/>
+  <updated>2017-01-07T22:14:22.000Z</updated>
+  <id>http://kakyoism.github.io/</id>
   
   <author>
-    <name>Kakyo Kickass</name>
+    <name>Kakyo</name>
     
   </author>
   
@@ -17,12 +17,12 @@
   
   <entry>
     <title>拙答知乎问题：如何评价《DOOM》(2016) 的关卡设计水平？</title>
-    <link href="http://yoursite.com/2016/12/26/%E6%8B%99%E7%AD%94%E7%9F%A5%E4%B9%8E%E9%97%AE%E9%A2%98%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AF%84%E4%BB%B7-DOOM-2016-%E7%9A%84%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1%E6%B0%B4%E5%B9%B3%EF%BC%9F/"/>
-    <id>http://yoursite.com/2016/12/26/拙答知乎问题：如何评价-DOOM-2016-的关卡设计水平？/</id>
+    <link href="http://kakyoism.github.io/2016/12/26/%E6%8B%99%E7%AD%94%E7%9F%A5%E4%B9%8E%E9%97%AE%E9%A2%98%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AF%84%E4%BB%B7-DOOM-2016-%E7%9A%84%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1%E6%B0%B4%E5%B9%B3%EF%BC%9F/"/>
+    <id>http://kakyoism.github.io/2016/12/26/拙答知乎问题：如何评价-DOOM-2016-的关卡设计水平？/</id>
     <published>2016-12-27T01:12:39.000Z</published>
-    <updated>2016-12-28T19:23:42.000Z</updated>
+    <updated>2017-01-07T22:14:22.000Z</updated>
     
-    <content type="html"><![CDATA[<p><em>回答这个知乎问题主要是想总结一下圣诞假期玩《DOOM》的感受，结果是不得不仔细考虑了一些没有进入意识的问题，并且不得不调查确认一些东西。果然也是一次学习，虽然很粗浅上不来台面（考虑到读者多半是玩家，所以简化了好些概念），但特留此作为笔记存档。</em></p>
+    <content type="html"><![CDATA[<p><em>回答这个知乎问题主要是想总结一下圣诞假期玩《DOOM》的感受，结果是不得不仔细考虑了一些没有进入意识的问题，并且不得不调查确认一些东西。果然也是一次学习，虽然很粗浅上不来台面（考虑到读者多半是玩家，所以简化了好些概念），但特留此作为笔记存档。</em> <a id="more"></a></p>
 <ul>
 <li>作者：北南</li>
 <li>链接：<a href="https://www.zhihu.com/question/53570737/answer/137825836" target="_blank" rel="external">https://www.zhihu.com/question/53570737/answer/137825836</a></li>
@@ -45,28 +45,27 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;em&gt;回答这个知乎问题主要是想总结一下圣诞假期玩《DOOM》的感受，结果是不得不仔细考虑了一些没有进入意识的问题，并且不得不调查确认一些东西。果然也是一次学习，虽然很粗浅上不来台面（考虑到读者多半是玩家，所以简化了好些概念），但特留此作为笔记存档。&lt;/em&gt;&lt;/p&gt;
-&lt;u
+      &lt;p&gt;&lt;em&gt;回答这个知乎问题主要是想总结一下圣诞假期玩《DOOM》的感受，结果是不得不仔细考虑了一些没有进入意识的问题，并且不得不调查确认一些东西。果然也是一次学习，虽然很粗浅上不来台面（考虑到读者多半是玩家，所以简化了好些概念），但特留此作为笔记存档。&lt;/em&gt;
     
     </summary>
     
-      <category term="Gaming" scheme="http://yoursite.com/categories/Gaming/"/>
+      <category term="Gaming" scheme="http://kakyoism.github.io/categories/Gaming/"/>
     
     
-      <category term="gaming" scheme="http://yoursite.com/tags/gaming/"/>
+      <category term="gaming" scheme="http://kakyoism.github.io/tags/gaming/"/>
     
-      <category term="levelDesign" scheme="http://yoursite.com/tags/levelDesign/"/>
+      <category term="levelDesign" scheme="http://kakyoism.github.io/tags/levelDesign/"/>
     
   </entry>
   
   <entry>
     <title>你好 Hexo</title>
-    <link href="http://yoursite.com/2016/12/25/Hello-Hexo-%E4%BD%A0%E5%A5%BD-Hexo/"/>
-    <id>http://yoursite.com/2016/12/25/Hello-Hexo-你好-Hexo/</id>
+    <link href="http://kakyoism.github.io/2016/12/25/Hello-Hexo-%E4%BD%A0%E5%A5%BD-Hexo/"/>
+    <id>http://kakyoism.github.io/2016/12/25/Hello-Hexo-你好-Hexo/</id>
     <published>2016-12-25T18:54:17.000Z</published>
-    <updated>2017-01-07T20:33:17.000Z</updated>
+    <updated>2017-01-07T22:14:56.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="为什么开博？"><a href="#为什么开博？" class="headerlink" title="为什么开博？"></a>为什么开博？</h2><p>为什么花力气自己在 GitHub 开这个博？原因有三。</p>
+    <content type="html"><![CDATA[<h2 id="为什么开博？"><a href="#为什么开博？" class="headerlink" title="为什么开博？"></a>为什么开博？</h2><p>为什么花力气自己在 GitHub 开这个博？原因有三。<a id="more"></a></p>
 <h3 id="写读整理"><a href="#写读整理" class="headerlink" title="写读整理"></a>写读整理</h3><p>平时的阅读浏览，如果不加整理很容易进入碎片式学习的陷阱：走马观花，不假思索。时间实际上白花了。开博客强制自己打开窗户自说自话，因为要让路人看明白，所以不得不教学相长。</p>
 <blockquote>
 <p>虽有佳（嘉）肴，弗食，不知其旨也；虽有至道，弗学，不知其善也。是故学然后知不足，教<br>后知困。知不足，然后能自反也。知困，然后能自强也。故曰：教学相长也。<br>（选自《十三经注疏》）</p>
@@ -113,30 +112,29 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;为什么开博？&quot;&gt;&lt;a href=&quot;#为什么开博？&quot; class=&quot;headerlink&quot; title=&quot;为什么开博？&quot;&gt;&lt;/a&gt;为什么开博？&lt;/h2&gt;&lt;p&gt;为什么花力气自己在 GitHub 开这个博？原因有三。&lt;/p&gt;
-&lt;h3 id=&quot;写读整理&quot;&gt;&lt;a href=
+      &lt;h2 id=&quot;为什么开博？&quot;&gt;&lt;a href=&quot;#为什么开博？&quot; class=&quot;headerlink&quot; title=&quot;为什么开博？&quot;&gt;&lt;/a&gt;为什么开博？&lt;/h2&gt;&lt;p&gt;为什么花力气自己在 GitHub 开这个博？原因有三。
     
     </summary>
     
-      <category term="Writing" scheme="http://yoursite.com/categories/Writing/"/>
+      <category term="Writing" scheme="http://kakyoism.github.io/categories/Writing/"/>
     
     
-      <category term="gitbook" scheme="http://yoursite.com/tags/gitbook/"/>
+      <category term="gitbook" scheme="http://kakyoism.github.io/tags/gitbook/"/>
     
-      <category term="github" scheme="http://yoursite.com/tags/github/"/>
+      <category term="github" scheme="http://kakyoism.github.io/tags/github/"/>
     
-      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+      <category term="hexo" scheme="http://kakyoism.github.io/tags/hexo/"/>
     
-      <category term="hugo" scheme="http://yoursite.com/tags/hugo/"/>
+      <category term="hugo" scheme="http://kakyoism.github.io/tags/hugo/"/>
     
-      <category term="jekyll" scheme="http://yoursite.com/tags/jekyll/"/>
+      <category term="jekyll" scheme="http://kakyoism.github.io/tags/jekyll/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2016/12/25/hello-world/"/>
-    <id>http://yoursite.com/2016/12/25/hello-world/</id>
+    <link href="http://kakyoism.github.io/2016/12/25/hello-world/"/>
+    <id>http://kakyoism.github.io/2016/12/25/hello-world/</id>
     <published>2016-12-25T18:48:45.000Z</published>
     <updated>2017-01-07T20:52:33.000Z</updated>
     
