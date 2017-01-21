@@ -12,7 +12,7 @@
     <entry>
       <title><![CDATA[第一天]]></title>
       <url>%2F2016%2F12%2F25%2FHello-Hexo-%E4%BD%A0%E5%A5%BD-Hexo%2F</url>
-      <content type="text"><![CDATA[之前玩公众号，但慢慢发现在引用外链和离线写作方面有限制，更适合严肃一点的出版物。我期待的是自由外链引用、离线为主、一键发布、迭代迁移方便的博客流程。 GitHub 的静态站点系统 GitHub Pages 支持按照软件开发流程来管理博客，通过纯文本标记格式比如 Markdown 写作存为本地文件，再一键发布到远程。 所以换到 GitHub 来试试。]]></content>
+      <content type="text"><![CDATA[之前玩公众号，但发现在引用外链和离线写作方面有限制。很多时候我期待的是自由外链引用、离线为主、一键发布、迭代迁移方便的博客流程。 GitHub 的静态站点系统 GitHub Pages 支持按照软件开发流程来管理博客，通过纯文本标记格式比如 Markdown 写作存为本地文件，再一键发布到远程。 所以来 GitHub 试试。]]></content>
     </entry>
 
     
