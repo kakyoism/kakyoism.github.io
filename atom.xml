@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kakyoism.github.io/"/>
-  <updated>2017-01-16T00:57:02.000Z</updated>
+  <updated>2017-01-18T04:19:49.000Z</updated>
   <id>http://kakyoism.github.io/</id>
   
   <author>
@@ -20,36 +20,72 @@
     <link href="http://kakyoism.github.io/2017/01/15/migs-2016/"/>
     <id>http://kakyoism.github.io/2017/01/15/migs-2016/</id>
     <published>2017-01-16T00:52:13.000Z</published>
-    <updated>2017-01-16T00:57:02.000Z</updated>
+    <updated>2017-01-18T04:19:49.000Z</updated>
     
-    <content type="html"><![CDATA[<p>最近一次的<a href="http://www.migs16.com/en/" target="_blank" rel="external">蒙特利尔国际游戏峰会 MIGS 2016</a>过去一阵子了，只有 3 岁的 MIGS 在规模上无法跟 GDC 这样的老字号相提并论，不过每年还是有些有用的技术演讲，在此追记一下自己去过那几场的要点，主要是音频专场。</p>
-<p><img src="images/migs16-01.jpg" alt=""><br><img src="/2017/01/15/migs-2016/migs16-01.jpg" alt="migs16-01.jpg" title=""></p>
-<h2 id="Leonard-Paul-“PROCEDURAL-GAME-AUDIO-WITH-PURE-DATA”"><a href="#Leonard-Paul-“PROCEDURAL-GAME-AUDIO-WITH-PURE-DATA”" class="headerlink" title="Leonard Paul “PROCEDURAL GAME AUDIO WITH PURE DATA”"></a><a href="http://www.migs16.com/en/events/procedural-game-audio-with-pure-data/" target="_blank" rel="external">Leonard Paul “PROCEDURAL GAME AUDIO WITH PURE DATA”</a></h2><p><img src="images/migs16-02.jpg" alt=""></p>
-<p><a href="http://www.migs16.com/en/leonard-j-paul-2/" target="_blank" rel="external">Leonard Paul</a> 是一位独立游戏音频设计师和教师，他开的 <a href="http://school.videogameaudio.com/apply/" target="_blank" rel="external">School of Video Game Audio</a> 也小有名气。这次的演讲中他以 <a href="https://unity3d.com/learn/tutorials/projects/tanks-tutorial" target="_blank" rel="external">Unity 示例游戏</a>作为蓝本介绍了用 Pure Data（PD）实现 procedural audio（下称 PA）音频设计一些可能性。会后他还发布了这次演讲的<a href="https://t.co/7ay9kxzhOV" target="_blank" rel="external">幻灯</a>和<a href="https://t.co/7s0o9Xhoiy" target="_blank" rel="external">录音</a>。</p>
-<p>在这个例子中 Leonard 展示了几个 PD patch。通过自己设计的 OSC（Open Sound Control）消息让这些 patch 和 Unity 端 C# 实现的OSC 模块通信，实现了一条音频原型迭代的管线：在 PD 中创建和修改设计，通过 OSC 来实现游戏运行中试听和调整混音等。演示的声音大多采用简单的加法／减法／模态（Modal）合成方法，坦克碰撞声采用了 <a href="https://en.wikipedia.org/wiki/Karplus–Strong_string_synthesis" target="_blank" rel="external">Karplus-Strong</a> 算法。</p>
+    <content type="html"><![CDATA[<p>最近一次的<a href="http://www.migs16.com/en/" target="_blank" rel="external">蒙特利尔国际游戏峰会 MIGS 2016</a>过去一阵子了，只有3岁的 MIGS 在规模上无法跟 GDC 这样的老字号相提并论，不过每年还是有些有用的技术演讲，在此追记一下自己去过那几场的要点，主要是音频专场。</p>
+<img src="/2017/01/15/migs-2016/migs16-01.jpg" alt="migs16-01.jpg" title="">
+<h2 id="Leonard-Paul-“用-Pure-Data-为游戏实现-Procedural-Audio”"><a href="#Leonard-Paul-“用-Pure-Data-为游戏实现-Procedural-Audio”" class="headerlink" title="Leonard Paul “用 Pure Data 为游戏实现 Procedural Audio”"></a><a href="http://www.migs16.com/en/events/procedural-game-audio-with-pure-data/" target="_blank" rel="external">Leonard Paul “用 Pure Data 为游戏实现 Procedural Audio”</a></h2><img src="/2017/01/15/migs-2016/migs16-02.jpg" alt="migs16-02.jpg" title="">
+<p>音频设计师和教师 <a href="http://www.migs16.com/en/leonard-j-paul-2/" target="_blank" rel="external">Leonard Paul</a> 以 <a href="https://unity3d.com/learn/tutorials/projects/tanks-tutorial" target="_blank" rel="external">Unity 示例游戏</a>作为蓝本介绍了用 Pure Data（PD）实现 procedural audio（下称 PA）音频设计一些可能性。会后他还发布了这次演讲的<a href="https://t.co/7ay9kxzhOV" target="_blank" rel="external">幻灯</a>和<a href="https://t.co/7s0o9Xhoiy" target="_blank" rel="external">录音</a>。</p>
+<p>在这个例子中 Leonard 展示了几个 PD patch。通过自己设计实现从 PD 到 Unity 的一整套 OSC（Open Sound Control）消息服务机制，建立了一条简单的音频原型迭代的管线：在 PD 中创建和修改设计，在 Unity 中测试，两端通过 OSC 沟通来试听和调整混音等。演示的声音大多采用简单的加法／减法／模态（Modal）实时合成方法，坦克碰撞声采用了 <a href="https://en.wikipedia.org/wiki/Karplus–Strong_string_synthesis" target="_blank" rel="external">Karplus-Strong</a> 算法。</p>
 <p>关于 PD 生态的现状，Leonard 说 <a href="https://github.com/libpd/libpd" target="_blank" rel="external">libpd</a> 的性能还达不到游戏要求的实时性，但 <a href="https://enzienaudio.com" target="_blank" rel="external">Enzien Audio</a> 的 Heavy 系统的性能很有希望。目前 Heavy 支持大部分 PD 的对象，只有极少数关键对象比如 <a href="http://yadegari.org/expr/expr.html" target="_blank" rel="external">expr～</a> 不支持。</p>
-<p>不过 Leonard 也表示使用 PA 有一些注意事项：</p>
+<p>Leonard 也表示在游戏项目中选用 PD 这样的系统有一些注意事项：</p>
 <ul>
 <li>不应该为 PA 而 PA。从审美上不是所有的游戏都适合 PA，演讲采用的坦克游戏碰巧是美式动漫风，所以适合用常用的合成技术表现；</li>
-<li>用 PA 做声音只是音频设计流程中的一方面，走这条路还需要自己实现通信协议、混音器、voice 控制，性能优化这些操作；</li>
+<li>用 PD “做出声音”只是音频设计流程中的一方面，走这条路还需要自己实现通信协议、混音器、voice 控制，性能优化这些一般中间件里有的东西；</li>
 <li>同一个功能可能有不同品质和性能代价的算法实现，可以考虑根据实时性能的波动在不同算法实现中切换以达到最优性价比；</li>
-<li>Heavy 这样的 PA 系统性能虽有进步，但仍然有不稳定而崩溃的现象；</li>
-<li>在大型项目中还是应以中间件为出发点。</li>
+<li>Heavy 这样的 PA 系统性能虽有进步，但仍然有不稳定甚至崩溃的现象；</li>
+<li>在条件允许下，比如大公司和大型项目中一般还是以中间件为出发点。</li>
 </ul>
 <p><strong>感想：</strong>利用创意编程工具实现 PA 目前还是一个技术性很强的领域，Leonard 自我介绍时强调自己的编程背景并已经有 20 多年使用 Max（90 年代初还没有 MSP）和 PD 的经验也侧面佐证了这一点。</p>
-<h2 id="RJ-Mattingly-“MAKING-THE-SHARPEST-GAME-AUDIO-TOOLS-IN-THE-SHED”"><a href="#RJ-Mattingly-“MAKING-THE-SHARPEST-GAME-AUDIO-TOOLS-IN-THE-SHED”" class="headerlink" title="RJ Mattingly “MAKING THE SHARPEST GAME AUDIO TOOLS IN THE SHED”"></a><a href="http://www.migs16.com/en/events/making-the-sharpest/" target="_blank" rel="external">RJ Mattingly “MAKING THE SHARPEST GAME AUDIO TOOLS IN THE SHED”</a></h2><p><img src="images/migs16-03.jpg" alt=""></p>
+<h2 id="RJ-Mattingly-“手工打造游戏音频利器”"><a href="#RJ-Mattingly-“手工打造游戏音频利器”" class="headerlink" title="RJ Mattingly “手工打造游戏音频利器”"></a><a href="http://www.migs16.com/en/events/making-the-sharpest/" target="_blank" rel="external">RJ Mattingly “手工打造游戏音频利器”</a></h2><img src="/2017/01/15/migs-2016/migs16-03.jpg" alt="migs16-03.jpg" title="">
 <p><a href="http://www.migs16.com/en/rj-mattingly-2/" target="_blank" rel="external">RJ Mattingly</a> 是 PopCap 的技术声音设计师。PopCap 现在全面采用 Unity + Wwise 的音频开发流程，在演讲中他介绍了为优化 PopCap 内部工作流程写的一些小脚本工具，基本都用 Python 语言实现。</p>
 <h3 id="SoundBank-管线工具"><a href="#SoundBank-管线工具" class="headerlink" title="SoundBank 管线工具"></a>SoundBank 管线工具</h3><p>PopCap 的 SoundBank 处理管线见上图。</p>
-<p>他们早期基于 Perforce 的流程中声音设计师不但提交 Wwise 工程文件，还提交 SoundBnak。这样一来因为 SoundBank 是团队共享的，所以容易出现冲突。RJ 的第一个显而易见的改进便是规定设计师不提交 SoundBank（设计产物），而只提交代表设计本身的工程文件，并在 <a href="https://jenkins.io" target="_blank" rel="external">Jenkins</a> 管线中通过脚本使用 Wwise 自带的命令行工具生成唯一一份 SoundBank，既解决了冲突问题还省了空间。</p>
-<p>在生成 SoundBank 前忘了向 SoundBank 中添加必要的文件或者多个 SoundBank 中有重复的音频源文件是常见的人为错误，但数据量大起来有时出错几个礼拜之后才会发现。RJ 因此利用 Wwise 中 SoundBank 生成的后处理 post-generation step 写了一个脚本来分析 Wwise 自动生成的日志，找到与缺少和重复文件相关的信息，并自动群发邮件。这样一来，错误一般都能当天发现并修正。</p>
-<h3 id="Event-工具"><a href="#Event-工具" class="headerlink" title="Event 工具"></a>Event 工具</h3><p>在性能优化上，Wwise 中虽然有最大复音数限制机制，但有些时候会想从事件级别来做限制，比如三消游戏《Bejeweled》系列中的爆炸如不加限制会引爆上百个事件。RJ 于是把 Wwise 事件下的 Notes 这个属性当作标签字段来用，因为属性保存在事件所在的 WorkUnit（.wwu）文件中，于是他写了一个脚本工具在 Notes 中加入自定义的事件限制编码，设计师也可以在 Wwise 中进一步手动调整，然后工具会分析 .wwu 生成游戏程序可以读取的 metadata 作为事件限制的参考数据。</p>
-<h3 id="动画配声用的工具"><a href="#动画配声用的工具" class="headerlink" title="动画配声用的工具"></a>动画配声用的工具</h3><p>在《Plants vs. Zombies: Heroes》中有 300 多个角色，每个角色有 5-20 个动画序列，所以手工配声工作量巨大。于是 RJ 写了一个 Unity UI 拓展能够改进这个流程，并能够自动比较 Unity 端登记的动画 Event 和 Wwise Authoring 端的 Event，保证 Unity 端登记的事件确实存在。</p>
-<p>设计师往往喜欢把 Unity 的动画导出成视频文件然后到 DAW 中配声，但 Unity 没有这种导出支持。于是 RJ 写了工具自动导出动画成视频，方法是：将动画帧自动截屏成图片，再用开源命令行工具 <a href="https://ffmpeg.org" target="_blank" rel="external">ffmpeg</a> 将这些图片批量组装成视频文件。</p>
+<p>他们早期基于 Perforce 的流程中声音设计师不但提交 Wwise 工程文件，还提交 SoundBank。这样一来因为 SoundBank 是团队共享的，所以容易出现冲突。RJ 的第一个显而易见的改进便是规定设计师不提交 SoundBank（设计产物），而只提交工程文件（设计本身），并在 <a href="https://jenkins.io" target="_blank" rel="external">Jenkins</a> 管线中通过脚本使用 Wwise 自带的命令行工具 <a href="https://www.audiokinetic.com/library/edge/?source=SDK&amp;id=bankscommandline.html" target="_blank" rel="external">WwiseCli</a> 生成项目的唯一一份 SoundBank，解决了冲突问题。</p>
+<p>一个常见的人为错误是在生成 SoundBank 时漏加了文件或者多个 SoundBank 中有重复的音频源文件，这些错误有时几个礼拜之后才会发现。于是 RJ 利用 Wwise 中 SoundBank 生成的后处理 <a href="https://www.audiokinetic.com/library/edge/?source=Help&amp;id=defining_custom_user_steps_to_be_performed_pre_post_soundbank_generation" target="_blank" rel="external">post-generation step</a> 写了一个脚本来分析 Wwise 自动生成的日志，找到与缺少和重复文件相关的信息，并自动群发邮件。这样一来，错误一般都能当天发现并修正。</p>
+<h3 id="Event-工具"><a href="#Event-工具" class="headerlink" title="Event 工具"></a>Event 工具</h3><p>在性能优化上，Wwise 中虽然有最大复音数限制机制，但有些时候项目会想从 Event 层面来做限制，比如三消游戏《Bejeweled》系列中的爆炸道具如不加限制会引爆上百个事件，目前 Wwise 中没有提供由设计师来指定事件数限制的流程。因为 Wwise 事件下有 Notes 这个属性，因为属性保存在事件所在的 WorkUnit（.wwu）文件中，RJ 于是把 Notes 当作特殊字段来用，写了一个脚本工具在 Notes 中加入自定义的事件限制文本编码，设计师可以在 Wwise 中进一步手动调整，然后工具会分析 .wwu 并生成游戏程序可以读取的 metadata 作为事件限制的参考数据。</p>
+<h3 id="动画配声工具"><a href="#动画配声工具" class="headerlink" title="动画配声工具"></a>动画配声工具</h3><p>在《Plants vs. Zombies: Heroes》中有 300 多个角色，每个角色有 5-20 个动画序列，所以手工配声工作量巨大。于是 RJ 写了一个 Unity UI 拓展能够改进这个流程，并能够自动比较 Unity 端登记的动画 Event 和 Wwise 设计工具端的 Event，保证在 Unity 端登记的 Wwise Event 确实存在。</p>
+<p>设计师往往喜欢把 Unity 的动画导出成视频文件然后到 DAW 中配声，但 Unity 没有这种导出支持。于是 RJ 写了工具自动导出动画成视频，方法是：将动画帧自动截屏成图片，再用 <a href="https://ffmpeg.org" target="_blank" rel="external">ffmpeg</a> 的命令行工具将这些图片批量组装成视频文件。</p>
+<h2 id="Benoit-Alary-“用于虚拟声学空间的沉浸式混响”"><a href="#Benoit-Alary-“用于虚拟声学空间的沉浸式混响”" class="headerlink" title="Benoit Alary “用于虚拟声学空间的沉浸式混响”"></a><a href="http://www.migs16.com/en/blog/events/immersive-reverberation/" target="_blank" rel="external">Benoit Alary “用于虚拟声学空间的沉浸式混响”</a></h2><p>Audiokinetic 的 Benoit Alary 做了关于 Wwise 2017 年将面世的新混响插件（代号 SynthSpace）的演讲，作为早先<a href="https://blog.audiokinetic.com/migs/" target="_blank" rel="external">这篇博客</a>的展开并演示了原型效果。</p>
+<p>传统混响技术有其局限性。参数混响比如 <a href="https://ccrma.stanford.edu/~jos/pasp/FDN_Reverberation.html" target="_blank" rel="external">FDN 算法族</a> 难以加入逼真的互动效果，比如玩家在室内走动时，很难根据墙的远近自动调整早期反射效果。而在其它方面相对参数混响有优势的卷积混响如果想要克服这一点，则需要录制多个冲激响应（IR）来捕捉整个空间。《Overwatch》为了改进这点特别研发了自己的内部 Wwise 插件 Quad Delay 用来加入与环境互动的反射效果。</p>
+<p>以往在解决这个问题上有两派：</p>
+<ul>
+<li>几何方法：将混响问题中的声音传播退化为类几何光学问题，研究从声源出发的理想射线在封闭空间中的几何反射。但这种简化做法不考虑声波的干涉等性质，如果用于整个混响过程，则效果有局限。</li>
+<li>波方法：直接模拟声波传播，考虑所有波的性质包括干涉。这种做法运算量巨大，目前唯一实际的做法是离线计算好各种参数并储存为数据库供应用程序实时检索使用，但对设计流程来说离线计算的开销可能就是小时甚至天的数量级。另一个问题是，波方法需要每秒 4 万次以上的反射取样，因此在数字音频采样率的限制下对高频的表现不会很好。</li>
+</ul>
+<p>在游戏等媒体应用中，实际需求往往并不是完全逼真地模拟现实中的混响，而是需要给音频设计师足够的控制来达到某种艺术效果。</p>
+<p>目前的工业趋势是混成混响（Hybrid Reverb）技术：拆分混响过程，利用几何方法来控制早期反射（early reflection），而用传统混响来控制后期混响（late reverb）。</p>
+<p>由 Audiokinetic 研发的代号为 SynthSpace 的这款 Wwise 混音器插件就是给高品质混响用户群特别是 VR／AR 项目准备的实用工具。</p>
+
+
+<p>它的用法是在一条混响总线上加入此插件，实时接收游戏发送的空间鞋盒（shoebox）模型以及发声体和听者在空间中的位置，进行实时反射计算，取代参数混响中的 Pre-Delay 参数，设计师可以在 Wwise 中对反射等效果和性能需求做精确的设计，再结合其它混响效果实现完整的互动混响。</p>
+<p>演示用到了 Wwise 后续将发布的全新 3D 测试游戏地图，将作为 Cube Demo 基础上更适合测试声学效果的 demo 安装包。</p>
+<h2 id="Olivier-Deriviere-“环境音乐，互动配乐的下一步-”"><a href="#Olivier-Deriviere-“环境音乐，互动配乐的下一步-”" class="headerlink" title="Olivier Deriviere “环境音乐，互动配乐的下一步?”"></a><a href="http://www.migs16.com/en/blog/events/environmental-music/" target="_blank" rel="external">Olivier Deriviere “环境音乐，互动配乐的下一步?”</a></h2><p><a href="http://olivierderiviere.com" target="_blank" rel="external">Olivier Deriviere</a> 之前在 <a href="https://www.youtube.com/watch?v=kWyf90LXLAg" target="_blank" rel="external">《Remember Me》（2013）</a> 中将战斗音乐的互动性推到了新高度，这次他介绍了在万代南梦宫新作<a href="https://www.youtube.com/watch?v=E9qQz0X7QYM" target="_blank" rel="external">《Get Even》</a>中的新实验：利用 Wwise 和 3D Audio 将环境声和音乐融为一体。之前在《DOOM》（2016）中已嗅到这种味道。这场据说是这届 MIGS 上最值得去的一场音频演讲，可惜没有去成，不过游戏在 GDC 2017 上会有首秀，非常期待。</p>
+<h2 id="Wolff-Dobson-“机器学习、游戏和你”"><a href="#Wolff-Dobson-“机器学习、游戏和你”" class="headerlink" title="Wolff Dobson “机器学习、游戏和你”"></a><a href="http://www.migs16.com/en/blog/events/machine-learning-games-and-you/" target="_blank" rel="external">Wolff Dobson “机器学习、游戏和你”</a></h2><p>这是去的唯一一场非音频演讲。来自 Google 机器学习组的 <a href="http://www.migs16.com/en/blog/2016/10/16/wolff-dobson-2/" target="_blank" rel="external">Wolff Dobson</a>这场大半是科普机器学习特别是深度学习及其新进展，也指出了游戏中机器学习的一些应用的可能性和已经用到的场合：</p>
+<ul>
+<li>分析玩家的入坑、内购、弃坑规律，在预测到可能行为时推送合适的内容促进留存率；</li>
+<li>分析游戏中玩家聊天记录判断情绪；</li>
+<li>分析监测作弊行为；</li>
+<li>分析玩家的玩法特征，让游戏内容作出适配；</li>
+<li>分析电影中的真人动作和物理系统来自动生成游戏物理系统和动画；</li>
+<li>分析玩家的操作和策略，利用<a href="http://baike.baidu.com/view/1627904.htm" target="_blank" rel="external">强化学习</a>给玩家策略建议；</li>
+<li>分析生物面部特征，做出更自动化的捏脸系统；</li>
+<li>自动生成内容：关卡、对白、NPC。</li>
+</ul>
+<p>他也强调“玩家的乐趣”是终极目标，而不是为了机器学习而学习。比如，在角色扮演和第一人称游戏里面玩家的视野和注意力受限，所以镜头外的 AI 其实必要性不大，因为玩家要么注意不到，要么可能把 NPC 在 GPS 上的“出色”表现理解为是机器作弊。</p>
+<p>他也提到了一些游戏以外的机器学习应用：</p>
+<p><img src="https://github.com/david-gpu/srez/raw/master/srez_sample_output.png" alt=""></p>
+<p><a href="https://github.com/david-gpu/srez" target="_blank" rel="external">图片低清转高清</a></p>
+<img src="/2017/01/15/migs-2016/migs16-06.png" alt="migs16-06.png" title="">
+<p><a href="https://www.youtube.com/watch?v=6ZHiARZmiUI" target="_blank" rel="external">实时混合油画滤镜</a></p>
+<p><img src="https://github.com/Newmu/dcgan_code/blob/master/images/lsun_bedrooms_five_epoch_samples.png?raw=true" alt=""></p>
+<p><img src="https://github.com/Newmu/dcgan_code/blob/master/images/albums_128px.png?raw=true" alt=""><br><a href="https://github.com/Newmu/dcgan_code" target="_blank" rel="external">自动生成卧室照片、唱片封套</a>（之前我在朋友圈转过）</p>
+<p><img src="https://tctechcrunch2011.files.wordpress.com/2016/09/trash2.jpg?w=738" alt=""></p>
+<p><a href="https://techcrunch.com/2016/09/13/auto-trash-sorts-garbage-automatically-at-the-techcrunch-disrupt-hackathon/" target="_blank" rel="external">自动垃圾分类</a></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;最近一次的&lt;a href=&quot;http://www.migs16.com/en/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;蒙特利尔国际游戏峰会 MIGS 2016&lt;/a&gt;过去一阵子了，只有 3 岁的 MIGS 在规模上无法跟 GDC 这样的老字号相提并
+      &lt;p&gt;最近一次的&lt;a href=&quot;http://www.migs16.com/en/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;蒙特利尔国际游戏峰会 MIGS 2016&lt;/a&gt;过去一阵子了，只有3岁的 MIGS 在规模上无法跟 GDC 这样的老字号相提并论，
     
     </summary>
     
@@ -138,33 +174,6 @@
       <category term="hugo" scheme="http://kakyoism.github.io/tags/hugo/"/>
     
       <category term="jekyll" scheme="http://kakyoism.github.io/tags/jekyll/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://kakyoism.github.io/2016/12/25/hello-world/"/>
-    <id>http://kakyoism.github.io/2016/12/25/hello-world/</id>
-    <published>2016-12-25T18:48:45.000Z</published>
-    <updated>2017-01-07T22:46:45.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<a id="more"></a></p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.
-    
-    </summary>
-    
     
   </entry>
   
