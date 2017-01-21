@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://github.com/Newmu/dcgan_code/blob/master/images/lsun_bedrooms_five_epoch_samples.png?raw=true">
 <meta property="og:image" content="https://github.com/Newmu/dcgan_code/blob/master/images/albums_128px.png?raw=true">
 <meta property="og:image" content="https://tctechcrunch2011.files.wordpress.com/2016/09/trash2.jpg?w=738">
-<meta property="og:updated_time" content="2017-01-21T16:32:18.000Z">
+<meta property="og:updated_time" content="2017-01-21T16:48:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="补记 MIGS 2016 上的演讲见闻">
 <meta name="twitter:description" content="最近一次的蒙特利尔国际游戏峰会 MIGS 2016过去一阵子了，只有3岁的 MIGS 在规模上无法跟 GDC 这样的老字号相提并论，不过每年还是有些有用的技术演讲，在此追记一下自己去过那几场的要点，主要是音频专场。">
@@ -127,7 +127,7 @@
 <p>一个常见的人为错误是在生成 SoundBank 时漏加了文件或者多个 SoundBank 中有重复的音频源文件，这些错误有时几个礼拜之后才会发现。于是 RJ 利用 Wwise 中 SoundBank 生成的后处理 <a href="https://www.audiokinetic.com/library/edge/?source=Help&amp;id=defining_custom_user_steps_to_be_performed_pre_post_soundbank_generation" target="_blank" rel="external">post-generation step</a> 写了一个脚本来分析 Wwise 自动生成的日志，找到与缺少和重复文件相关的信息，并自动群发邮件。这样一来，错误一般都能当天发现并修正。</p>
 <h3 id="Event-工具"><a href="#Event-工具" class="headerlink" title="Event 工具"></a>Event 工具</h3><p>在性能优化上，Wwise 中虽然有最大复音数限制机制，但有些时候项目会想从 Event 层面来做限制，比如三消游戏《Bejeweled》系列中的爆炸道具如不加限制会引爆上百个事件，目前 Wwise 中没有提供由设计师来指定事件数限制的流程。因为 Wwise 事件下有 Notes 这个属性，因为属性保存在事件所在的 WorkUnit（.wwu）文件中，RJ 于是把 Notes 当作特殊字段来用，写了一个脚本工具在 Notes 中加入自定义的事件限制文本编码，设计师可以在 Wwise 中进一步手动调整，然后工具会分析 .wwu 并生成游戏程序可以读取的 metadata 作为事件限制的参考数据。</p>
 <h3 id="动画配声工具"><a href="#动画配声工具" class="headerlink" title="动画配声工具"></a>动画配声工具</h3><p>在《Plants vs. Zombies: Heroes》中有 300 多个角色，每个角色有 5-20 个动画序列，所以手工配声工作量巨大。于是 RJ 写了一个 Unity UI 拓展能够改进这个流程，并能够自动比较 Unity 端登记的动画 Event 和 Wwise 设计工具端的 Event，保证在 Unity 端登记的 Wwise Event 确实存在。</p>
-<p>设计师往往喜欢把 Unity 的动画导出成视频文件然后到 DAW 中配声，但 Unity 没有这种导出支持。于是 RJ 写了工具自动导出动画成视频，方法是：将动画帧自动截屏成图片，再用 <a href="https://ffmpeg.org" target="_blank" rel="external">ffmpeg</a> 的命令行工具将这些图片批量组装成视频文件。</p>
+<p>设计师喜欢把 Unity 的动画导出成视频文件然后到 DAW 中配声，但 Unity 没有这种导出支持。于是 RJ 写了工具自动导出动画成视频，方法是：将动画帧自动截屏成图片，再用 <a href="https://ffmpeg.org" target="_blank" rel="external">ffmpeg</a> 的命令行工具将这些图片批量组装成视频文件。</p>
 <h2 id="Benoit-Alary-“用于虚拟声学空间的沉浸式混响”"><a href="#Benoit-Alary-“用于虚拟声学空间的沉浸式混响”" class="headerlink" title="Benoit Alary “用于虚拟声学空间的沉浸式混响”"></a><a href="http://www.migs16.com/en/blog/events/immersive-reverberation/" target="_blank" rel="external">Benoit Alary “用于虚拟声学空间的沉浸式混响”</a></h2><p>Audiokinetic 的 Benoit Alary 做了关于 Audiokinetic 研发的新互动混响插件（代号 <em>SynthSpace</em>）的演讲，作为早先<a href="https://blog.audiokinetic.com/migs/" target="_blank" rel="external">这篇博客</a>的展开并演示了原型效果。</p>
 <p>传统混响技术有其局限性。参数混响比如 <a href="https://ccrma.stanford.edu/~jos/pasp/FDN_Reverberation.html" target="_blank" rel="external">FDN 算法族</a> 难以加入逼真的互动效果，比如玩家在室内走动时，很难根据玩家离墙的远近自动调整早期反射效果。而在其它方面相对参数混响有优势的卷积混响如果想要克服这一点，则需要录制多个冲激响应（IR）来捕捉整个空间。暴雪在《Overwatch》中为了改进这点研发了自己的内部 Wwise 插件 Quad Delay 用来加入与环境互动的反射效果，见他们的 <a href="http://gdcvault.com/play/1023010/Overwatch-The-Elusive-Goal-Play" target="_blank" rel="external">GDC 2016 演讲</a>。</p>
 <p>以往在解决这个问题上有两派：</p>
