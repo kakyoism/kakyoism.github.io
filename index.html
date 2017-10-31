@@ -101,10 +101,10 @@
 <p>这个例子来自 Wwise 自带的示例工程<code>Sample Project</code>（可以从Wwise Launcher 的<code>SAMPLES</code>页下打开），在 Music Playlist Editor 中，<code>Stealth</code>这个 Music Playlist Container 中有一个 Sequence Continuous 模式的 Music Segment 编组，图中正在试听前两个 Music Segment 间的过渡。这时，由于<code>Stealth</code>采用的过渡规则中，Source 段用了<code>Exit source at Exit Cue</code>这条同步规则，见下图：</p>
 <!--![](quick-auditioning-music-transitions/transition-exit-cue.png)-->
 <img src="/2017/10/29/quick-auditioning-music-transitions/transition-exit-cue.png">
-<p>Exit Cue 一般靠近曲子尾声，所以你必须把<code>Stealth_Seg_01</code>从头听到 Exit Cue 处才能开始试听和<code>Stealth_Seg_02</code>间的过渡，当曲子很长，这样就很浪费时间；而更浪费时间的情况是：当要听的过渡在一个很长的连续列表的中间靠后时，即便同步点是 Next Bar 这样近距离的，每次你还都得从最顶上听起。如下图：</p>
+<p>Exit Cue 一般靠近曲子尾声，所以你必须把<code>Stealth_Seg_01</code>从头听到 Exit Cue 处才能开始试听和<code>Stealth_Seg_02</code>间的过渡，如果曲子很长，这样就很浪费时间；还有更惨的：当要听的过渡在一个很长的连续列表的中间靠后时，即便同步点是 Next Bar 这样近距离的，每次你还都得从最顶上听起。如下图：</p>
 <!--![](quick-auditioning-music-transitions/mpe-mid-seg.png)-->
 <img src="/2017/10/29/quick-auditioning-music-transitions/mpe-mid-seg.png">
-<p>要听<code>Seg 02b (B)</code>到下一段的过渡，你每次都得从<code>Seg 01a (A)</code>听起。上图里还比较仁慈，每个段落都只循环了一次，万一有些会循环有限次，万一播着中间接了个电话，… 你懂的。</p>
+<p>要听<code>Seg 02b (B)</code>到下一段的过渡时，你每次都得从<code>Seg 01a (A)</code>听起。上图里还比较仁慈，每个段落都只循环了一次，万一有些会循环有限次，万一播着中间接了个电话，… 你懂的。</p>
 <p>于是你又下意识地跑到 Music Segment Editor 界面中想对着波形迅速定位到过渡点附近听，结果发现一次又只能试听一个 Segment，见下图：</p>
 <!--![](quick-auditioning-music-transitions/mse.png)-->
 <img src="/2017/10/29/quick-auditioning-music-transitions/mse.png">
@@ -114,8 +114,8 @@
 <li>确认单个 Music Segment 的循环无缝时。</li>
 <li>试听 Music Switch Container 下的状态切换时。</li>
 </ul>
-<p>需要强调的是，这个问题有多痛和设计有关，只有几个小节长的短小 Music Segment 可能几乎感觉不到。</p>
-<p>面对这些情况，<strong>你的期望大概是这么三条</strong>：</p>
+<p>需要强调的是，麻烦大小和设计有关，短小的 Music Segment 可能几乎感觉不到。</p>
+<p>面对这些情况，<strong>你的需求大概是这么三条</strong>：</p>
 <ol>
 <li>能从播放列表中直接挑出任何一对 Music Segment 来听过渡，不管它们在什么地方。</li>
 <li>能定位到过渡点附近开始听。</li>
@@ -127,8 +127,8 @@
 <p>上图中，如果你想听<code>Say</code>和<code>Architect</code>这两首曲子间的过渡（假设有的话），那么只需要鼠标双击<code>Say</code>这首，然后用底部进度条定位到尾部收听即可。如果要测自循环，则只需要把循环模式调到单曲循环就行了（注：Wwise 中由于有同步点的问题，常规的进度条还不够）。</p>
 <p>相比之下，我们发现：<strong>Wwise 虽然提供了搭建非线性音乐结构的一整套工具，但其 UI 的预览功能不支持线性媒体播放器中的定点播放体验。</strong> 当然，反过来大多数线性媒体播放器也不支持 Wwise 提供的众多非线性播放功能。</p>
 <p>在 Wwise 在 UI 上做出改进之前，我们暂时还得面对这个问题。</p>
-<p>好消息是，“解决方法“（Hack）还是有的，虽然都不完美！<br>我们来看看到 Wwise 2017.1 版本为止，目前已知的三种技巧。我把它们按从直观到抽象排了序。</p>
-<h2 id="技巧一：手动拼接法"><a href="#技巧一：手动拼接法" class="headerlink" title="技巧一：手动拼接法"></a>技巧一：手动拼接法</h2><p>看到标题你估计已经有点失望了。没错，这个方法很简单粗暴：通过复制粘贴把想要一起听过渡的几个 Clip 放到 Music Segment Editor 的多轨界面上，手动确保各个 Clip 的 Exit Cue 和 Entry Cue 彼此对齐，最后通过光标直接定位到过渡点附近收听播放。如果要测某一轨的无缝循环，那就把该轨上的内容复制一遍紧贴在自己的尾巴上。</p>
+<p>好消息是，“解决方法“（Hack）还是有的，虽然都不完美！<br>我们来看看到 Wwise 2017.1 版本为止，目前已知的三种方法。我把它们按从直观到抽象排了序。</p>
+<h2 id="方法一：手动拼接法"><a href="#方法一：手动拼接法" class="headerlink" title="方法一：手动拼接法"></a>方法一：手动拼接法</h2><p>看到标题你估计已经有点失望了。没错，这个方法很简单粗暴：通过复制粘贴把想要一起听过渡的几个 Clip 放到 Music Segment Editor 的多轨界面上，手动确保各个 Clip 的 Exit Cue 和 Entry Cue 彼此对齐，最后通过光标直接定位到过渡点附近收听播放。如果要测某一轨的无缝循环，那就把该轨上的内容复制一遍紧贴在自己的尾巴上。</p>
 <p>实际操作中有个麻烦：在 Music Segment Editor 下对齐来自两个 Music Segment 的 Clip 时，只有一个 Segment 的 Exit Cue 和 Entry Cue 能显示出来，另一个的则看不到。所以你可能要另想办法来对齐同步点，比如用 Clip handle 临时裁剪掉看不到 cue 的 Music Segment 的 Pre-Entry 或者 Post-Exit 部分，不然很难肉眼对齐。</p>
 <p>这个方法的优点是：</p>
 <ol>
@@ -143,7 +143,7 @@
 <li>手动操作繁琐，对齐容易出错。</li>
 </ol>
 <p>这个方法大约只适合粗略测单轨循环的情况。如果非要走这条路，倒还不如直接在 DAW 里面对素材做这些工作来得简单。</p>
-<h2 id="技巧二：快进播放法"><a href="#技巧二：快进播放法" class="headerlink" title="技巧二：快进播放法"></a>技巧二：快进播放法</h2><p>这个是 <a href="https://www.audiokinetic.com/courses/wwise201/?source=wwise201&amp;id=configuring_multi_group_playlists_setting_randomized_loop_counts" target="_blank" rel="external">Wwise 201 认证教程</a> 中推荐的方法，海内外的一些设计师都有这样用的，见下图：</p>
+<h2 id="方法二：快进播放法"><a href="#方法二：快进播放法" class="headerlink" title="方法二：快进播放法"></a>方法二：快进播放法</h2><p>这个是 <a href="https://www.audiokinetic.com/courses/wwise201/?source=wwise201&amp;id=configuring_multi_group_playlists_setting_randomized_loop_counts" target="_blank" rel="external">Wwise 201 认证教程</a> 中推荐的方法，海内外的一些设计师都有这样用的，见下图：</p>
 <!--![](quick-auditioning-music-transitions/playbackspeed.png)-->
 <img src="/2017/10/29/quick-auditioning-music-transitions/playbackspeed.png">
 <p>将父级容器的播放速度调大，那么播放时过渡涉及的 Music Segment 就能快进到过渡点附近。这时候如果想精听，则可以降回原速，除非你告诉我专业人士的耳朵都是 4 倍速的！</p>
@@ -158,7 +158,7 @@
 <li>这是一种渐进操作，无法一步定位到过渡点附近。</li>
 <li>操作上对反射神经有一定要求 …</li>
 </ol>
-<h2 id="技巧三：Seek-法"><a href="#技巧三：Seek-法" class="headerlink" title="技巧三：Seek 法"></a>技巧三：Seek 法</h2><p>这个技巧是海外设计师 Aaron Brown 分享的。基本原理是立足于 Event 及其 Seek（即寻址跳转）这个 Action。跟前两种方法相比，它更能满足本文开始分析的三条期望，但实际操作要绕点路。</p>
+<h2 id="方法三：Seek-法"><a href="#方法三：Seek-法" class="headerlink" title="方法三：Seek 法"></a>方法三：Seek 法</h2><p>这个技巧是海外设计师 Aaron Brown 分享的。基本原理是立足于 Event 及其 Seek（即寻址跳转）这个 Action。跟前两种方法相比，它更能满足本文开始分析的三条需求，但实际操作要绕点路。</p>
 <p>Aaron Brown 的原始分享可以在 Wwise 的非官方 Facebook 群<code>Wwise Wizards &amp; Witches</code>中找到，但是他只给了粗略的示意图，如下图所示：</p>
 <!--![](quick-auditioning-music-transitions/wwise-tips-audition-transitions.jpg)-->
 <img src="/2017/10/29/quick-auditioning-music-transitions/wwise-tips-audition-transitions.jpg">
@@ -212,7 +212,7 @@
 <p>为了简单，示例中我们就地在工程已有的 Work Unit 中创建试听用的临时对象和其它元素。这样做还是污染了现有设计的，因为 Work Unit 对应 XML 文件，是 Wwise 工程的设计内容实体。所以比较好的做法是创建测试专用的 Work Unit，这样就不会污染，且很容易一键删除所有测试元素。注意，测试对象只要保证不打到 SoundBank 里就不会影响游戏的实际性能。</p>
 <h3 id="进一步讨论"><a href="#进一步讨论" class="headerlink" title="进一步讨论"></a>进一步讨论</h3><p>为了试听一个小小的过渡，Seek 法看起来并不直观，需要好几步操作，这是它最明显的缺点。但是我们可以看到 Seek 法有独特的优势：</p>
 <ol>
-<li>它可以满足我们的三条期望。</li>
+<li>它可以满足我们的三条需求。</li>
 <li>它不需要人工肉眼对位，也不依赖反应。这点别的工具很难做到。</li>
 <li>设好的 Event、Music Switch Container 和 State 可以作为一套可复用的测试框架保留下来，用同一套框架甚至同一个事件测试各种过渡，只用反复改变事件 Action 列表中的 两个 State 就好。</li>
 <li>整个流程可以通过 Wwise Authoring API（WAAPI）自动化脚本来加速。</li>
@@ -223,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/" data-id="cj9fsjwsf000g456m6297qjod" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/" data-id="cj9g9enkg000trt6m5wjagqj6" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise-interactivemusic/">wwise, interactivemusic</a></li></ul>
@@ -267,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-Audio-Spatial-Audio-2/" data-id="cj9fsjwot0000456msvtel9jm" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-Audio-Spatial-Audio-2/" data-id="cj9g9enik0000rt6m5mh8v4t3" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a></li></ul>
@@ -355,7 +355,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-音频见闻（1）-空间音频-Spatial-Audio/" data-id="cj9fsjwpg0004456myjh6du12" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-音频见闻（1）-空间音频-Spatial-Audio/" data-id="cj9g9eniq0001rt6mo6arxud7" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a></li></ul>
@@ -402,7 +402,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/01/15/migs-2016/" data-id="cj9fsjwsc000f456mso2zok1t" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/01/15/migs-2016/" data-id="cj9g9eniy0004rt6mgqephon7" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/conference/">conference</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/proceduralaudio/">proceduralaudio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverb/">reverb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise/">wwise</a></li></ul>
@@ -447,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2016/12/25/Hello-Hexo-你好-Hexo/" data-id="cj9fsjwp30001456m0qao9dvt" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2016/12/25/Hello-Hexo-你好-Hexo/" data-id="cj9g9enj00005rt6m0j1rqmn7" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
