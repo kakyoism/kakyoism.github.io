@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kakyoism.github.io/"/>
-  <updated>2017-11-01T00:04:52.000Z</updated>
+  <updated>2017-11-01T00:25:49.000Z</updated>
   <id>http://kakyoism.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/"/>
     <id>http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/</id>
     <published>2017-10-29T10:23:07.000Z</published>
-    <updated>2017-11-01T00:04:52.000Z</updated>
+    <updated>2017-11-01T00:25:49.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文探讨的所有问题和解决方案都<strong>基于 Wwise 2017.1.x</strong>。不对后续版本负责。</p>
 <h2 id="起因：听一下过渡好难"><a href="#起因：听一下过渡好难" class="headerlink" title="起因：听一下过渡好难"></a>起因：听一下过渡好难</h2><p>利用 Wwise 的互动音乐功能可以用小段音乐编组搭建出动态和互动的曲式和织体，但搭完了之后你还是得用耳朵试听乐段间的过渡，确保衔接在音乐意义上是无缝的。截至 Wwise 2017.1，不少人在这里遇到了麻烦，见下图：</p>
@@ -96,7 +96,7 @@
 <ul>
 <li>Seek Action 的 Seek Percent（按百分比跳转）模式下，跳转是相对于 Entry Cue 和 Exit Cue 进行的。</li>
 </ul>
-<p>打个比方，不管这些 Cue 设定在 Music Segment 的什么位置，如果我们把跳转设在 99% 处（即 Seek Percent 为 99%），它也绝对不会超出 Exit Cue 而误入 Post-Exit 段；对于单曲循环的情况，跳转百分比位置是相对循环区间来算的。有了这个条件，我们就可以放心定义跳转点来一键空降到过渡点附近了。</p>
+<p>打个比方，不管这些 Cue 设定在 Music Segment 的什么位置，即使我们把跳转设在 99% 处（即 Seek Percent 为 99%），它也绝对不会超出 Exit Cue 而误入 Post-Exit 段；对于单曲循环的情况，跳转百分比位置是相对循环区间来算的。有了这个条件，我们就可以放心定义跳转点来一键空降到过渡点附近了。</p>
 <p>不过 Seek Action 还有<a href="https://www2.audiokinetic.com/library/edge/?source=Help&amp;id=event_actions_list#seek_seekall_notes_and_restrictions" target="_blank" rel="external">一条重要的限制</a>：</p>
 <ul>
 <li>Music Playlist Container 和 Motion 对象不支持 Seek。</li>
