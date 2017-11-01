@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/sample-states.png">
 <meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/sample-paths.png">
 <meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/sample-event.png">
-<meta property="og:updated_time" content="2017-10-31T23:43:18.000Z">
+<meta property="og:updated_time" content="2017-11-01T00:04:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速试听 Wwise 互动音乐的过渡">
 <meta name="twitter:description" content="本文探讨的所有问题和解决方案都基于 Wwise 2017.1.x。不对后续版本负责。 起因：听一下过渡好难利用 Wwise 的互动音乐功能可以用小段音乐编组搭建出动态和互动的曲式和织体，但搭完了之后你还是得用耳朵试听乐段间的过渡，确保衔接在音乐意义上是无缝的。截至 Wwise 2017.1，不少人在这里遇到了麻烦，见下图：   这个例子来自 Wwise 自带的示例工程Sample Project（">
@@ -180,7 +180,7 @@
 <img src="/2017/10/29/quick-auditioning-music-transitions/wwise-tips-audition-transitions.jpg">
 <p>但我实操后发现在 Wwise 2017.1 中上面的方法并不能凑效，要修改一些做法。下面详细讲解一下。</p>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>这个方法是希望避免肉眼定位和等待，实现一键定位到音乐的过渡点附近，按照原速收听过渡。</p>
-<p>Wwise 的 Event 中有 Seek 这个 Action 可以定位到播放文件中的指定位置。前两种方法其实也做了这个定位，只不过是用肉眼和手工操作来确保的：开始试听过渡的播放点必须要在同步点之前。而针对这点，Seek Action 只需设好跳转位置的数值就可以。并且，它还有服务于互动音乐的<a href="https://www2.audiokinetic.com/library/edge/?source=Help&amp;id=event_actions_list#bp1307910" target="_blank" rel="external">一条诱人的特性</a>：</p>
+<p>Wwise 的 Event 中有 Seek 这个 Action 可以定位到播放文件中的指定位置。<strong>前两种方法其实也做了这个定位，只不过是用肉眼和手工操作来确保的：开始试听过渡的播放点必须要在同步点之前。</strong>而针对这点，Seek Action 只需设好跳转位置的数值就可以。并且，它还有服务于互动音乐的<a href="https://www2.audiokinetic.com/library/edge/?source=Help&amp;id=event_actions_list#bp1307910" target="_blank" rel="external">一条诱人的特性</a>：</p>
 <ul>
 <li>Seek Action 的 Seek Percent（按百分比跳转）模式下，跳转是相对于 Entry Cue 和 Exit Cue 进行的。</li>
 </ul>
@@ -239,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/" data-id="cj9g9i2mz0007v46mhm6bbnwj" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/" data-id="cj9ga62on00074l6mr4du0xfv" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise-interactivemusic/">wwise, interactivemusic</a></li></ul>
