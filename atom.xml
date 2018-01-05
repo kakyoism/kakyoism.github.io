@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kakyoism.github.io/"/>
-  <updated>2018-01-05T18:00:34.000Z</updated>
+  <updated>2018-01-05T18:09:20.000Z</updated>
   <id>http://kakyoism.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://kakyoism.github.io/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/"/>
     <id>http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/</id>
     <published>2018-01-04T12:05:02.000Z</published>
-    <updated>2018-01-05T18:00:34.000Z</updated>
+    <updated>2018-01-05T18:09:20.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文基于以下软件版本：</p>
 <ul>
@@ -60,7 +60,7 @@
 <h2 id="4-如何安装-Unity-集成？"><a href="#4-如何安装-Unity-集成？" class="headerlink" title="4. 如何安装 Unity 集成？"></a>4. 如何安装 Unity 集成？</h2><hr>
 <p>假设我们的电脑上已经装了 Unity，并且创建了 Unity 工程，而我们现在想给其中某个 Unity 工程安装 Wwise 集成。这时我们需要来到 Launcher 的<code>UNITY</code>页，点开顶部菜单的浏览按钮：</p>
 <img src="/2018/01/04/你所不知道的-Wwise-Launcher/unity-browse-projects.jpg">
-<p>选中工程并确认后，在<code>UNITY</code>页的工程列表里就能看到这个工程了。接下来我们有两个选择：1）直接从官网下载 Unity 集成并同时安装，</p>
+<p>选中目标 Unity 工程并确认后，在<code>UNITY</code>页的工程列表里就能看到这个工程了。接下来我们有两个选择：1）直接从官网下载 Unity 集成并同时安装，</p>
 <img src="/2018/01/04/你所不知道的-Wwise-Launcher/unity-integrates.jpg">
 <p>或者 2）先下载离线安装包，</p>
 <img src="/2018/01/04/你所不知道的-Wwise-Launcher/unity-offline-1s.jpg">
