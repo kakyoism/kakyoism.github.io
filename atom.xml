@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kakyoism.github.io/"/>
-  <updated>2018-01-05T18:09:20.000Z</updated>
+  <updated>2018-01-05T18:15:41.000Z</updated>
   <id>http://kakyoism.github.io/</id>
   
   <author>
@@ -20,12 +20,13 @@
     <link href="http://kakyoism.github.io/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/"/>
     <id>http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/</id>
     <published>2018-01-04T12:05:02.000Z</published>
-    <updated>2018-01-05T18:09:20.000Z</updated>
+    <updated>2018-01-05T18:15:41.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文基于以下软件版本：</p>
 <ul>
 <li>Wwise Launcher: 2017.11.30.720</li>
 <li>Wwise: 2017.1.4.6407</li>
+<li>macOS Sierra 10.12.6 (16G1114)</li>
 </ul>
 <p>从 2016 年起，在 Audiokinetic 官网点击下载 Wwise 的时候，你实际上下载的是 Wwise Launcher（下文简称 Launcher），到现在你应该已经习惯用 Launcher 来下载更新 Wwise 本身甚至管理本机上的多个工程和 Wwise 版本了，但 Launcher 可能还有一些不太明显的功能和注意事项对你会很有用，我们今天就来梳理一下吧！</p>
 <h2 id="1-程序员：哪里有-Wwise-集成／整合方面的例程？"><a href="#1-程序员：哪里有-Wwise-集成／整合方面的例程？" class="headerlink" title="1. 程序员：哪里有 Wwise 集成／整合方面的例程？"></a>1. 程序员：哪里有 Wwise 集成／整合方面的例程？</h2><hr>
@@ -105,8 +106,9 @@
 &lt;ul&gt;
 &lt;li&gt;Wwise Launcher: 2017.11.30.720&lt;/li&gt;
 &lt;li&gt;Wwise: 2017.1.4.6407&lt;/li&gt;
+&lt;li&gt;macOS Sierra 10.12.6 (16G1114)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;从 2016 年起，在 Audiokinetic 官网点击下载 Wwise
+
     
     </summary>
     
@@ -431,9 +433,9 @@
       <category term="GameAudio" scheme="http://kakyoism.github.io/categories/GameAudio/"/>
     
     
-      <category term="conference" scheme="http://kakyoism.github.io/tags/conference/"/>
-    
       <category term="wwise" scheme="http://kakyoism.github.io/tags/wwise/"/>
+    
+      <category term="conference" scheme="http://kakyoism.github.io/tags/conference/"/>
     
       <category term="proceduralaudio" scheme="http://kakyoism.github.io/tags/proceduralaudio/"/>
     
