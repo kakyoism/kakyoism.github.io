@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kakyoism.github.io/"/>
-  <updated>2018-01-06T06:05:42.000Z</updated>
+  <updated>2018-01-06T06:07:42.000Z</updated>
   <id>http://kakyoism.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://kakyoism.github.io/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/"/>
     <id>http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/</id>
     <published>2018-01-04T12:05:02.000Z</published>
-    <updated>2018-01-06T06:05:42.000Z</updated>
+    <updated>2018-01-06T06:07:42.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文基于以下软件版本：</p>
 <ul>
@@ -96,7 +96,7 @@
 <p>然后想办法汇报给 Audiokinetic 的项目技术支持或<a href="https://www.audiokinetic.com/qa/" target="_blank" rel="external">社区问答论坛</a>。</p>
 <p>最常见的问题是网络问题，出这类问题的时候如果开了 VPN，则可以尝试关闭了 VPN 再使用 Launcher。</p>
 <h2 id="10-提出技术支持问题时，怎样让沟通更准确高效？"><a href="#10-提出技术支持问题时，怎样让沟通更准确高效？" class="headerlink" title="10. 提出技术支持问题时，怎样让沟通更准确高效？"></a>10. 提出技术支持问题时，怎样让沟通更准确高效？</h2><hr>
-<p>我们在项目档期紧张时遇到 Wwise 相关的技术问题，首先想到的是请求官方技术支持支援。但是巧妇难为无米之炊，没有客观详实的诊断信息，支持人员也只能来回提问试探，沟通效率很低。为了提高沟通效率，我们可以善用 Wwise 的 Profiler（性能分析器）来记录问题过程，利用 Launcher 来制作诊断包，在提问时将诊断包发送给官方技术支持。</p>
+<p>我们在项目档期紧张时遇到 Wwise 相关的技术问题，首先想到的是请求官方技术支持支援。但是巧妇难为无米之炊，没有客观详实的诊断信息，支持人员也只能来回提问试探，沟通效率容易不理想。为了提高沟通效率，我们可以善用 Wwise 的 Profiler（性能分析器）来记录问题过程，利用 Launcher 来制作诊断包，在提问时将诊断包发送给官方技术支持。</p>
 <p>Windows 版本的 Launcher 整合了 Wwise 中的辅助工具<code>Wwise Project Zipper</code>的功能（macOS 版暂时没有此功能），</p>
 <img src="/2018/01/04/你所不知道的-Wwise-Launcher/zippers.jpg">
 <p>可以将 Wwise 工程及性能分析器日志记录 （profiler session）定制内容后打包。</p>
