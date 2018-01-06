@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   
-  <title>十条你可能不知道的 Wwise Launcher 用法 | kkBeep</title>
+  <title>十一条你可能不知道的 Wwise Launcher 用法 | kkBeep</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本文基于以下软件版本：  Wwise Launcher: 2017.11.30.720 Wwise: 2017.1.4.6407 macOS Sierra 10.12.6 (16G1114)  从 2016 年起，在 Audiokinetic 官网点击下载 Wwise 的时候，你实际上下载的是 Wwise Launcher（下文简称 Launcher），到现在你应该已经习惯用 Launcher 来">
 <meta name="keywords" content="wwise">
 <meta property="og:type" content="article">
-<meta property="og:title" content="十条你可能不知道的 Wwise Launcher 用法">
+<meta property="og:title" content="十一条你可能不知道的 Wwise Launcher 用法">
 <meta property="og:url" content="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/index.html">
 <meta property="og:site_name" content="kkBeep">
 <meta property="og:description" content="本文基于以下软件版本：  Wwise Launcher: 2017.11.30.720 Wwise: 2017.1.4.6407 macOS Sierra 10.12.6 (16G1114)  从 2016 年起，在 Audiokinetic 官网点击下载 Wwise 的时候，你实际上下载的是 Wwise Launcher（下文简称 Launcher），到现在你应该已经习惯用 Launcher 来">
@@ -32,12 +32,16 @@
 <meta property="og:image" content="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/unreal-demos.jpg">
 <meta property="og:image" content="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/wal-1s.jpg">
 <meta property="og:image" content="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/wal-2s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/offline-doc-1s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/offline-doc-2s.jpg">
 <meta property="og:image" content="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/log-1s.jpg">
 <meta property="og:image" content="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/log-2s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/zippers.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/zipper-2s.jpg">
 <meta property="og:image" content="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/home-feedss.jpg">
-<meta property="og:updated_time" content="2018-01-06T00:08:33.000Z">
+<meta property="og:updated_time" content="2018-01-06T06:01:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="十条你可能不知道的 Wwise Launcher 用法">
+<meta name="twitter:title" content="十一条你可能不知道的 Wwise Launcher 用法">
 <meta name="twitter:description" content="本文基于以下软件版本：  Wwise Launcher: 2017.11.30.720 Wwise: 2017.1.4.6407 macOS Sierra 10.12.6 (16G1114)  从 2016 年起，在 Audiokinetic 官网点击下载 Wwise 的时候，你实际上下载的是 Wwise Launcher（下文简称 Launcher），到现在你应该已经习惯用 Launcher 来">
 <meta name="twitter:image" content="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/modify-installs.jpg">
   
@@ -108,7 +112,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      十条你可能不知道的 Wwise Launcher 用法
+      十一条你可能不知道的 Wwise Launcher 用法
     </h1>
   
 
@@ -165,19 +169,23 @@
 <h2 id="5-通过-Launcher-安装和升级-Unity-集成的时候失败了，怎么办？"><a href="#5-通过-Launcher-安装和升级-Unity-集成的时候失败了，怎么办？" class="headerlink" title="5. 通过 Launcher 安装和升级 Unity 集成的时候失败了，怎么办？"></a>5. 通过 Launcher 安装和升级 Unity 集成的时候失败了，怎么办？</h2><hr>
 <p>首先我们需要根据<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=pg__releasenotes.html" target="_blank" rel="external">Unity 集成版本说明</a>来确认要安装的 Wwise 版本对应支持的 Unity 版本。</p>
 <p>如果版本都是对的，则需要打开 Unity 编辑器观察控制台里的错误信息。Wwise Unity 集成安装时需要运行 Unity 程序来做一些初始化或者升级工作，这个过程中 Unity 工程内部可能出现的错误并不会在 Launcher 界面上显示出来。</p>
-<h2 id="6-我需要根据特定-Wwise-SDK-库版本来重新编译-Wwise-Unity-集成，怎么办？"><a href="#6-我需要根据特定-Wwise-SDK-库版本来重新编译-Wwise-Unity-集成，怎么办？" class="headerlink" title="6. 我需要根据特定 Wwise SDK 库版本来重新编译 Wwise Unity 集成，怎么办？"></a>6. 我需要根据特定 Wwise SDK 库版本来重新编译 Wwise Unity 集成，怎么办？</h2><hr>
-<p>有时候我们等不及官方 Unity 集成补丁，而想基于某个已经下载好的原生 SDK 补丁库来重新构建 Unity 集成， 这时我们需要的是 Unity 集成的源码包，可以在 Launcher 的<code>UNITY</code>页下载离线安装包来取得（见<code>4. 如何安装 Unity 集成？</code>）。</p>
-<p>离线包的格式为 .tar.xz，一般我们需要通过 Launcher 安装集成来解出源码包来。如果想手动解包，则需要安装可以解压<code>XZ</code>和<code>TAR</code>格式的程序。比如在 macOS 上，我们可以通过<a href="https://brew.sh" target="_blank" rel="external">Homebrew</a>来安装<code>xz</code>这个包，之后即可通过命令行<code>xz -d</code> 来解包了。源码包的文件一般以<code>_Src.zip</code>结尾。</p>
-<p>重新编译 Unity 集成的方法见<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=pg__building.html" target="_blank" rel="external">官方文档</a>。</p>
-<h2 id="7-新手怎么学习-Wwise-Unity-集成？"><a href="#7-新手怎么学习-Wwise-Unity-集成？" class="headerlink" title="7. 新手怎么学习 Wwise Unity 集成？"></a>7. 新手怎么学习 Wwise Unity 集成？</h2><hr>
-<p>可以通过 Launcher 安装运行 Unity 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=main.html" target="_blank" rel="external">官方文档</a>学习。</p>
+<h2 id="6-新手怎么学习-Wwise-Unity-和-Unreal-Engine-集成？"><a href="#6-新手怎么学习-Wwise-Unity-和-Unreal-Engine-集成？" class="headerlink" title="6. 新手怎么学习 Wwise Unity 和 Unreal Engine 集成？"></a>6. 新手怎么学习 Wwise Unity 和 Unreal Engine 集成？</h2><hr>
+<p>学习 Unity 集成可以通过 Launcher 安装运行 Unity 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=main.html" target="_blank" rel="external">官方文档</a>学习。</p>
 <img src="/2018/01/04/你所不知道的-Wwise-Launcher/unity-demos.jpg">
-<h2 id="8-新手怎么学习-Wwise-Unreal-Engine-集成？"><a href="#8-新手怎么学习-Wwise-Unreal-Engine-集成？" class="headerlink" title="8. 新手怎么学习 Wwise Unreal Engine 集成？"></a>8. 新手怎么学习 Wwise Unreal Engine 集成？</h2><hr>
-<p>我们有两个选择：1）可以通过 Launcher 的<code>UNREAL ENGINE</code>页安装运行 Unreal 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=UE4&amp;id=index.html" target="_blank" rel="external">官方文档</a>学习。</p>
+<p>学习 Unreal 集成， 我们有两个选择：1）可以通过 Launcher 的<code>UNREAL ENGINE</code>页安装运行 Unreal 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=UE4&amp;id=index.html" target="_blank" rel="external">官方文档</a>学习。</p>
 <img src="/2018/01/04/你所不知道的-Wwise-Launcher/unreal-demos.jpg">
 <p>2）也可以通过 Launcher 安装运行 Wwise 的空间音频 Demo：Wwise Audio Lab</p>
 <img src="/2018/01/04/你所不知道的-Wwise-Launcher/wal-1s.jpg">
 <img src="/2018/01/04/你所不知道的-Wwise-Launcher/wal-2s.jpg">
+<h2 id="7-我需要根据特定-Wwise-SDK-库版本来重新编译-Wwise-Unity-集成，怎么办？"><a href="#7-我需要根据特定-Wwise-SDK-库版本来重新编译-Wwise-Unity-集成，怎么办？" class="headerlink" title="7. 我需要根据特定 Wwise SDK 库版本来重新编译 Wwise Unity 集成，怎么办？"></a>7. 我需要根据特定 Wwise SDK 库版本来重新编译 Wwise Unity 集成，怎么办？</h2><hr>
+<p>有时候我们等不及官方 Unity 集成补丁，而想基于某个已经下载好的原生 SDK 补丁库来重新构建 Unity 集成， 这时我们需要的是 Unity 集成的源码包，可以在 Launcher 的<code>UNITY</code>页下载离线安装包来取得（见<code>4. 如何安装 Unity 集成？</code>）。</p>
+<p>离线包的格式为 .tar.xz，一般我们需要通过 Launcher 安装集成来解出源码包来。如果想手动解包，则需要安装可以解压<code>XZ</code>和<code>TAR</code>格式的程序。比如在 macOS 上，我们可以通过<a href="https://brew.sh" target="_blank" rel="external">Homebrew</a>来安装<code>xz</code>这个包，之后即可通过命令行<code>xz -d</code> 来解包了。源码包的文件一般以<code>_Src.zip</code>结尾。</p>
+<p>重新编译 Unity 集成的方法见<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=pg__building.html" target="_blank" rel="external">官方文档</a>。</p>
+<h2 id="8-我网速慢，看在线文档不方便，如何在本地查看-Wwise-的音频设计和程序整合文档？"><a href="#8-我网速慢，看在线文档不方便，如何在本地查看-Wwise-的音频设计和程序整合文档？" class="headerlink" title="8. 我网速慢，看在线文档不方便，如何在本地查看 Wwise 的音频设计和程序整合文档？"></a>8. 我网速慢，看在线文档不方便，如何在本地查看 Wwise 的音频设计和程序整合文档？</h2><hr>
+<p>我们可以通过 Launcher 安装离线文档，注意要选择想要的平台。</p>
+<img src="/2018/01/04/你所不知道的-Wwise-Launcher/offline-doc-1s.jpg">
+<p>之后就可以在<code>WWISE</code>页的对应 Wwise 版本下找到各个平台对应的多语言离线文档了。</p>
+<img src="/2018/01/04/你所不知道的-Wwise-Launcher/offline-doc-2s.jpg">
 <h2 id="9-Launcher-操作中出现错误或者操作失败怎么办？"><a href="#9-Launcher-操作中出现错误或者操作失败怎么办？" class="headerlink" title="9. Launcher 操作中出现错误或者操作失败怎么办？"></a>9. Launcher 操作中出现错误或者操作失败怎么办？</h2><hr>
 <p>我们可以去<code>?</code>页的<code>About</code>，</p>
 <img src="/2018/01/04/你所不知道的-Wwise-Launcher/log-1s.jpg">
@@ -185,18 +193,25 @@
 <img src="/2018/01/04/你所不知道的-Wwise-Launcher/log-2s.jpg">
 <p>然后想办法汇报给 Audiokinetic 的项目技术支持或<a href="https://www.audiokinetic.com/qa/" target="_blank" rel="external">社区问答论坛</a>。</p>
 <p>最常见的问题是网络问题，出这类问题的时候如果开了 VPN，则可以尝试关闭了 VPN 再使用 Launcher。</p>
-<h2 id="10-怎样了解-Audiokinetic-的新闻和最新技术？"><a href="#10-怎样了解-Audiokinetic-的新闻和最新技术？" class="headerlink" title="10. 怎样了解 Audiokinetic 的新闻和最新技术？"></a>10. 怎样了解 Audiokinetic 的新闻和最新技术？</h2><hr>
+<h2 id="10-提出技术支持问题时，怎样提供最客观详实的诊断资料？"><a href="#10-提出技术支持问题时，怎样提供最客观详实的诊断资料？" class="headerlink" title="10. 提出技术支持问题时，怎样提供最客观详实的诊断资料？"></a>10. 提出技术支持问题时，怎样提供最客观详实的诊断资料？</h2><hr>
+<p>我们在项目档期紧张时遇到 Wwise 相关的技术问题，首先想到的是请求官方技术支持支援。但是巧妇难为无米之炊，没有客观详实的诊断信息，支持人员也只能来回提问试探，沟通效率很低。为了提高沟通效率，我们可以善用 Wwise 的 Profiler（性能分析器）来记录问题过程，利用 Launcher 来制作诊断包，在提问时将诊断包发送给官方技术支持。</p>
+<p>Windows 版本的 Launcher 整合了 Wwise 中的辅助工具<code>Wwise Project Zipper</code>的功能，</p>
+<img src="/2018/01/04/你所不知道的-Wwise-Launcher/zippers.jpg">
+<p>可以将 Wwise 工程及性能分析器日志记录 （profiler session）定制内容后打包。</p>
+<img src="/2018/01/04/你所不知道的-Wwise-Launcher/zipper-2s.jpg">
+<p>之后便可以前往官网项目的技术支持频道将 zip 包作为附件发送给 Audiokinetic 的技术支持了。这样的做法通常可以为我们省去好几轮前期沟通。</p>
+<h2 id="11-怎样了解-Audiokinetic-的新闻和最新技术？"><a href="#11-怎样了解-Audiokinetic-的新闻和最新技术？" class="headerlink" title="11. 怎样了解 Audiokinetic 的新闻和最新技术？"></a>11. 怎样了解 Audiokinetic 的新闻和最新技术？</h2><hr>
 <p>我们打开 Launcher 的首页，便可以看到最新的 Audiokinetic 的英文版新闻和技术博客。</p>
 <img src="/2018/01/04/你所不知道的-Wwise-Launcher/home-feedss.jpg">
 <p>首页上还有社区问答论坛的最新提问，可以从中学习其他用户的经验。</p>
 <p>如果要看中文版，目前可以先点击 Launcher 首页任何链接来到 Audiokinetic 官网，然后切换语言为简体中文。</p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><hr>
-<p>越来越多的集成开发环境包括 Unity 和 Unreal Engine 利用独立于编辑器的 Launcher（启动器）作为控制中心程序来管理工程和资源。这样做，一来可以方便用户管理多个引擎版本和工程，避免和操作系统文件管理器中铺天盖地的文件夹和文件类型缠斗，甚至发生零散文件操作引起的意外；二来可以整合引擎开发商提供的一系列服务。在 Wwise 工作流程中，Wwise Launcher 正在扮演类似的角色。</p>
+<p>越来越多的集成开发环境包括 Unity 和 Unreal Engine 利用独立于编辑器的 Launcher（启动器）作为控制中心程序来管理工程和资源。这样做，一来可以方便用户管理多个引擎版本和工程，避免和操作系统文件管理器中铺天盖地的文件夹和文件类型缠斗，甚至发生零散文件操作引起的意外；二来可以整合引擎开发商提供的一系列服务。在 Wwise 工作流程中，Wwise Launcher 正在扮演类似的角色，并且还在成长中。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/" data-id="cjc2ld413000ah16mfjy0dddy" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/" data-id="cjc1zpj78000b216mfsfd181g" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise/">wwise</a></li></ul>
@@ -229,7 +244,7 @@
       <ul>
         
           <li>
-            <a href="/2018/01/04/你所不知道的-Wwise-Launcher/">十条你可能不知道的 Wwise Launcher 用法</a>
+            <a href="/2018/01/04/你所不知道的-Wwise-Launcher/">十一条你可能不知道的 Wwise Launcher 用法</a>
           </li>
         
           <li>
