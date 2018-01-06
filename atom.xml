@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kakyoism.github.io/"/>
-  <updated>2018-01-05T18:15:41.000Z</updated>
+  <updated>2018-01-06T00:06:09.000Z</updated>
   <id>http://kakyoism.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://kakyoism.github.io/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/"/>
     <id>http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/</id>
     <published>2018-01-04T12:05:02.000Z</published>
-    <updated>2018-01-05T18:15:41.000Z</updated>
+    <updated>2018-01-06T00:06:09.000Z</updated>
     
     <content type="html"><![CDATA[<p>本文基于以下软件版本：</p>
 <ul>
@@ -72,7 +72,7 @@
 <p>首先我们需要根据<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=pg__releasenotes.html" target="_blank" rel="external">Unity 集成版本说明</a>来确认要安装的 Wwise 版本对应支持的 Unity 版本。</p>
 <p>如果版本都是对的，则需要打开 Unity 编辑器观察控制台里的错误信息。Wwise Unity 集成安装时需要运行 Unity 程序来做一些初始化或者升级工作，这个过程中 Unity 工程内部可能出现的错误并不会在 Launcher 界面上显示出来。</p>
 <h2 id="6-我需要根据特定-Wwise-SDK-库版本来重新编译-Wwise-Unity-集成，怎么办？"><a href="#6-我需要根据特定-Wwise-SDK-库版本来重新编译-Wwise-Unity-集成，怎么办？" class="headerlink" title="6. 我需要根据特定 Wwise SDK 库版本来重新编译 Wwise Unity 集成，怎么办？"></a>6. 我需要根据特定 Wwise SDK 库版本来重新编译 Wwise Unity 集成，怎么办？</h2><hr>
-<p>有时候我们等不及官方 Unity 集成补丁，而想基于某个已经下载好的原生 SDK 补丁库来重新构建 Unity 集成， 这时我们需要的是 Unity 集成的源码包，可以在 Launcher 的<code>UNITY</code>页下载离线安装包来取得（见<code>如何安装 Unity 集成？</code>）。</p>
+<p>有时候我们等不及官方 Unity 集成补丁，而想基于某个已经下载好的原生 SDK 补丁库来重新构建 Unity 集成， 这时我们需要的是 Unity 集成的源码包，可以在 Launcher 的<code>UNITY</code>页下载离线安装包来取得（见<code>4. 如何安装 Unity 集成？</code>）。</p>
 <p>离线包的格式为 .tar.xz，一般我们需要通过 Launcher 安装集成来解出源码包来。如果想手动解包，则需要安装可以解压<code>XZ</code>和<code>TAR</code>格式的程序。比如在 macOS 上，我们可以通过<a href="https://brew.sh" target="_blank" rel="external">Homebrew</a>来安装<code>xz</code>这个包，之后即可通过命令行<code>xz -d</code> 来解包了。源码包的文件一般以<code>_Src.zip</code>结尾。</p>
 <p>重新编译 Unity 集成的方法见<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=pg__building.html" target="_blank" rel="external">官方文档</a>。</p>
 <h2 id="7-新手怎么学习-Wwise-Unity-集成？"><a href="#7-新手怎么学习-Wwise-Unity-集成？" class="headerlink" title="7. 新手怎么学习 Wwise Unity 集成？"></a>7. 新手怎么学习 Wwise Unity 集成？</h2><hr>
@@ -433,9 +433,9 @@
       <category term="GameAudio" scheme="http://kakyoism.github.io/categories/GameAudio/"/>
     
     
-      <category term="wwise" scheme="http://kakyoism.github.io/tags/wwise/"/>
-    
       <category term="conference" scheme="http://kakyoism.github.io/tags/conference/"/>
+    
+      <category term="wwise" scheme="http://kakyoism.github.io/tags/wwise/"/>
     
       <category term="proceduralaudio" scheme="http://kakyoism.github.io/tags/proceduralaudio/"/>
     
