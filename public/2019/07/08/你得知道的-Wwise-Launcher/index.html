@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>十条你得知道的 Wwise Launcher 用法（2019 版） | kkBeep</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="注：本文基于 2018 年初在 Audiokinetic 公众号上发表的文章《十一条你可能不知道的 Wwise  Launcher 用法》，由作者针对软件更新做了改动，不影响操作的截图沿用旧版本。 本文基于以下环境  Wwise Launcher: 2019.5.0.905 Wwise: 2019.1.0.6947 macOS Mojave 10.14.5  从 2016 年起，你在 Audiok">
+<meta name="keywords" content="wwise, gameaudio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十条你得知道的 Wwise Launcher 用法（2019 版）">
+<meta property="og:url" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/index.html">
+<meta property="og:site_name" content="kkBeep">
+<meta property="og:description" content="注：本文基于 2018 年初在 Audiokinetic 公众号上发表的文章《十一条你可能不知道的 Wwise  Launcher 用法》，由作者针对软件更新做了改动，不影响操作的截图沿用旧版本。 本文基于以下环境  Wwise Launcher: 2019.5.0.905 Wwise: 2019.1.0.6947 macOS Mojave 10.14.5  从 2016 年起，你在 Audiok">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/modify-installs.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/install-sdk-demos.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/samples-demos.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/open-demo-code-projects.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/open-demo-code-project-2s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/offline-installers.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/offline-installer-2s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/offline-installer-3s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/project-licenses.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/project-license-2s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/project-licenses-2.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/unity-browse-projects.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/unity-integrates.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/unity-offline-1s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/unity-offline-2s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/unity-demos.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/unreal-demos.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/wal-1s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/wal-2s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/offline-doc-1s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/offline-doc-2s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/wwise-bug-report.png">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/log-1s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/log-2s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/zippers.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/zipper-2s.jpg">
+<meta property="og:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/home-feedss.jpg">
+<meta property="og:updated_time" content="2019-07-08T13:38:08.643Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="十条你得知道的 Wwise Launcher 用法（2019 版）">
+<meta name="twitter:description" content="注：本文基于 2018 年初在 Audiokinetic 公众号上发表的文章《十一条你可能不知道的 Wwise  Launcher 用法》，由作者针对软件更新做了改动，不影响操作的截图沿用旧版本。 本文基于以下环境  Wwise Launcher: 2019.5.0.905 Wwise: 2019.1.0.6947 macOS Mojave 10.14.5  从 2016 年起，你在 Audiok">
+<meta name="twitter:image" content="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/modify-installs.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="kkBeep" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">kkBeep</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">互动音频用户</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://kakyoism.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-你得知道的-Wwise-Launcher" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/08/你得知道的-Wwise-Launcher/" class="article-date">
+  <time datetime="2019-07-08T11:48:59.000Z" itemprop="datePublished">2019-07-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      十条你得知道的 Wwise Launcher 用法（2019 版）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>注：本文基于 2018 年初在 Audiokinetic 公众号上发表的文章《十一条你可能不知道的 Wwise  Launcher 用法》，由作者针对软件更新做了改动，<strong>不影响操作的截图沿用旧版本</strong>。</p>
+<p>本文基于以下环境</p>
+<ul>
+<li>Wwise Launcher: 2019.5.0.905</li>
+<li>Wwise: 2019.1.0.6947</li>
+<li>macOS Mojave 10.14.5</li>
+</ul>
+<p>从 2016 年起，你在 Audiokinetic 官网点击下载 Wwise 的时候，实际上下载的是 Wwise Launcher（下文简称 Launcher），后来你就习惯用 Launcher 来下载更新 Wwise 了。你还学会了用它管理本机上的多个工程和 Wwise 版本，对吧？但对新手，Launcher 可能还有不明显的功能和注意事项对你会很有用，本文初版一年多后，我们再来梳理一下吧！</p>
+<h2 id="1-Wwise-Launcher-有权威参考资料吗？"><a href="#1-Wwise-Launcher-有权威参考资料吗？" class="headerlink" title="1. Wwise Launcher 有权威参考资料吗？"></a>1. Wwise Launcher 有权威参考资料吗？</h2><p>如今我们有了详细的<a href="https://www.audiokinetic.com/library/edge/?source=InstallGuide&amp;id=the_wwise_launcher" target="_blank" rel="external">官方图文文档</a>，可从 Launcher 的<code>？</code>页菜单项<code>`Wwise Launcher Documentation</code>直达，本文中的许多内容已可在文档中找到。不过在本文写作时，文档只有英文版，零星信息尚未与最新软件版本同步，因此下文还会给出必要的向导。英文自信的同学扫读本文即可。</p>
+<h2 id="2-程序员：哪里有-Wwise-集成／整合方面的例程？"><a href="#2-程序员：哪里有-Wwise-集成／整合方面的例程？" class="headerlink" title="2. 程序员：哪里有 Wwise 集成／整合方面的例程？"></a>2. 程序员：哪里有 Wwise 集成／整合方面的例程？</h2><p>我们可以通过 Launcher 来安装 Wwise 的<a href="https://www.audiokinetic.com/library/edge/?source=SDK&amp;id=soundengine__integration__samplecode.html" target="_blank" rel="external"><code>IntegrationDemo</code></a>。如果我们已经安装了 Wwise，但是没有找到这个 Demo，则需要打开 Launcher，找到<code>WWISE</code>页上我们的目标版本，然后修改安装。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/modify-installs.jpg">
+<p>勾选左边选项框中的<code>SDK (C++)</code>，和右边的目标平台。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/install-sdk-demos.jpg">
+<p>之后点击<code>Install...</code>开始安装。安装结束后切换到<code>SAMPLES</code>页，选中正确的 Wwise 版本（图中为<code>2017.1.4</code>），便可以看到<code>IntegrationDemo</code>了。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/samples-demos.jpg">
+<p>如果想运行 Demo，则直接点击<code>Run IntegrationDemo</code>；如果想打开对应的 Wwise 工程检查或修改声音设计内容，那么点击<code>Open in Wwise</code>。</p>
+<p>如果想打开源码工程，则点击左边按钮的下拉菜单，之后打开 Demo 所在文件夹，</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/open-demo-code-projects.jpg">
+<p>通过文件系统打开对应平台的子文件夹，找到并打开 IDE 工程文件。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/open-demo-code-project-2s.jpg">
+<p>在研究 IntegrationDemo 的时候，推荐对照<a href="https://www.audiokinetic.com/library/edge/?source=SDK&amp;id=index.html" target="_blank" rel="external"><code>Wwise SDK Help</code></a>文档来学习，特别是<code>声音引擎集成纵览</code>一节。</p>
+<p>不论我们的项目用的是自研引擎还是商业引擎，<code>IntegrationDemo</code>都是我们学习 Wwise 整合代码最好的帮手。这是因为<code>IntegrationDemo</code>是 Wwise SDK 的一部分，Audiokinetic 会持续维护测试这组例程和对应的 Wwise 工程；每当有重要的新功能时，该 Demo 中一般会加入新功能演示。</p>
+<p>更重要的是，假如我们的项目出现了奇怪的问题，开始怀疑是不是 Wwise 的 bug 时，可以首先尝试用 IntegrationDemo 来对照重现问题，Demo 提供的简化环境经过了反复测试，有助于隔离发现应用端的整合问题。Demo 中重现不了的问题往往会暴露出用户端的使用不当。</p>
+<h2 id="2-我们公司大部分机器在内网，怎么安装-Wwise？"><a href="#2-我们公司大部分机器在内网，怎么安装-Wwise？" class="headerlink" title="2. 我们公司大部分机器在内网，怎么安装 Wwise？"></a>2. 我们公司大部分机器在内网，怎么安装 Wwise？</h2><p>我们可以用某台外网机安装需要的 Wwise 组件，然后通过 Launcher 制作离线安装包给内网机使用：</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/offline-installers.jpg">
+<p>添加插件为单独步骤，在制作离线包时注意勾选所有需要的插件。</p>
+<p>做好的离线包除了组件文件夹<code>bundle</code>外，会自带一个配套的 Launcher 安装包：</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/offline-installer-2s.jpg">
+<p>最后将离线安装包发送到各台内网机上，在内网机上分别装好包里自带的 Launcher，再打开 Launcher 定位到离线包来安装。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/offline-installer-3s.jpg">
+<p>注意：Windows 版的 Launcher 只能安装 Windows 版的设计工具，Mac 版类似。</p>
+<h2 id="3-我下载安装了-Wwise，但是我的工程在生成-SoundBank-时报错，说最多只能使用-200-个声音文件，怎么办？"><a href="#3-我下载安装了-Wwise，但是我的工程在生成-SoundBank-时报错，说最多只能使用-200-个声音文件，怎么办？" class="headerlink" title="3. 我下载安装了 Wwise，但是我的工程在生成 SoundBank 时报错，说最多只能使用 200 个声音文件，怎么办？"></a>3. 我下载安装了 Wwise，但是我的工程在生成 SoundBank 时报错，说最多只能使用 200 个声音文件，怎么办？</h2><p>这说明我们的工程没有添加合适的 Wwise 授权码。我们需要打开 Launcher，<strong>登录我们的 Audiokinetic 账号</strong>，在<code>PROJECTS</code>页找到我们的 Wwise 工程，点击钥匙状按钮，接着我们有两个选择：</p>
+<p>1）注册新项目，并等待 Audiokinetic 商务联系人批准项目注册并接收系统邮件取得授权码。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/project-licenses.jpg">
+<p>这时我们会来到官网项目注册页面，需要根据向导填好所有信息并提交申请。之后如果确信申请通过了但没有收到系统邮件，则最好检查一下垃圾邮箱。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/project-license-2s.jpg">
+<p>2）如果我们的项目确定已经注册了，只是没有导入授权码，则需要注意：每个 Wwise 项目在 Audiokinetic 官网上都有若干管理员（Wwise Project Leader)，他们一般是我们自己项目团队的成员。可以联系管理员把我们的 Audiokinetic 账号加入该项目，之后便可以在 Launcher 里工程的<code>Set Project License</code>菜单中找到对应的项目授权码并授权项目了，<strong>做授权码导入操作时要确保关闭已经打开的工程</strong>。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/project-licenses-2.jpg">
+<h2 id="4-如何安装-Unity-集成？"><a href="#4-如何安装-Unity-集成？" class="headerlink" title="4. 如何安装 Unity 集成？"></a>4. 如何安装 Unity 集成？</h2><p>假设我们的电脑上已经装了 Unity，并且创建了 Unity 工程，而我们现在想给其中某个 Unity 工程安装 Wwise 集成。这时我们需要来到 Launcher 的<code>UNITY</code>页，点开顶部菜单的浏览按钮：</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/unity-browse-projects.jpg">
+<p>选中目标 Unity 工程并确认后，在<code>UNITY</code>页的工程列表里就能看到这个工程了。接下来我们有两个选择：</p>
+<p>1）直接从官网下载 Unity 集成并同时安装，</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/unity-integrates.jpg">
+<p>2）先下载离线安装包，</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/unity-offline-1s.jpg">
+<p>然后通过 Launcher 手动安装。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/unity-offline-2s.jpg">
+<p>注意，无论用哪种方法，安装期间必须<strong>关闭所有打开的 Unity 编辑器</strong>。如果需要定制 Unity 集成，可以在离线安装包中解压出源码包，再<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=pg__building.html" target="_blank" rel="external">重新编译 Unity 集成</a>。</p>
+<p>Unreal Engine 的安装方法与此类似，在<code>UNREAL ENGINE</code>页中完成。</p>
+<h2 id="5-新手怎么学习-Unity-和-Unreal-Engine-集成？"><a href="#5-新手怎么学习-Unity-和-Unreal-Engine-集成？" class="headerlink" title="5. 新手怎么学习 Unity 和 Unreal Engine 集成？"></a>5. 新手怎么学习 Unity 和 Unreal Engine 集成？</h2><p>学习 Unity 集成有两个选择：</p>
+<p>1）通过 Launcher 安装运行 Unity 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=main.html" target="_blank" rel="external">官方文档</a>学习。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/unity-demos.jpg">
+<p>2）通过<a href="https://www.audiokinetic.com/learn/certifications/" target="_blank" rel="external">官方免费的认证课程系列</a> 中的 Wwise-301 （以及 Wwise-251 中的一部分）学习，对 Wwise 新手而言这一般意味着你要先学习入门课程 Wwise-101，但可能很多过来人都会告诉你，这是值得的，别问我为什么知道 ^_*</p>
+<p>学习 Unreal 集成， 我们也有两个选择：</p>
+<p>1）通过 Launcher 的<code>UNREAL ENGINE</code>页安装运行 Unreal 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=UE4&amp;id=index.html" target="_blank" rel="external">官方文档</a>学习。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/unreal-demos.jpg">
+<p>2）通过 Launcher 安装运行 Wwise 的空间音频 Demo：Wwise Audio Lab</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/wal-1s.jpg">
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/wal-2s.jpg">
+<h2 id="6-我网速慢，看在线文档不方便，如何在本地查看-Wwise-的音频设计和程序整合文档？"><a href="#6-我网速慢，看在线文档不方便，如何在本地查看-Wwise-的音频设计和程序整合文档？" class="headerlink" title="6. 我网速慢，看在线文档不方便，如何在本地查看 Wwise 的音频设计和程序整合文档？"></a>6. 我网速慢，看在线文档不方便，如何在本地查看 Wwise 的音频设计和程序整合文档？</h2><p>我们可以通过 Launcher 安装离线文档，注意要选择想要的平台。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/offline-doc-1s.jpg">
+<p>之后就可以在<code>WWISE</code>页的对应 Wwise 版本下找到各个平台对应的多语言离线文档了。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/offline-doc-2s.jpg">
+<p>容易忽略的是：Unity 和 Unreal Engine 集成的离线包中自带了离线文档（<code>.chm</code> 和<code>.html</code>包），解包时不要错过哦～</p>
+<h2 id="7-我感觉碰到了一个-Wwise-的-Bug，该怎么上报？"><a href="#7-我感觉碰到了一个-Wwise-的-Bug，该怎么上报？" class="headerlink" title="7.我感觉碰到了一个 Wwise 的 Bug，该怎么上报？"></a>7.我感觉碰到了一个 Wwise 的 Bug，该怎么上报？</h2><p>我们可以去<code>?</code>页的<code>About</code>，点击<code>Report a Bug...</code>，接着根据向导提供必要信息确认上传即可，支持上传截图、Wwise 工程 zip 包和普通 zip 包。汇报成功后，你会看到类似下图的截图，别问我怎么知道的 :P</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/wwise-bug-report.png">
+<h2 id="8-Launcher-在安装中出现错误或者操作失败怎么办？"><a href="#8-Launcher-在安装中出现错误或者操作失败怎么办？" class="headerlink" title="8. Launcher 在安装中出现错误或者操作失败怎么办？"></a>8. Launcher 在安装中出现错误或者操作失败怎么办？</h2><p>我们可以去<code>?</code>页的<code>About Wwise Launcher...</code>，</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/log-1s.jpg">
+<p>找到 Launcher 的完整日志，</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/log-2s.jpg">
+<p>然后想办法汇报给 Audiokinetic 的项目技术支持或<a href="https://www.audiokinetic.com/qa/" target="_blank" rel="external">社区问答论坛</a>，或者如果你确信是 Bug，参见上一条。</p>
+<p>最常见的问题是网络问题，出这类问题的时候如果开了 VPN，则可以尝试关闭了 VPN 再使用 Launcher。</p>
+<p>有一类特殊问题是通过 Launcher 安装和升级 Unity 集成的时候失败了，这时怎么办呢？</p>
+<p>首先我们需要根据<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=pg__releasenotes.html" target="_blank" rel="external">Unity 集成版本说明</a>来确认要安装的 Wwise 版本对应支持的 Unity 版本。</p>
+<p>如果版本都是对的，则需要打开 Unity 编辑器观察控制台里的错误信息。Wwise Unity 集成安装时需要运行 Unity 程序来做一些初始化或者升级工作，这个过程中 Unity 工程内部可能错误，但这些错误并不会在 Launcher 界面上显示出来，要在 Unity 编辑器中查看。</p>
+<h2 id="9-向-Wwise-工作人员提技术问题时，怎样让沟通更准确高效？"><a href="#9-向-Wwise-工作人员提技术问题时，怎样让沟通更准确高效？" class="headerlink" title="9. 向 Wwise 工作人员提技术问题时，怎样让沟通更准确高效？"></a>9. 向 Wwise 工作人员提技术问题时，怎样让沟通更准确高效？</h2><p>我们在项目档期紧张时遇到 Wwise 相关的技术问题，常常撒腿就找官方技术支持。但是巧妇难为无米之炊，没有客观详实的诊断信息，支持人员也只能来回提问试探，沟通效率可能会不理想。为了高效沟通，我们可以善用 Wwise 的 Profiler（性能分析器）来记录问题过程，利用 Launcher 来制作诊断包，在提问时将诊断包发送给官方技术支持。</p>
+<p>Windows 版本的 Launcher 整合了 Wwise 中的辅助工具<code>Wwise Project Zipper</code>的功能，支持 Windows 和 macOS。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/zippers.jpg">
+<p>可以将 Wwise 工程及性能分析器日志记录 （profiler session）定制内容后打包。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/zipper-2s.jpg">
+<p>之后便可以前往官网项目的技术支持频道将 zip 包作为附件发送给 Audiokinetic 的技术支持了。这样的做法通常可以为我们省去好几轮前期沟通。</p>
+<h2 id="10-怎样了解-Audiokinetic-的新闻和最新技术？"><a href="#10-怎样了解-Audiokinetic-的新闻和最新技术？" class="headerlink" title="10. 怎样了解 Audiokinetic 的新闻和最新技术？"></a>10. 怎样了解 Audiokinetic 的新闻和最新技术？</h2><p>我们打开 Launcher 的首页，便可以看到最新的 Audiokinetic 的英文版新闻和技术博客。</p>
+<img src="/2019/07/08/你得知道的-Wwise-Launcher/home-feedss.jpg">
+<p>首页上还有社区问答论坛的最新提问，可以从中学习其他用户的经验。</p>
+<p>如果要看中文版，现在可以直接点击 Launcher 首页右上角的语言列表切换。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>越来越多的集成开发环境包括 Unity 和 Unreal Engine 利用独立于编辑器的 Launcher（启动器）作为控制中心程序来管理工程和资源。这样做，一来可以方便用户管理多个引擎版本和工程，避免和操作系统文件管理器中铺天盖地的文件夹和文件类型缠斗，甚至发生零散文件操作引起的意外；二来可以整合引擎开发商提供的一系列服务。在 Wwise 工作流程中，Wwise Launcher 正在扮演类似的角色，并且还在成长中。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/" data-id="cjxufis4z000bm6nz18ugsq6h" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise-gameaudio/">wwise, gameaudio</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/02/04/why-cant-i-hear-my-sound/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">过去</strong>
+      <div class="article-nav-title">为什么我听不到声音？</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/08/你得知道的-Wwise-Launcher/">十条你得知道的 Wwise Launcher 用法（2019 版）</a>
+          </li>
+        
+          <li>
+            <a href="/2018/02/04/why-cant-i-hear-my-sound/">为什么我听不到声音？</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/04/你所不知道的-Wwise-Launcher/">十条你可能不知道的 Wwise Launcher 用法</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/29/quick-auditioning-music-transitions/">快速试听 Wwise 互动音乐的过渡</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/13/GDC17-Audio-Spatial-Audio-2/">GDC17 音频见闻 - 空间音频 Spatial Audio（2）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/GameAudio/">GameAudio</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Writing/">Writing</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/conference/">conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proceduralaudio/">proceduralaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reverb/">reverb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise/">wwise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise-gameaudio/">wwise, gameaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise-interactivemusic/">wwise, interactivemusic</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/conference/" style="font-size: 10px;">conference</a> <a href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/" style="font-size: 15px;">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/machinelearning/" style="font-size: 10px;">machinelearning</a> <a href="/tags/proceduralaudio/" style="font-size: 10px;">proceduralaudio</a> <a href="/tags/reverb/" style="font-size: 10px;">reverb</a> <a href="/tags/wwise/" style="font-size: 20px;">wwise</a> <a href="/tags/wwise-gameaudio/" style="font-size: 10px;">wwise, gameaudio</a> <a href="/tags/wwise-interactivemusic/" style="font-size: 10px;">wwise, interactivemusic</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 北南<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
