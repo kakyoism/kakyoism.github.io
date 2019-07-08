@@ -190,7 +190,7 @@ Unreal Engine 的安装方法与此类似，在`UNREAL ENGINE`页中完成。
 
 我们在项目档期紧张时遇到 Wwise 相关的技术问题，常常撒腿就找官方技术支持。但是巧妇难为无米之炊，没有客观详实的诊断信息，支持人员也只能来回提问试探，沟通效率可能会不理想。为了高效沟通，我们可以善用 Wwise 的 Profiler（性能分析器）来记录问题过程，利用 Launcher 来制作诊断包，在提问时将诊断包发送给官方技术支持。
 
-Windows 版本的 Launcher 整合了 Wwise 中的辅助工具`Wwise Project Zipper`的功能，支持 Windows 和 macOS。
+Windows 版本的 Launcher 整合了 Wwise 中的辅助工具`Wwise Project Zipper`的功能，**支持 Windows 和 macOS**。
 
 {% asset_img zippers.jpg %}
 

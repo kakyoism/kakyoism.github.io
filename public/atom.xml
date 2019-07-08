@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kakyoism.github.io/"/>
-  <updated>2019-07-08T13:38:08.643Z</updated>
+  <updated>2019-07-08T13:49:08.439Z</updated>
   <id>http://kakyoism.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://kakyoism.github.io/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/"/>
     <id>http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/</id>
     <published>2019-07-08T11:48:59.000Z</published>
-    <updated>2019-07-08T13:38:08.643Z</updated>
+    <updated>2019-07-08T13:49:08.439Z</updated>
     
     <content type="html"><![CDATA[<p>注：本文基于 2018 年初在 Audiokinetic 公众号上发表的文章《十一条你可能不知道的 Wwise  Launcher 用法》，由作者针对软件更新做了改动，<strong>不影响操作的截图沿用旧版本</strong>。</p>
 <p>本文基于以下环境</p>
@@ -98,7 +98,7 @@
 <p>首先我们需要根据<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=pg__releasenotes.html" target="_blank" rel="external">Unity 集成版本说明</a>来确认要安装的 Wwise 版本对应支持的 Unity 版本。</p>
 <p>如果版本都是对的，则需要打开 Unity 编辑器观察控制台里的错误信息。Wwise Unity 集成安装时需要运行 Unity 程序来做一些初始化或者升级工作，这个过程中 Unity 工程内部可能错误，但这些错误并不会在 Launcher 界面上显示出来，要在 Unity 编辑器中查看。</p>
 <h2 id="9-向-Wwise-工作人员提技术问题时，怎样让沟通更准确高效？"><a href="#9-向-Wwise-工作人员提技术问题时，怎样让沟通更准确高效？" class="headerlink" title="9. 向 Wwise 工作人员提技术问题时，怎样让沟通更准确高效？"></a>9. 向 Wwise 工作人员提技术问题时，怎样让沟通更准确高效？</h2><p>我们在项目档期紧张时遇到 Wwise 相关的技术问题，常常撒腿就找官方技术支持。但是巧妇难为无米之炊，没有客观详实的诊断信息，支持人员也只能来回提问试探，沟通效率可能会不理想。为了高效沟通，我们可以善用 Wwise 的 Profiler（性能分析器）来记录问题过程，利用 Launcher 来制作诊断包，在提问时将诊断包发送给官方技术支持。</p>
-<p>Windows 版本的 Launcher 整合了 Wwise 中的辅助工具<code>Wwise Project Zipper</code>的功能，支持 Windows 和 macOS。</p>
+<p>Windows 版本的 Launcher 整合了 Wwise 中的辅助工具<code>Wwise Project Zipper</code>的功能，<strong>支持 Windows 和 macOS</strong>。</p>
 <img src="/2019/07/08/你得知道的-Wwise-Launcher/zippers.jpg">
 <p>可以将 Wwise 工程及性能分析器日志记录 （profiler session）定制内容后打包。</p>
 <img src="/2019/07/08/你得知道的-Wwise-Launcher/zipper-2s.jpg">
