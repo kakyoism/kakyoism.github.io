@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kakyoism.github.io/"/>
-  <updated>2019-10-17T08:49:38.237Z</updated>
+  <updated>2019-10-17T08:59:37.957Z</updated>
   <id>http://kakyoism.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Building a GNU-Autotools-based project for iOS: Part 1</title>
+    <title>Building a GNU-autotools-based Project for iOS: Part 1</title>
     <link href="http://kakyoism.github.io/2019/10/17/Build-a-GNU-Autotools-based-project-for-iOS-Part-1/"/>
     <id>http://kakyoism.github.io/2019/10/17/Build-a-GNU-Autotools-based-project-for-iOS-Part-1/</id>
     <published>2019-10-17T06:22:34.000Z</published>
-    <updated>2019-10-17T08:49:38.237Z</updated>
+    <updated>2019-10-17T08:59:37.957Z</updated>
     
     <content type="html"><![CDATA[<p>The open-source movement started in the middle of the Desktop domination, which could explain why there are much fewer resources in the mobile wild.<br>Recently I tried to build a few renowned C/C++ open-source projects for iOS, only to find that:</p>
 <ol>
