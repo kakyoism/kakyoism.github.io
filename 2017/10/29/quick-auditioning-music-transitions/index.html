@@ -9,27 +9,25 @@
 <meta name="keywords" content="wwise, interactivemusic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="快速试听 Wwise 互动音乐的过渡">
-<meta property="og:url" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;index.html">
 <meta property="og:site_name" content="kkBeep">
 <meta property="og:description" content="本文探讨的所有问题和解决方案都基于 Wwise 2017.1.x。不对后续版本负责。 起因：听一下过渡好难利用 Wwise 的互动音乐功能可以用小段音乐编组搭建出动态和互动的曲式和织体，但搭完了之后你还是得用耳朵试听乐段间的过渡，确保衔接在音乐意义上是无缝的。截至 Wwise 2017.1，不少人在这里遇到了麻烦，见下图：   这个例子来自 Wwise 自带的示例工程Sample Project（">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/mpe.png">
-<meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/transition-exit-cue.png">
-<meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/mpe-mid-seg.png">
-<meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/mse.png">
-<meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/media-player.png">
-<meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/playbackspeed.png">
-<meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/wwise-tips-audition-transitions.jpg">
-<meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/sample-segments.png">
-<meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/sample-dup-msc.png">
-<meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/sample-states.png">
-<meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/sample-paths.png">
-<meta property="og:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/sample-event.png">
-<meta property="og:updated_time" content="2019-10-17T09:46:31.422Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;mpe.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;transition-exit-cue.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;mpe-mid-seg.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;mse.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;media-player.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;playbackspeed.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;wwise-tips-audition-transitions.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;sample-segments.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;sample-dup-msc.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;sample-states.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;sample-paths.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;sample-event.png">
+<meta property="og:updated_time" content="2019-10-17T10:26:23.495Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="快速试听 Wwise 互动音乐的过渡">
-<meta name="twitter:description" content="本文探讨的所有问题和解决方案都基于 Wwise 2017.1.x。不对后续版本负责。 起因：听一下过渡好难利用 Wwise 的互动音乐功能可以用小段音乐编组搭建出动态和互动的曲式和织体，但搭完了之后你还是得用耳朵试听乐段间的过渡，确保衔接在音乐意义上是无缝的。截至 Wwise 2017.1，不少人在这里遇到了麻烦，见下图：   这个例子来自 Wwise 自带的示例工程Sample Project（">
-<meta name="twitter:image" content="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/mpe.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;kakyoism.github.io&#x2F;2017&#x2F;10&#x2F;29&#x2F;quick-auditioning-music-transitions&#x2F;mpe.png">
   
     <link rel="alternate" href="/atom.xml" title="kkBeep" type="application/atom+xml">
   
@@ -126,17 +124,17 @@ ga('send', 'pageview');
         <p>本文探讨的所有问题和解决方案都<strong>基于 Wwise 2017.1.x</strong>。不对后续版本负责。</p>
 <h2 id="起因：听一下过渡好难"><a href="#起因：听一下过渡好难" class="headerlink" title="起因：听一下过渡好难"></a>起因：听一下过渡好难</h2><p>利用 Wwise 的互动音乐功能可以用小段音乐编组搭建出动态和互动的曲式和织体，但搭完了之后你还是得用耳朵试听乐段间的过渡，确保衔接在音乐意义上是无缝的。截至 Wwise 2017.1，不少人在这里遇到了麻烦，见下图：</p>
 <!--![](quick-auditioning-music-transitions/mpe.png)-->
-<img src="/2017/10/29/quick-auditioning-music-transitions/mpe.png">
+<img src="/2017/10/29/quick-auditioning-music-transitions/mpe.png" class="">
 <p>这个例子来自 Wwise 自带的示例工程<code>Sample Project</code>（可以从Wwise Launcher 的<code>SAMPLES</code>页下打开），在 Music Playlist Editor 中，<code>Stealth</code>这个 Music Playlist Container 中有一个 Sequence Continuous 模式的 Music Segment 编组，图中正在试听前两个 Music Segment 间的过渡。这时，由于<code>Stealth</code>采用的过渡规则中，Source 段用了<code>Exit source at Exit Cue</code>这条同步规则，见下图：</p>
 <!--![](quick-auditioning-music-transitions/transition-exit-cue.png)-->
-<img src="/2017/10/29/quick-auditioning-music-transitions/transition-exit-cue.png">
+<img src="/2017/10/29/quick-auditioning-music-transitions/transition-exit-cue.png" class="">
 <p>Exit Cue 一般靠近曲子尾声，所以你必须把<code>Stealth_Seg_01</code>从头听到 Exit Cue 处才能开始试听和<code>Stealth_Seg_02</code>间的过渡，如果曲子很长，这样就很浪费时间；还有更惨的：当要听的过渡在一个很长的连续列表的中间靠后时，即便同步点是 Next Bar 这样近距离的，每次你还都得从最顶上听起。如下图：</p>
 <!--![](quick-auditioning-music-transitions/mpe-mid-seg.png)-->
-<img src="/2017/10/29/quick-auditioning-music-transitions/mpe-mid-seg.png">
+<img src="/2017/10/29/quick-auditioning-music-transitions/mpe-mid-seg.png" class="">
 <p>要听<code>Seg 02b (B)</code>到下一段的过渡时，你每次都得从<code>Seg 01a (A)</code>听起。上图里还比较仁慈，每个段落都只循环了一次，万一有些会循环有限次，万一播着中间接了个电话，… 你懂的。</p>
 <p>于是你又下意识地跑到 Music Segment Editor 界面中想对着波形迅速定位到过渡点附近听，结果发现一次又只能试听一个 Segment，见下图：</p>
 <!--![](quick-auditioning-music-transitions/mse.png)-->
-<img src="/2017/10/29/quick-auditioning-music-transitions/mse.png">
+<img src="/2017/10/29/quick-auditioning-music-transitions/mse.png" class="">
 <p>所以还是快不起来。</p>
 <p>在别的情况下，也会有类似问题：</p>
 <ul>
@@ -152,7 +150,7 @@ ga('send', 'pageview');
 </ol>
 <p>换句话说：如今主流媒体播放器能做到的一些事情。</p>
 <!--![](quick-auditioning-music-transitions/media-player.png)-->
-<img src="/2017/10/29/quick-auditioning-music-transitions/media-player.png">
+<img src="/2017/10/29/quick-auditioning-music-transitions/media-player.png" class="">
 <p>上图中，如果你想听<code>Say</code>和<code>Architect</code>这两首曲子间的过渡（假设有的话），那么只需要鼠标双击<code>Say</code>这首，然后用底部进度条定位到尾部收听即可。如果要测自循环，则只需要把循环模式调到单曲循环就行了（注：Wwise 中由于有同步点的问题，常规的进度条还不够）。</p>
 <p>相比之下，我们发现：<strong>Wwise 虽然提供了搭建非线性音乐结构的一整套工具，但其 UI 的预览功能不支持线性媒体播放器中的列表定点播放体验。</strong> 当然，反过来大多数线性媒体播放器也不支持 Wwise 提供的众多非线性播放功能。</p>
 <p>在 Wwise 在 UI 上做出改进之前，我们暂时还得面对这个问题。</p>
@@ -172,9 +170,9 @@ ga('send', 'pageview');
 <li>手动操作繁琐，对齐容易出错。</li>
 </ol>
 <p>这个方法大约只适合粗略测单轨循环的情况。如果非要走这条路，倒还不如直接在 DAW 里面对素材做这些工作来得简单。</p>
-<h2 id="方法二：快进播放法"><a href="#方法二：快进播放法" class="headerlink" title="方法二：快进播放法"></a>方法二：快进播放法</h2><p>这个是 <a href="https://www.audiokinetic.com/courses/wwise201/?source=wwise201&amp;id=configuring_multi_group_playlists_setting_randomized_loop_counts" target="_blank" rel="external">Wwise 201 认证教程</a> 中推荐的方法，海内外的一些设计师都有这样用的，见下图：</p>
+<h2 id="方法二：快进播放法"><a href="#方法二：快进播放法" class="headerlink" title="方法二：快进播放法"></a>方法二：快进播放法</h2><p>这个是 <a href="https://www.audiokinetic.com/courses/wwise201/?source=wwise201&amp;id=configuring_multi_group_playlists_setting_randomized_loop_counts" target="_blank" rel="noopener">Wwise 201 认证教程</a> 中推荐的方法，海内外的一些设计师都有这样用的，见下图：</p>
 <!--![](quick-auditioning-music-transitions/playbackspeed.png)-->
-<img src="/2017/10/29/quick-auditioning-music-transitions/playbackspeed.png">
+<img src="/2017/10/29/quick-auditioning-music-transitions/playbackspeed.png" class="">
 <p>将父级容器的播放速度调大，那么播放时过渡涉及的 Music Segment 就能快进到过渡点附近。这时候如果想精听，则可以降回原速，除非你告诉我专业人士的耳朵都是 4 倍速的！</p>
 <p>这个方法的优点是：</p>
 <ol>
@@ -190,15 +188,15 @@ ga('send', 'pageview');
 <h2 id="方法三：Seek-法"><a href="#方法三：Seek-法" class="headerlink" title="方法三：Seek 法"></a>方法三：Seek 法</h2><p>这个技巧是海外设计师 Aaron Brown 分享的。基本原理是立足于 Event 及其 Seek（即寻址跳转）这个 Action。跟前两种方法相比，它更能满足本文开始分析的三条需求，但实际操作要绕点路。</p>
 <p>Aaron Brown 的原始分享可以在 Wwise 的非官方 Facebook 群<code>Wwise Wizards &amp; Witches</code>中找到，但是他只给了粗略的示意图，如下图所示：</p>
 <!--![](quick-auditioning-music-transitions/wwise-tips-audition-transitions.jpg)-->
-<img src="/2017/10/29/quick-auditioning-music-transitions/wwise-tips-audition-transitions.jpg">
+<img src="/2017/10/29/quick-auditioning-music-transitions/wwise-tips-audition-transitions.jpg" class="">
 <p>但我实操后发现在 Wwise 2017.1 中上面的方法并不能凑效，要修改一些做法。下面详细讲解一下。</p>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>这个方法是希望避免肉眼定位和等待，实现一键定位到音乐的过渡点附近，按照原速收听过渡。</p>
-<p>Wwise 的 Event 中有 Seek 这个 Action 可以定位到播放文件中的指定位置。<strong>前两种方法其实也做了这个定位，只不过是用肉眼和手工操作来确保的：开始试听过渡的播放点必须要在同步点之前。</strong>而针对这点，Seek Action 只需设好跳转位置的数值就可以。并且，它还有服务于互动音乐的<a href="https://www2.audiokinetic.com/library/edge/?source=Help&amp;id=event_actions_list#bp1307910" target="_blank" rel="external">一条诱人的特性</a>：</p>
+<p>Wwise 的 Event 中有 Seek 这个 Action 可以定位到播放文件中的指定位置。<strong>前两种方法其实也做了这个定位，只不过是用肉眼和手工操作来确保的：开始试听过渡的播放点必须要在同步点之前。</strong>而针对这点，Seek Action 只需设好跳转位置的数值就可以。并且，它还有服务于互动音乐的<a href="https://www2.audiokinetic.com/library/edge/?source=Help&amp;id=event_actions_list#bp1307910" target="_blank" rel="noopener">一条诱人的特性</a>：</p>
 <ul>
 <li>Seek Action 的 Seek Percent（按百分比跳转）模式下，跳转是相对于 Entry Cue 和 Exit Cue 进行的。</li>
 </ul>
 <p>打个比方，不管这些 Cue 设定在 Music Segment 的什么位置，即使我们把跳转设在 99% 处（即 Seek Percent 为 99%），它也绝对不会超出 Exit Cue 而误入 Post-Exit 段；对于单曲循环的情况，跳转百分比位置是相对循环区间来算的。有了这个条件，我们就可以放心定义跳转点来一键空降到过渡点附近了。</p>
-<p>不过 Seek Action 还有<a href="https://www2.audiokinetic.com/library/edge/?source=Help&amp;id=event_actions_list#seek_seekall_notes_and_restrictions" target="_blank" rel="external">一条重要的限制</a>：</p>
+<p>不过 Seek Action 还有<a href="https://www2.audiokinetic.com/library/edge/?source=Help&amp;id=event_actions_list#seek_seekall_notes_and_restrictions" target="_blank" rel="noopener">一条重要的限制</a>：</p>
 <ul>
 <li>Music Playlist Container 和 Motion 对象不支持 Seek。</li>
 </ul>
@@ -214,22 +212,22 @@ ga('send', 'pageview');
 <h3 id="做法示例"><a href="#做法示例" class="headerlink" title="做法示例"></a>做法示例</h3><p>我们还是以 Wwise 安装包自带的<code>Sample Project</code>为例来说明 Seek 法的具体操作。简单起见，我们就挑选下图中选中的两个 Music Segment 来举例：</p>
 <!--![](quick-auditioning-music-transitions/sample-segments.png)
 -->
-<img src="/2017/10/29/quick-auditioning-music-transitions/sample-segments.png">
+<img src="/2017/10/29/quick-auditioning-music-transitions/sample-segments.png" class="">
 <p>这两个 Segment 也是<code>Stealth</code>这个 Music Playlist Container 中顺序播放的相邻对象（见本文第一张图），采用的过渡同步点为 Exit Cue。</p>
 <p><strong>首先，创建一个专用的 Music Switch Container，把<code>Steath_Seg_01</code>和<code>Steath_Seg_02</code>复制到它下面。</strong>见下图：</p>
 <!--![](quick-auditioning-music-transitions/sample-dup-msc.png)-->
-<img src="/2017/10/29/quick-auditioning-music-transitions/sample-dup-msc.png">
+<img src="/2017/10/29/quick-auditioning-music-transitions/sample-dup-msc.png" class="">
 <p>创建新的 Music Switch Container 是有原因的：在指定 Music Switch Container 的状态路径的时候，路径对应播放对象只能是该 Music Switch Container 的直接子对象，也就是说之前位于<code>Stealth</code>下面的对象如果不挪出来就无法直接关联到 State 上面去；而如果复制到原 Music Switch Container 下面，就又会污染设计。所以比较好的做法是直接创建一个新的 Music Switch Container。</p>
 <p>这个专用容器的过渡规则一般只需要用默认的<code>Any to Any</code>规则就可以，但要注意默认会播放源段的 Post-Exit 和目标段的 Pre-Entry，不启用淡变。当然，你完全可以按需要来定制整条规则。这里我们重点强调 Exit Cue 的情况。</p>
 <p><strong>接着，创建一个新的 State Group，然后为两个 Music Segment 各创建一个 State。</strong>见下图：</p>
 <!--![](quick-auditioning-music-transitions/sample-states.png)-->
-<img src="/2017/10/29/quick-auditioning-music-transitions/sample-states.png">
+<img src="/2017/10/29/quick-auditioning-music-transitions/sample-states.png" class="">
 <p><strong>下一步，回到测试专用的 Music Switch Container，设置好状态路径，让上面的 State 和 Music Segment 一一对应。</strong>见下图：</p>
 <!--![](quick-auditioning-music-transitions/sample-paths.png)-->
-<img src="/2017/10/29/quick-auditioning-music-transitions/sample-paths.png">
+<img src="/2017/10/29/quick-auditioning-music-transitions/sample-paths.png" class="">
 <p><strong>最后，我们创建测试事件</strong>。里面依序包含如下 Action：</p>
 <!--![](quick-auditioning-music-transitions/sample-event.png)-->
-<img src="/2017/10/29/quick-auditioning-music-transitions/sample-event.png">
+<img src="/2017/10/29/quick-auditioning-music-transitions/sample-event.png" class="">
 <ul>
 <li>我们让第一个 Set State Action（状态初始化）比 Play Action 稍早一点执行，确保在播放之前状态已经初始化成源状态，播放源 Segment。这里我们把 Play Action 的 Delay 设为<code>0.01</code>， Set State 的 Delay 为 <code>0</code>。</li>
 <li>Seek Action 也比播放略提前，Seek 模式为<code>Seek Percent</code>，位置为<code>90%</code>。你可以视需要修改这个位置。注意：Aaron Brown 在 Wwise 2016.2 中采用 Seek All 这个 Action，Scope 设为 Global，但经测试发现在 Wwise 2017.1 中这个做法无效，要使用 Seek 才行。</li>
@@ -252,10 +250,10 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/" data-id="ck1uizd9d000935nzswhj0akw" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/" data-id="ck1ukdrvb000iqanzg7hf3v7l" class="article-share-link">分享</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise-interactivemusic/">wwise, interactivemusic</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise-interactivemusic/" rel="tag">wwise, interactivemusic</a></li></ul>
 
     </footer>
   </div>
@@ -263,7 +261,7 @@ ga('send', 'pageview');
     
 <nav id="article-nav">
   
-    <a href="/2018/01/04/你所不知道的-Wwise-Launcher/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">新</strong>
       <div class="article-nav-title">
         
@@ -298,7 +296,7 @@ ga('send', 'pageview');
           </li>
         
           <li>
-            <a href="/2019/07/08/你得知道的-Wwise-Launcher/">十条你得知道的 Wwise Launcher 用法（2019 版）</a>
+            <a href="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/">十条你得知道的 Wwise Launcher 用法（2019 版）</a>
           </li>
         
           <li>
@@ -306,7 +304,7 @@ ga('send', 'pageview');
           </li>
         
           <li>
-            <a href="/2018/01/04/你所不知道的-Wwise-Launcher/">十条你可能不知道的 Wwise Launcher 用法</a>
+            <a href="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/">十条你可能不知道的 Wwise Launcher 用法</a>
           </li>
         
           <li>
@@ -332,7 +330,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/build-iOS/">build, iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conference/">conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proceduralaudio/">proceduralaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reverb/">reverb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise/">wwise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise-gameaudio/">wwise, gameaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise-interactivemusic/">wwise, interactivemusic</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/build-iOS/" rel="tag">build, iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conference/" rel="tag">conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/" rel="tag">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machinelearning/" rel="tag">machinelearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proceduralaudio/" rel="tag">proceduralaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reverb/" rel="tag">reverb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise/" rel="tag">wwise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise-gameaudio/" rel="tag">wwise, gameaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise-interactivemusic/" rel="tag">wwise, interactivemusic</a></li></ul>
     </div>
   </div>
 
