@@ -30,6 +30,8 @@ show_count: false
 
 # Miscellaneous
 google_analytics:
+  tracking_id: UA-39935318-2
+  localhost_ignored: false
 favicon: /favicon.png
 twitter:
 google_plus:

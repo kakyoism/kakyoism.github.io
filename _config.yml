@@ -14,6 +14,9 @@ tag_dir: tags
 archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
+google_analytics: 
+  tracking_id: UA-39935318-2
+  localhost_ignored: false
 i18n_dir: ':lang'
 skip_render: null
 new_post_name: ':title.md'
