@@ -68,6 +68,95 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Build-a-GNU-Autotools-based-project-for-iOS-Part-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/17/Build-a-GNU-Autotools-based-project-for-iOS-Part-1/" class="article-date">
+  <time datetime="2019-10-17T06:22:34.000Z" itemprop="datePublished">2019-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/17/Build-a-GNU-Autotools-based-project-for-iOS-Part-1/">Building a GNU-Autotools-based project for iOS: Part 1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>The open-source movement started in the middle of the Desktop domination, which could explain why there are much fewer resources in the mobile wild.<br>Recently I tried to build a few renowned C/C++ open-source projects for iOS, only to find that:</p>
+<ol>
+<li>Nothing works out of the box;</li>
+<li>The scattered info on the Internet is often inconsistent or out of date.</li>
+</ol>
+<p>… familiar pattern for a platform with breaking changes every so often, keeping everyone busy and unable to document things tightly. But here is my $0.02. Hope it’ll help me and someone who got bruises out of trials-and-errors.</p>
+<p>In Part 1, I’ll focus on how I managed to build static libs for iOS.</p>
+<h2 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h2><p>Check my setup before getting excited. You know why, having tried and failed upon many StackOverflow tips.</p>
+<ul>
+<li>macOS 10.14.6</li>
+<li>iOS 13.1</li>
+<li>Xcode 11.1</li>
+</ul>
+<p>If you can’t get my solution working for your own projects, e.g., when it’s based on a more recent environment, it’s quite possible that you need a next-gen tip.</p>
+<h2 id="The-Working-Solution"><a href="#The-Working-Solution" class="headerlink" title="The Working Solution"></a>The Working Solution</h2><p>For the impatient, here is the build script to place in the root folder of your autotool-based project</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#! /bin/sh</span></div><div class="line"></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># Build for iOS 64bit-ARM variants and iOS Simulator</span></div><div class="line"><span class="comment"># - Place the script at project root</span></div><div class="line"><span class="comment"># - Customize MIN_IOS_VERSION and other flags as needed</span></div><div class="line"><span class="comment"># </span></div><div class="line"><span class="comment"># Test Environment</span></div><div class="line"><span class="comment"># - macOS 10.14.6</span></div><div class="line"><span class="comment"># - iOS 13.1</span></div><div class="line"><span class="comment"># - Xcode 11.1</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"HI"</span></div><div class="line"></div><div class="line"><span class="function"><span class="title">Build</span></span>() &#123;</div><div class="line">    <span class="comment"># Ensure -fembed-bitcode builds, as workaround for libtool macOS bug</span></div><div class="line">    <span class="built_in">export</span> MACOSX_DEPLOYMENT_TARGET=<span class="string">"10.4"</span></div><div class="line">    <span class="comment"># Get the correct toolchain for target platforms</span></div><div class="line">    <span class="built_in">export</span> CC=$(xcrun --find --sdk <span class="string">"<span class="variable">$&#123;SDK&#125;</span>"</span> clang)</div><div class="line">    <span class="built_in">export</span> CXX=$(xcrun --find --sdk <span class="string">"<span class="variable">$&#123;SDK&#125;</span>"</span> clang++)</div><div class="line">    <span class="built_in">export</span> CPP=$(xcrun --find --sdk <span class="string">"<span class="variable">$&#123;SDK&#125;</span>"</span> cpp)</div><div class="line">    <span class="built_in">export</span> CFLAGS=<span class="string">"<span class="variable">$&#123;HOST_FLAGS&#125;</span> <span class="variable">$&#123;OPT_FLAGS&#125;</span>"</span></div><div class="line">    <span class="built_in">export</span> CXXFLAGS=<span class="string">"<span class="variable">$&#123;HOST_FLAGS&#125;</span> <span class="variable">$&#123;OPT_FLAGS&#125;</span>"</span></div><div class="line">    <span class="built_in">export</span> LDFLAGS=<span class="string">"<span class="variable">$&#123;HOST_FLAGS&#125;</span>"</span></div><div class="line"></div><div class="line">    EXEC_PREFIX=<span class="string">"<span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM&#125;</span>"</span></div><div class="line">    ./configure \</div><div class="line">        --host=<span class="string">"<span class="variable">$&#123;CHOST&#125;</span>"</span> \</div><div class="line">        --prefix=<span class="string">"<span class="variable">$&#123;PREFIX&#125;</span>"</span> \</div><div class="line">        --exec-prefix=<span class="string">"<span class="variable">$&#123;EXEC_PREFIX&#125;</span>"</span> \</div><div class="line">        --enable-static \</div><div class="line">        --disable-shared  <span class="comment"># Avoid Xcode loading dylibs even when staticlibs exist</span></div><div class="line"></div><div class="line">    make clean</div><div class="line">    mkdir -p <span class="string">"<span class="variable">$&#123;PLATFORMS&#125;</span>"</span> &amp;&gt; /dev/null</div><div class="line">    make V=1 -j<span class="string">"<span class="variable">$&#123;MAKE_JOBS&#125;</span>"</span> --debug=j</div><div class="line">    make install</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment"># Locations</span></div><div class="line">ScriptDir=<span class="string">"<span class="variable">$( cd "$( dirname "$0" )</span>"</span> &amp;&amp; <span class="built_in">pwd</span> )<span class="string">"</span></div><div class="line">cd - &amp;&gt; /dev/null</div><div class="line">PREFIX="<span class="variable">$&#123;ScriptDir&#125;</span><span class="string">"/_build</span></div><div class="line">PLATFORMS="<span class="variable">$&#123;PREFIX&#125;</span><span class="string">"/platforms</span></div><div class="line">UNIVERSAL="<span class="variable">$&#123;PREFIX&#125;</span><span class="string">"/universal</span></div><div class="line"></div><div class="line"># Compiler options</div><div class="line">OPT_FLAGS="-O3 -g3 -fembed-bitcode<span class="string">"</span></div><div class="line">MAKE_JOBS=8</div><div class="line">MIN_IOS_VERSION=8.0</div><div class="line"></div><div class="line"></div><div class="line"># Build for platforms</div><div class="line">SDK="iphoneos<span class="string">"</span></div><div class="line">PLATFORM="arm<span class="string">"</span></div><div class="line">PLATFORM_ARM=<span class="variable">$&#123;PLATFORM&#125;</span></div><div class="line">ARCH_FLAGS="-arch arm64 -arch arm64e<span class="string">"  # -arch armv7 -arch armv7s</span></div><div class="line">HOST_FLAGS="<span class="variable">$&#123;ARCH_FLAGS&#125;</span> -miphoneos-version-min=<span class="variable">$&#123;MIN_IOS_VERSION&#125;</span> -isysroot $(xcrun --sdk <span class="variable">$&#123;SDK&#125;</span> --show-sdk-path)<span class="string">"</span></div><div class="line">CHOST="arm-apple-darwin<span class="string">"</span></div><div class="line">Build</div><div class="line"></div><div class="line"></div><div class="line">SDK="iphonesimulator<span class="string">"</span></div><div class="line">PLATFORM="x86_64-sim<span class="string">"</span></div><div class="line">PLATFORM_ISIM=<span class="variable">$&#123;PLATFORM&#125;</span></div><div class="line">ARCH_FLAGS="-arch x86_64<span class="string">"</span></div><div class="line">HOST_FLAGS="<span class="variable">$&#123;ARCH_FLAGS&#125;</span> -mios-simulator-version-min=<span class="variable">$&#123;MIN_IOS_VERSION&#125;</span> -isysroot $(xcrun --sdk <span class="variable">$&#123;SDK&#125;</span> --show-sdk-path)<span class="string">"</span></div><div class="line">CHOST="x86_64-apple-darwin<span class="string">"</span></div><div class="line">Build</div><div class="line"></div><div class="line"></div><div class="line"># Create universal binary</div><div class="line">cd "<span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM_ARM&#125;</span>/lib<span class="string">"</span></div><div class="line">LIB_NAME=`find . -iname *.a`</div><div class="line">cd -</div><div class="line">mkdir -p "<span class="variable">$&#123;UNIVERSAL&#125;</span><span class="string">" &amp;&gt; /dev/null</span></div><div class="line">lipo -create -output "<span class="variable">$&#123;UNIVERSAL&#125;</span>/<span class="variable">$&#123;LIB_NAME&#125;</span><span class="string">" "</span><span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM_ARM&#125;</span>/lib/<span class="variable">$&#123;LIB_NAME&#125;</span><span class="string">" "</span><span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM_ISIM&#125;</span>/lib/<span class="variable">$&#123;LIB_NAME&#125;</span><span class="string">"</span></div><div class="line"></div><div class="line">echo "BYE<span class="string">"</span></div></pre></td></tr></table></figure>
+<h2 id="The-Expected-Results"><a href="#The-Expected-Results" class="headerlink" title="The Expected Results"></a>The Expected Results</h2><p>Assuming you are at the project root, run the script and you should get:</p>
+<ul>
+<li>The static libs for arm64 family and iOS simulator under <code>./\_build/platforms/&lt;ARCH&gt;/lib</code></li>
+<li>The universal binary for all architectures combined</li>
+</ul>
+<p>Running a <code>lipo</code> check on the universal binary should give you something like these:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ lipo -info /path/to/mylib/_build/arm/lib/libmylib.a</div><div class="line">Architectures <span class="keyword">in</span> the fat file: /path/to/mylib/_build/arm/lib/libmylib.a are: arm64 arm64e</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ lipo -info /path/to/mylib/_build/x86_64-sim/lib/libmylib.a</div><div class="line">Non-fat file: /path/to/mylib/_build/x86_64-sim/lib/libmylib.a is architecture: x86_64</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ lipo -info /path/to/mylib/_build/universal/libmylib.a</div><div class="line">Architectures <span class="keyword">in</span> the fat file: /path/to/mylib/_build/universal/libmylib.a are: x86_64 arm64 arm64e</div></pre></td></tr></table></figure>
+<h2 id="The-Lessons-Learned"><a href="#The-Lessons-Learned" class="headerlink" title="The Lessons Learned"></a>The Lessons Learned</h2><p>I feel obliged to write down the major gotchas that may be help in the future</p>
+<h3 id="Compiler-Executables"><a href="#Compiler-Executables" class="headerlink" title="Compiler Executables"></a>Compiler Executables</h3><p>I lost most of my time to this. I started by using the autotools compiler environment variables this way:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CC=clang</div></pre></td></tr></table></figure>
+<p>I then always ended up with <code>x86_64</code> instead of <code>arm64</code> as my arm builds. The correct way is shown in the solution. Before getting there, I was on the wrong track of distrusting the architecture triplets that I copied from the Internet. I’ve tried numerous triplets, i.e., arch-vendor-os, to no avail. GNU is not famous on giving you a list of standard names that just work. The closest lists I could find are:</p>
+<ul>
+<li><a href="http://git.savannah.gnu.org/cgit/libtool.git/tree/doc/PLATFORMS" target="_blank" rel="external">Libtool platforms</a></li>
+<li><a href="http://llvm.org/doxygen/classllvm_1_1Triple.html" target="_blank" rel="external">LLVM’s llvm::Triple Class</a></li>
+</ul>
+<p>It proved that none of them help with my situation.</p>
+<p> To make it worse, <code>config.guess</code>  always gives me the wrong <code>x86_64</code> as well:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ./config.guess</div><div class="line">x86_64-apple-darwin18.7.0</div></pre></td></tr></table></figure>
+<p>Knowing that autotools is just a wrapper over the real compilers, I’ve also tried to understand how the compiler works behind autotools. I created an Xcode project and watched the IDE build log, hunting for clues on magic flags. This proved useless as well, including the intriguing clang flag <code>-target arm64-apple-ios13.1</code>, not to be confused with the <code>--target</code> flag for <code>configure</code>.</p>
+<p>The cross-compile idea also made me tweak the build/host/target combination over and over, only to find that having <code>--host</code> alone will suffice, the rest is implied by the assigned toolchain variables and flags.</p>
+<h3 id="Bitcode"><a href="#Bitcode" class="headerlink" title="Bitcode"></a>Bitcode</h3><p>Since iOS 9, <a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/AppThinning/AppThinning.html#//apple_ref/doc/uid/TP40012582-CH35-SW2" target="_blank" rel="external">enabling bitcode is required for library providers</a>. However, to enabling bitcode without causing compiler errors such as:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ld: -bind_at_load and -bitcode_bundle (Xcode setting ENABLE_BITCODE=YES) cannot be used together</div></pre></td></tr></table></figure>
+<p>I have to put in a trick to signify the build machine version, which works around a supposed <code>libtool</code> bug:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> MACOSX_DEPLOYMENT_TARGET=<span class="string">"10.4"</span></div></pre></td></tr></table></figure>
+<h3 id="Shared-libs"><a href="#Shared-libs" class="headerlink" title="Shared libs"></a>Shared libs</h3><p>Without adding <code>--disabled-shared</code>, autotools generate both dynamic and static libs for the project. This turns out to cue Xcode to try to load shared libs first (CRASH) even when I have not specified <code>-l</code> for the dylibs. So <code>--disabled-shared</code> is mandatory for using static libs.</p>
+<h2 id="Conclusions"><a href="#Conclusions" class="headerlink" title="Conclusions"></a>Conclusions</h2><p>Autotools-based open-source projects have a long history from Desktop ages. Although the new build systems like CMakes improve the cross-platform build environment,  the mobile devs inevitably bump into dinosaur autotools-based repos, rigged with traps. Patience in research is the only cure, IMHO. </p>
+<p>In Part 2 (schedule TBD), I’ll build a Framework for iOS using autotools.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://stackoverflow.com/q/53121019/987846" target="_blank" rel="external">bitcode</a></li>
+<li><a href="https://stackoverflow.com/q/26812060/987846" target="_blank" rel="external">Compiler Executables</a></li>
+<li><a href="https://stackoverflow.com/questions/15234959/cross-compiling-for-arm-with-autoconf" target="_blank" rel="external">Cross-compile for ARM with Autoconf</a></li>
+<li><a href="https://stackoverflow.com/q/28679461/987846" target="_blank" rel="external">Shared Libs</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://kakyoism.github.io/2019/10/17/Build-a-GNU-Autotools-based-project-for-iOS-Part-1/" data-id="ck1ugc9iz0000knnzjh3dhoya" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/build-iOS/">build, iOS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-你得知道的-Wwise-Launcher" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/08/你得知道的-Wwise-Launcher/" class="article-date">
@@ -180,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/" data-id="cjxufz6ps000cxonztfq0mhsl" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/" data-id="ck1ugc9k0000zknnz6swkir3g" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise-gameaudio/">wwise, gameaudio</a></li></ul>
@@ -225,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2018/02/04/why-cant-i-hear-my-sound/" data-id="cjxufz6pq000bxonzhbhjiiss" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2018/02/04/why-cant-i-hear-my-sound/" data-id="ck1ugc9j80009knnzpm97h8sz" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise/">wwise</a></li></ul>
@@ -350,7 +439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/" data-id="cjxufz6pv000hxonzlzmqauew" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/" data-id="ck1ugc9k10011knnzpxwudm75" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise/">wwise</a></li></ul>
@@ -517,7 +606,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/" data-id="cjxufz6pn0007xonzz4t7c0ay" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/" data-id="ck1ugc9jz000xknnz1qee915y" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise-interactivemusic/">wwise, interactivemusic</a></li></ul>
@@ -561,7 +650,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-Audio-Spatial-Audio-2/" data-id="cjxufz6pd0000xonz4hf8pk1c" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-Audio-Spatial-Audio-2/" data-id="ck1ugc9j20001knnzn56ljes3" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a></li></ul>
@@ -649,7 +738,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-音频见闻（1）-空间音频-Spatial-Audio/" data-id="cjxufz6pg0002xonzdwrr24lt" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-音频见闻（1）-空间音频-Spatial-Audio/" data-id="ck1ugc9j40003knnzkuu6bipi" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a></li></ul>
@@ -696,7 +785,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/01/15/migs-2016/" data-id="cjxufz6pl0006xonznzig4gbt" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/01/15/migs-2016/" data-id="ck1ugc9j70006knnz3z2jnnn2" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/conference/">conference</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/proceduralaudio/">proceduralaudio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverb/">reverb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise/">wwise</a></li></ul>
@@ -741,7 +830,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2016/12/25/Hello-Hexo-你好-Hexo/" data-id="cjxufz6pk0005xonztul3szab" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2016/12/25/Hello-Hexo-你好-Hexo/" data-id="ck1ugc9j60005knnzpfjoyy8m" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
@@ -765,6 +854,10 @@
       <ul>
         
           <li>
+            <a href="/2019/10/17/Build-a-GNU-Autotools-based-project-for-iOS-Part-1/">Building a GNU-Autotools-based project for iOS: Part 1</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/08/你得知道的-Wwise-Launcher/">十条你得知道的 Wwise Launcher 用法（2019 版）</a>
           </li>
         
@@ -778,10 +871,6 @@
         
           <li>
             <a href="/2017/10/29/quick-auditioning-music-transitions/">快速试听 Wwise 互动音乐的过渡</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/13/GDC17-Audio-Spatial-Audio-2/">GDC17 音频见闻 - 空间音频 Spatial Audio（2）</a>
           </li>
         
       </ul>
@@ -803,7 +892,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/conference/">conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proceduralaudio/">proceduralaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reverb/">reverb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise/">wwise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise-gameaudio/">wwise, gameaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise-interactivemusic/">wwise, interactivemusic</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/build-iOS/">build, iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conference/">conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/machinelearning/">machinelearning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/proceduralaudio/">proceduralaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reverb/">reverb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise/">wwise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise-gameaudio/">wwise, gameaudio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wwise-interactivemusic/">wwise, interactivemusic</a></li></ul>
     </div>
   </div>
 
@@ -813,7 +902,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/conference/" style="font-size: 10px;">conference</a> <a href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/" style="font-size: 15px;">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/machinelearning/" style="font-size: 10px;">machinelearning</a> <a href="/tags/proceduralaudio/" style="font-size: 10px;">proceduralaudio</a> <a href="/tags/reverb/" style="font-size: 10px;">reverb</a> <a href="/tags/wwise/" style="font-size: 20px;">wwise</a> <a href="/tags/wwise-gameaudio/" style="font-size: 10px;">wwise, gameaudio</a> <a href="/tags/wwise-interactivemusic/" style="font-size: 10px;">wwise, interactivemusic</a>
+      <a href="/tags/build-iOS/" style="font-size: 10px;">build, iOS</a> <a href="/tags/conference/" style="font-size: 10px;">conference</a> <a href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/" style="font-size: 15px;">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/machinelearning/" style="font-size: 10px;">machinelearning</a> <a href="/tags/proceduralaudio/" style="font-size: 10px;">proceduralaudio</a> <a href="/tags/reverb/" style="font-size: 10px;">reverb</a> <a href="/tags/wwise/" style="font-size: 20px;">wwise</a> <a href="/tags/wwise-gameaudio/" style="font-size: 10px;">wwise, gameaudio</a> <a href="/tags/wwise-interactivemusic/" style="font-size: 10px;">wwise, interactivemusic</a>
     </div>
   </div>
 
@@ -822,7 +911,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li></ul>
     </div>
   </div>
 
