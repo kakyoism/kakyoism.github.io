@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>kkBeep</title>
-  <subtitle>被机器虐</subtitle>
+  <subtitle>被机器虐 Whipped by Machines</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kakyoism.github.io/"/>
@@ -91,7 +91,7 @@
     <link href="http://kakyoism.github.io/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/"/>
     <id>http://kakyoism.github.io/2019/07/08/你得知道的-Wwise-Launcher/</id>
     <published>2019-07-08T11:48:59.000Z</published>
-    <updated>2019-10-17T09:02:54.241Z</updated>
+    <updated>2019-10-17T09:46:31.439Z</updated>
     
     <content type="html"><![CDATA[<p>注：本文基于 2018 年初在 Audiokinetic 公众号上发表的文章《十一条你可能不知道的 Wwise  Launcher 用法》，由作者针对软件更新做了改动，<strong>不影响操作的截图沿用旧版本</strong>。</p>
 <p>本文基于以下环境</p>
@@ -199,7 +199,7 @@
     <link href="http://kakyoism.github.io/2018/02/04/why-cant-i-hear-my-sound/"/>
     <id>http://kakyoism.github.io/2018/02/04/why-cant-i-hear-my-sound/</id>
     <published>2018-02-04T07:31:51.000Z</published>
-    <updated>2019-10-17T09:02:54.240Z</updated>
+    <updated>2019-10-17T09:46:31.438Z</updated>
     
     <content type="html"><![CDATA[<p>本文基于以下软件版本：</p>
 <ul>
@@ -232,7 +232,7 @@
     <link href="http://kakyoism.github.io/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/"/>
     <id>http://kakyoism.github.io/2018/01/04/你所不知道的-Wwise-Launcher/</id>
     <published>2018-01-04T12:05:02.000Z</published>
-    <updated>2019-10-17T09:02:54.339Z</updated>
+    <updated>2019-10-17T09:46:31.527Z</updated>
     
     <content type="html"><![CDATA[<p>本文基于以下软件版本：</p>
 <ul>
@@ -345,7 +345,7 @@
     <link href="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/"/>
     <id>http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/</id>
     <published>2017-10-29T10:23:07.000Z</published>
-    <updated>2019-10-17T09:02:54.219Z</updated>
+    <updated>2019-10-17T09:46:31.422Z</updated>
     
     <content type="html"><![CDATA[<p>本文探讨的所有问题和解决方案都<strong>基于 Wwise 2017.1.x</strong>。不对后续版本负责。</p>
 <h2 id="起因：听一下过渡好难"><a href="#起因：听一下过渡好难" class="headerlink" title="起因：听一下过渡好难"></a>起因：听一下过渡好难</h2><p>利用 Wwise 的互动音乐功能可以用小段音乐编组搭建出动态和互动的曲式和织体，但搭完了之后你还是得用耳朵试听乐段间的过渡，确保衔接在音乐意义上是无缝的。截至 Wwise 2017.1，不少人在这里遇到了麻烦，见下图：</p>
@@ -493,7 +493,7 @@
     <link href="http://kakyoism.github.io/2017/03/13/GDC17-Audio-Spatial-Audio-2/"/>
     <id>http://kakyoism.github.io/2017/03/13/GDC17-Audio-Spatial-Audio-2/</id>
     <published>2017-03-13T09:55:57.000Z</published>
-    <updated>2019-10-17T09:02:54.177Z</updated>
+    <updated>2019-10-17T09:46:31.379Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Wwise-2017-1-的空间音频新功能"><a href="#Wwise-2017-1-的空间音频新功能" class="headerlink" title="Wwise 2017.1 的空间音频新功能"></a>Wwise 2017.1 的空间音频新功能</h2><img src="/2017/03/13/GDC17-Audio-Spatial-Audio-2/sa-wwise-wal.jpg" title="全新 Spatial Audio 测试地图：Wwise Audio Lab">
 <p>上篇说到微软的 Project Triton 未来的方向恰好与 Wwise 2017.1 的一些新功能不谋而合，简单地说，Wwise</p>
@@ -517,7 +517,7 @@
     <link href="http://kakyoism.github.io/2017/03/13/GDC17-%E9%9F%B3%E9%A2%91%E8%A7%81%E9%97%BB%EF%BC%881%EF%BC%89-%E7%A9%BA%E9%97%B4%E9%9F%B3%E9%A2%91-Spatial-Audio/"/>
     <id>http://kakyoism.github.io/2017/03/13/GDC17-音频见闻（1）-空间音频-Spatial-Audio/</id>
     <published>2017-03-13T05:50:33.000Z</published>
-    <updated>2019-10-17T09:02:54.179Z</updated>
+    <updated>2019-10-17T09:46:31.384Z</updated>
     
     <content type="html"><![CDATA[<h2 id="《Gears-of-War-4》中的环境声学预处理技术"><a href="#《Gears-of-War-4》中的环境声学预处理技术" class="headerlink" title="《Gears of War 4》中的环境声学预处理技术"></a>《Gears of War 4》中的环境声学预处理技术</h2><p>继 Binaural 和 Ambisonics 之后，今年 GDC 上的空间音频热门关键字多了<em>混响</em>（Reverberation）、<em>声障和声笼</em>（Obstruction &amp; Occlusion）这些环境声学概念，标志着对沉浸音频体验发起的又一次冲锋。这些游戏音频界的旧瓶里最受瞩目的新酒之一当数微软研究院和《战争机器4》（GoW4）开发组的 <a href="http://schedule.gdconf.com/session/gears-of-war-4-project-triton-pre-computed-environmental-wave-acoustics" target="_blank" rel="external">Project Triton</a>，即通过预先演算声波传播物理参数来辅助人工设计的环境声学效果方案。本次的演讲实际上是微软已启动六年之久系列研究的首次产品化成果。演讲幻灯片<a href="http://www.nikunjr.com/Projects/Triton/Triton-GDC2017.pptx" target="_blank" rel="external">已放出</a>。以下尝试稍加总结。</p>
 <h3 id="成果"><a href="#成果" class="headerlink" title="成果"></a>成果</h3><p>这乍一看很学术范的技术主要是为了解决游戏环境声学设计中的一大痛点：传统设计方法依赖在游戏地图中手工标注或绘制声学区域，再挂接音频效果器来实现室内混响和声障／声笼效果；音频中间件如 Wwise 的效果器控制参数一般是够用的，但在游戏中手工标注的工作量巨大且容易出错，实际开发工期紧，很难打磨调优。</p>
@@ -585,7 +585,7 @@
     <link href="http://kakyoism.github.io/2017/01/15/migs-2016/"/>
     <id>http://kakyoism.github.io/2017/01/15/migs-2016/</id>
     <published>2017-01-15T11:52:13.000Z</published>
-    <updated>2019-10-17T09:02:54.181Z</updated>
+    <updated>2019-10-17T09:46:31.387Z</updated>
     
     <content type="html"><![CDATA[<p>最近一次的<a href="http://www.migs16.com/en/" target="_blank" rel="external">蒙特利尔国际游戏峰会 MIGS 2016</a>过去一阵子了，只有3岁的 MIGS 在规模上无法跟 GDC 这样的老字号相提并论，不过每年还是有些有用的技术演讲，在此追记一下自己去过那几场的要点，主要是音频专场。<a id="more"></a></p>
 <img src="/2017/01/15/migs-2016/migs16-01.jpg">
@@ -673,7 +673,7 @@
     <link href="http://kakyoism.github.io/2016/12/25/Hello-Hexo-%E4%BD%A0%E5%A5%BD-Hexo/"/>
     <id>http://kakyoism.github.io/2016/12/25/Hello-Hexo-你好-Hexo/</id>
     <published>2016-12-25T05:54:17.000Z</published>
-    <updated>2019-10-17T09:02:54.181Z</updated>
+    <updated>2019-10-17T09:46:31.387Z</updated>
     
     <content type="html"><![CDATA[<p>之前玩公众号，但发现在引用外链和离线写作方面有限制。很多时候我期待的是自由外链引用、离线为主、一键发布、迭代迁移方便的博客流程。</p>
 <p>GitHub 的静态站点系统 <a href="https://pages.github.com" target="_blank" rel="external">GitHub Pages</a> 支持按照软件开发流程来管理博客，通过纯文本标记格式比如 <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="external">Markdown</a> 写作存为本地文件，再一键发布到远程。</p>
