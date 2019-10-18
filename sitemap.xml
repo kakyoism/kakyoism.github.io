@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://kakyoism.github.io/2019/10/17/Build-a-GNU-Autotools-based-project-for-iOS-Part-1/</loc>
+    
+    <lastmod>2019-10-18T01:56:11.645Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://kakyoism.github.io/about/index.html</loc>
     
     <lastmod>2019-10-17T10:26:23.757Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>http://kakyoism.github.io/2017/03/13/GDC17-Audio-Spatial-Audio-2/</loc>
     
     <lastmod>2019-10-17T10:26:23.449Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://kakyoism.github.io/2019/10/17/Build-a-GNU-Autotools-based-project-for-iOS-Part-1/</loc>
-    
-    <lastmod>2019-10-17T09:12:41.349Z</lastmod>
     
   </url>
   

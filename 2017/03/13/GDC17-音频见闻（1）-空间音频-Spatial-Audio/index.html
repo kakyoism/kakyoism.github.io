@@ -116,6 +116,7 @@ ga('send', 'pageview');
 <p>不巧，玩家极易通过生活经验察觉这类设计错误，后果严重，参见《刺客信条：大革命》中曾出现的<a href="http://forums.ubi.com/showthread.php/973716-AC-Unity-Sound-Bug-Forums" target="_blank" rel="noopener">全局 bug</a>。音频设计界早就希望能像物理渲染界一样自动化这个过程，为创意设计赢得时间。</p>
 <p>演讲中放出的<em>最终</em>解决方案：</p>
 <img src="/2017/03/13/GDC17-%E9%9F%B3%E9%A2%91%E8%A7%81%E9%97%BB%EF%BC%881%EF%BC%89-%E7%A9%BA%E9%97%B4%E9%9F%B3%E9%A2%91-Spatial-Audio/sa-triton-game-integration.jpg" class="" title="Triton 系统整合示意图">
+
 <ul>
 <li>离线预处理：在游戏地图中自动选取采样位置，对各个位置上的发声体-听者结对（emitter-listener pair）根据几何数据自动做 3D 声波传播模拟并生成原始声学数据库；</li>
 <li>解析：从原始声学数据自动提炼出一组感知参数值：直达波能量、反射波能量、反射波衰减率（wetness）和混响衰减率；</li>
@@ -130,6 +131,7 @@ ga('send', 'pageview');
 </ul>
 <h3 id="经历"><a href="#经历" class="headerlink" title="经历"></a>经历</h3><p>很多学术报告大概也就到此为止了，让一部分听众感觉高山仰止，另一部分不知所云。然而这次两位主讲人–微软研究院的 Nikunj Raghuvanshi 和 Coalition 工作室的 John Tennant –继续披露了研发和产品化的详细经过，以机器人领域的<a href="http://baike.baidu.com/item/恐怖谷理论" target="_blank" rel="noopener"><em>恐怖谷</em></a>现象为纲，讲述了从真实到艺术真实的探索（微信游戏音频群里尾巴老师语），体现了对基础研究和产品化过程深刻的理解，是演讲中我个人最喜欢的部分。</p>
 <img src="/2017/03/13/GDC17-%E9%9F%B3%E9%A2%91%E8%A7%81%E9%97%BB%EF%BC%881%EF%BC%89-%E7%A9%BA%E9%97%B4%E9%9F%B3%E9%A2%91-Spatial-Audio/sa-triton-uncanny-valley.jpg" class="">
+
 <p>从 2011 年的 V1.0 到 2014 年的 V2.0 直到最终版，项目经历了标准的恐怖谷历程：</p>
 <ol>
 <li>V1.0 中初尝预处理甜头后，发现一些问题亟待解决，比如区分室内外和消除混响效果中的浑浊；</li>
@@ -161,7 +163,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-%E9%9F%B3%E9%A2%91%E8%A7%81%E9%97%BB%EF%BC%881%EF%BC%89-%E7%A9%BA%E9%97%B4%E9%9F%B3%E9%A2%91-Spatial-Audio/" data-id="ck1ukdruz0004qanz2pvh3kh5" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-%E9%9F%B3%E9%A2%91%E8%A7%81%E9%97%BB%EF%BC%881%EF%BC%89-%E7%A9%BA%E9%97%B4%E9%9F%B3%E9%A2%91-Spatial-Audio/" data-id="ck1ukr7sr0006xwnzf1i0cid0" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/" rel="tag">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a></li></ul>

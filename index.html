@@ -102,12 +102,13 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>The open-source movement started in the middle of the Desktop domination, which could explain why there are much fewer resources in the mobile wild.<br>Recently I tried to build a few renowned C/C++ open-source projects for iOS, only to find that:</p>
+        <p>The open-source movement started way before the rise of the mobile scene, leaving enormous great free libraries and components lying around. Lots of the reusable codebases are usually only “a build away” from becoming mobile-ready. One of the most popular build systems for the open-source projects is GNU Autotools.</p>
+<p>Recently I tried to build a few renowned C/C++ open-source projects for iOS, only to find that:</p>
 <ol>
 <li>Nothing works out of the box;</li>
 <li>The scattered info on the Internet is often inconsistent or out of date.</li>
 </ol>
-<p>… familiar pattern for a platform with breaking changes every so often, keeping everyone busy and unable to document things tightly. But here is my $0.02. Hope it’ll help me and someone who got bruises out of trials-and-errors.</p>
+<p>… familiar pattern for a platform with breaking changes every so often, keeping everyone busy and unable to document things tightly. But here is my $0.02. Hope it’ll help folks who got bruises out of trials-and-errors.</p>
 <p>In Part 1, I’ll focus on building static libs for iOS.</p>
 <h2 id="The-Environment"><a href="#The-Environment" class="headerlink" title="The Environment"></a>The Environment</h2><p>Check my setup before getting excited. You know why, having tried and failed upon many StackOverflow tips.</p>
 <ul>
@@ -118,6 +119,8 @@ ga('send', 'pageview');
 <p>If you can’t get my solution working for your own projects, e.g., when it’s based on a more recent environment, it’s quite possible that you need a next-gen tip.</p>
 <h2 id="The-Working-Solution"><a href="#The-Working-Solution" class="headerlink" title="The Working Solution"></a>The Working Solution</h2><p>For the impatient, here is the build script to place in the root folder of your autotool-based project</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Build for iOS 64bit-ARM variants and iOS Simulator</span></span><br><span class="line"><span class="comment"># - Place the script at project root</span></span><br><span class="line"><span class="comment"># - Customize MIN_IOS_VERSION and other flags as needed</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># Test Environment</span></span><br><span class="line"><span class="comment"># - macOS 10.14.6</span></span><br><span class="line"><span class="comment"># - iOS 13.1</span></span><br><span class="line"><span class="comment"># - Xcode 11.1</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">Build</span></span>() &#123;</span><br><span class="line">    <span class="comment"># Ensure -fembed-bitcode builds, as workaround for libtool macOS bug</span></span><br><span class="line">    <span class="built_in">export</span> MACOSX_DEPLOYMENT_TARGET=<span class="string">"10.4"</span></span><br><span class="line">    <span class="comment"># Get the correct toolchain for target platforms</span></span><br><span class="line">    <span class="built_in">export</span> CC=$(xcrun --find --sdk <span class="string">"<span class="variable">$&#123;SDK&#125;</span>"</span> clang)</span><br><span class="line">    <span class="built_in">export</span> CXX=$(xcrun --find --sdk <span class="string">"<span class="variable">$&#123;SDK&#125;</span>"</span> clang++)</span><br><span class="line">    <span class="built_in">export</span> CPP=$(xcrun --find --sdk <span class="string">"<span class="variable">$&#123;SDK&#125;</span>"</span> cpp)</span><br><span class="line">    <span class="built_in">export</span> CFLAGS=<span class="string">"<span class="variable">$&#123;HOST_FLAGS&#125;</span> <span class="variable">$&#123;OPT_FLAGS&#125;</span>"</span></span><br><span class="line">    <span class="built_in">export</span> CXXFLAGS=<span class="string">"<span class="variable">$&#123;HOST_FLAGS&#125;</span> <span class="variable">$&#123;OPT_FLAGS&#125;</span>"</span></span><br><span class="line">    <span class="built_in">export</span> LDFLAGS=<span class="string">"<span class="variable">$&#123;HOST_FLAGS&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    EXEC_PREFIX=<span class="string">"<span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM&#125;</span>"</span></span><br><span class="line">    ./configure \</span><br><span class="line">        --host=<span class="string">"<span class="variable">$&#123;CHOST&#125;</span>"</span> \</span><br><span class="line">        --prefix=<span class="string">"<span class="variable">$&#123;PREFIX&#125;</span>"</span> \</span><br><span class="line">        --<span class="built_in">exec</span>-prefix=<span class="string">"<span class="variable">$&#123;EXEC_PREFIX&#125;</span>"</span> \</span><br><span class="line">        --<span class="built_in">enable</span>-static \</span><br><span class="line">        --<span class="built_in">disable</span>-shared  <span class="comment"># Avoid Xcode loading dylibs even when staticlibs exist</span></span><br><span class="line"></span><br><span class="line">    make clean</span><br><span class="line">    mkdir -p <span class="string">"<span class="variable">$&#123;PLATFORMS&#125;</span>"</span> &amp;&gt; /dev/null</span><br><span class="line">    make V=1 -j<span class="string">"<span class="variable">$&#123;MAKE_JOBS&#125;</span>"</span> --debug=j</span><br><span class="line">    make install</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"HI"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Locations</span></span><br><span class="line">ScriptDir=<span class="string">"<span class="variable">$( cd "$( dirname "$0" )</span>"</span> &amp;&amp; <span class="built_in">pwd</span> )<span class="string">"</span></span><br><span class="line"><span class="string">cd - &amp;&gt; /dev/null</span></span><br><span class="line"><span class="string">PREFIX="</span><span class="variable">$&#123;ScriptDir&#125;</span><span class="string">"/_build</span></span><br><span class="line"><span class="string">PLATFORMS="</span><span class="variable">$&#123;PREFIX&#125;</span><span class="string">"/platforms</span></span><br><span class="line"><span class="string">UNIVERSAL="</span><span class="variable">$&#123;PREFIX&#125;</span><span class="string">"/universal</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Compiler options</span></span><br><span class="line"><span class="string">OPT_FLAGS="</span>-O3 -g3 -fembed-bitcode<span class="string">"</span></span><br><span class="line"><span class="string">MAKE_JOBS=8</span></span><br><span class="line"><span class="string">MIN_IOS_VERSION=8.0</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Build for platforms</span></span><br><span class="line"><span class="string">SDK="</span>iphoneos<span class="string">"</span></span><br><span class="line"><span class="string">PLATFORM="</span>arm<span class="string">"</span></span><br><span class="line"><span class="string">PLATFORM_ARM=<span class="variable">$&#123;PLATFORM&#125;</span></span></span><br><span class="line"><span class="string">ARCH_FLAGS="</span>-arch arm64 -arch arm64e<span class="string">"  # -arch armv7 -arch armv7s</span></span><br><span class="line"><span class="string">HOST_FLAGS="</span><span class="variable">$&#123;ARCH_FLAGS&#125;</span> -miphoneos-version-min=<span class="variable">$&#123;MIN_IOS_VERSION&#125;</span> -isysroot $(xcrun --sdk <span class="variable">$&#123;SDK&#125;</span> --show-sdk-path)<span class="string">"</span></span><br><span class="line"><span class="string">CHOST="</span>arm-apple-darwin<span class="string">"</span></span><br><span class="line"><span class="string">Build</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">SDK="</span>iphonesimulator<span class="string">"</span></span><br><span class="line"><span class="string">PLATFORM="</span>x86_64-sim<span class="string">"</span></span><br><span class="line"><span class="string">PLATFORM_ISIM=<span class="variable">$&#123;PLATFORM&#125;</span></span></span><br><span class="line"><span class="string">ARCH_FLAGS="</span>-arch x86_64<span class="string">"</span></span><br><span class="line"><span class="string">HOST_FLAGS="</span><span class="variable">$&#123;ARCH_FLAGS&#125;</span> -mios-simulator-version-min=<span class="variable">$&#123;MIN_IOS_VERSION&#125;</span> -isysroot $(xcrun --sdk <span class="variable">$&#123;SDK&#125;</span> --show-sdk-path)<span class="string">"</span></span><br><span class="line"><span class="string">CHOST="</span>x86_64-apple-darwin<span class="string">"</span></span><br><span class="line"><span class="string">Build</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Create universal binary</span></span><br><span class="line"><span class="string">cd "</span><span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM_ARM&#125;</span>/lib<span class="string">"</span></span><br><span class="line"><span class="string">LIB_NAME=`find . -iname *.a`</span></span><br><span class="line"><span class="string">cd -</span></span><br><span class="line"><span class="string">mkdir -p "</span><span class="variable">$&#123;UNIVERSAL&#125;</span><span class="string">" &amp;&gt; /dev/null</span></span><br><span class="line"><span class="string">lipo -create -output "</span><span class="variable">$&#123;UNIVERSAL&#125;</span>/<span class="variable">$&#123;LIB_NAME&#125;</span><span class="string">" "</span><span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM_ARM&#125;</span>/lib/<span class="variable">$&#123;LIB_NAME&#125;</span><span class="string">" "</span><span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM_ISIM&#125;</span>/lib/<span class="variable">$&#123;LIB_NAME&#125;</span><span class="string">"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">echo "</span>BYE<span class="string">"</span></span><br></pre></td></tr></table></figure>
+
+
 <h2 id="The-Expected-Results"><a href="#The-Expected-Results" class="headerlink" title="The Expected Results"></a>The Expected Results</h2><p>Assuming you are at the project root, run the script and you should get:</p>
 <ul>
 <li>The static libs for arm64 family and iOS simulator under <code>./\_build/platforms/&lt;ARCH&gt;/lib</code></li>
@@ -125,11 +128,15 @@ ga('send', 'pageview');
 </ul>
 <p>Running a <code>lipo</code> check on the universal binary should give you something like these:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lipo -info /path/to/mylib/_build/arm/lib/libmylib.a</span><br><span class="line">Architectures <span class="keyword">in</span> the fat file: /path/to/mylib/_build/arm/lib/libmylib.a are: arm64 arm64e</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lipo -info /path/to/mylib/_build/x86_64-sim/lib/libmylib.a</span><br><span class="line">Non-fat file: /path/to/mylib/_build/x86_64-sim/lib/libmylib.a is architecture: x86_64</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lipo -info /path/to/mylib/_build/universal/libmylib.a</span><br><span class="line">Architectures <span class="keyword">in</span> the fat file: /path/to/mylib/_build/universal/libmylib.a are: x86_64 arm64 arm64e</span><br></pre></td></tr></table></figure>
+
 <h2 id="The-Lessons-Learned"><a href="#The-Lessons-Learned" class="headerlink" title="The Lessons Learned"></a>The Lessons Learned</h2><p>I feel obliged to write down the major gotchas that may be help in the future</p>
 <h3 id="Compiler-Executables"><a href="#Compiler-Executables" class="headerlink" title="Compiler Executables"></a>Compiler Executables</h3><p>I lost most of my time to this. I started by using the autotools compiler environment variables this way:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CC=clang</span><br></pre></td></tr></table></figure>
+
 <p>I then always ended up with <code>x86_64</code> instead of <code>arm64</code> as my arm builds. The correct way is shown in the solution. Before getting there, I was on the wrong track of distrusting the architecture triplets that I copied from the Internet. I’ve tried numerous triplets, i.e., arch-vendor-os, to no avail. GNU is not famous on giving you a list of standard names that just work. The closest lists I could find are:</p>
 <ul>
 <li><a href="http://git.savannah.gnu.org/cgit/libtool.git/tree/doc/PLATFORMS" target="_blank" rel="noopener">Libtool platforms</a></li>
@@ -138,14 +145,17 @@ ga('send', 'pageview');
 <p>It proved that none of them help with my situation.</p>
 <p> To make it worse, <code>config.guess</code>  always gives me the wrong <code>x86_64</code> as well:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./config.guess</span><br><span class="line">x86_64-apple-darwin18.7.0</span><br></pre></td></tr></table></figure>
+
 <p>Knowing that autotools is just a wrapper over the real compilers, I’ve also tried to understand how the compiler works behind autotools. I created an Xcode project and watched the IDE build log, hunting for clues on magic flags. This proved useless as well, including the intriguing clang flag <code>-target arm64-apple-ios13.1</code>, not to be confused with the <code>--target</code> flag for <code>configure</code>.</p>
 <p>The cross-compile idea also made me tweak the build/host/target combination over and over, only to find that having <code>--host</code> alone will suffice, the rest is implied by the assigned toolchain variables and flags.</p>
 <h3 id="Bitcode"><a href="#Bitcode" class="headerlink" title="Bitcode"></a>Bitcode</h3><p>Since iOS 9, <a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/AppThinning/AppThinning.html#//apple_ref/doc/uid/TP40012582-CH35-SW2" target="_blank" rel="noopener">enabling bitcode is required for library providers</a>. However, to enabling bitcode without causing compiler errors such as:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ld: -bind_at_load and -bitcode_bundle (Xcode setting ENABLE_BITCODE=YES) cannot be used together</span><br></pre></td></tr></table></figure>
+
 <p>I have to put in a trick to signify the build machine version, which works around a supposed <code>libtool</code> bug:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> MACOSX_DEPLOYMENT_TARGET=<span class="string">"10.4"</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="Shared-libs"><a href="#Shared-libs" class="headerlink" title="Shared libs"></a>Shared libs</h3><p>Without adding <code>--disabled-shared</code>, autotools generate both dynamic and static libs for the project. This turns out to cue Xcode to try to load shared libs first (CRASH) even when I have not specified <code>-l</code> for the dylibs. So <code>--disabled-shared</code> is mandatory for using static libs.</p>
-<h2 id="Conclusions"><a href="#Conclusions" class="headerlink" title="Conclusions"></a>Conclusions</h2><p>Autotools-based open-source projects have a long history from Desktop ages. Although the new build systems like CMakes improve the cross-platform build environment,  the mobile devs inevitably bump into dinosaur autotools-based repos, rigged with traps. Patience in research is the only cure, IMHO. </p>
+<h2 id="Conclusions"><a href="#Conclusions" class="headerlink" title="Conclusions"></a>Conclusions</h2><p>Autotools try to hide away compiler and OS details behind the magic <code>configure</code> command and its obscure options. In the Desktop era, the dirty work was done so well that all I needed was following the default trilogy steps. It’s only when I get down to the biz myself that I realize what it takes to support a new platform. Although the new build systems like CMakes improve the cross-platform build environment,  the mobile devs inevitably bump into dinosaur autotools-based codebases, rigged with traps. Patience in research is the only cure, IMHO. </p>
 <p>In Part 2 (schedule TBD), I’ll build a Framework for iOS using autotools.</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
 <li><a href="https://stackoverflow.com/q/53121019/987846" target="_blank" rel="noopener">bitcode</a></li>
@@ -157,7 +167,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2019/10/17/Build-a-GNU-Autotools-based-project-for-iOS-Part-1/" data-id="ck1ukdrus0000qanzhisc8ucm" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2019/10/17/Build-a-GNU-Autotools-based-project-for-iOS-Part-1/" data-id="ck1ukr7sh0000xwnz0acw6uhs" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/build-iOS/" rel="tag">build, iOS</a></li></ul>
@@ -199,81 +209,114 @@ ga('send', 'pageview');
 <li>macOS Mojave 10.14.5</li>
 </ul>
 <p>从 2016 年起，你在 Audiokinetic 官网点击下载 Wwise 的时候，实际上下载的是 Wwise Launcher（下文简称 Launcher），后来你就习惯用 Launcher 来下载更新 Wwise 了。你还学会了用它管理本机上的多个工程和 Wwise 版本，对吧？但对新手，Launcher 可能还有不明显的功能和注意事项对你会很有用，本文初版一年多后，我们再来梳理一下吧！</p>
-<h2 id="1-Wwise-Launcher-有权威参考资料吗？"><a href="#1-Wwise-Launcher-有权威参考资料吗？" class="headerlink" title="1. Wwise Launcher 有权威参考资料吗？"></a>1. Wwise Launcher 有权威参考资料吗？</h2><p>如今我们有了详细的<a href="https://www.audiokinetic.com/library/edge/?source=InstallGuide&amp;id=the_wwise_launcher" target="_blank" rel="noopener">官方图文文档</a>，可从 Launcher 的<code>？</code>页菜单项<code></code>Wwise Launcher Documentation`直达，本文中的许多内容已可在文档中找到。不过在本文写作时，文档只有英文版，零星信息尚未与最新软件版本同步，因此下文还会给出必要的向导。英文自信的同学扫读本文即可。</p>
-<h2 id="2-程序员：哪里有-Wwise-集成／整合方面的例程？"><a href="#2-程序员：哪里有-Wwise-集成／整合方面的例程？" class="headerlink" title="2. 程序员：哪里有 Wwise 集成／整合方面的例程？"></a>2. 程序员：哪里有 Wwise 集成／整合方面的例程？</h2><p>我们可以通过 Launcher 来安装 Wwise 的<a href="https://www.audiokinetic.com/library/edge/?source=SDK&amp;id=soundengine__integration__samplecode.html" target="_blank" rel="noopener"><code>IntegrationDemo</code></a>。如果我们已经安装了 Wwise，但是没有找到这个 Demo，则需要打开 Launcher，找到<code>WWISE</code>页上我们的目标版本，然后修改安装。</p>
+<h2 id="1-Wwise-Launcher-有权威参考资料吗？"><a href="#1-Wwise-Launcher-有权威参考资料吗？" class="headerlink" title="1. Wwise Launcher 有权威参考资料吗？"></a>1. Wwise Launcher 有权威参考资料吗？</h2><p>如今我们有了详细的<a href="https://www.audiokinetic.com/library/edge/?source=InstallGuide&id=the_wwise_launcher" target="_blank" rel="noopener">官方图文文档</a>，可从 Launcher 的<code>？</code>页菜单项``Wwise Launcher Documentation`直达，本文中的许多内容已可在文档中找到。不过在本文写作时，文档只有英文版，零星信息尚未与最新软件版本同步，因此下文还会给出必要的向导。英文自信的同学扫读本文即可。</p>
+<h2 id="2-程序员：哪里有-Wwise-集成／整合方面的例程？"><a href="#2-程序员：哪里有-Wwise-集成／整合方面的例程？" class="headerlink" title="2. 程序员：哪里有 Wwise 集成／整合方面的例程？"></a>2. 程序员：哪里有 Wwise 集成／整合方面的例程？</h2><p>我们可以通过 Launcher 来安装 Wwise 的<a href="https://www.audiokinetic.com/library/edge/?source=SDK&id=soundengine__integration__samplecode.html" target="_blank" rel="noopener"><code>IntegrationDemo</code></a>。如果我们已经安装了 Wwise，但是没有找到这个 Demo，则需要打开 Launcher，找到<code>WWISE</code>页上我们的目标版本，然后修改安装。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/modify-installs.jpg" class="">
+
 <p>勾选左边选项框中的<code>SDK (C++)</code>，和右边的目标平台。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/install-sdk-demos.jpg" class="">
+
 <p>之后点击<code>Install...</code>开始安装。安装结束后切换到<code>SAMPLES</code>页，选中正确的 Wwise 版本（图中为<code>2017.1.4</code>），便可以看到<code>IntegrationDemo</code>了。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/samples-demos.jpg" class="">
+
 <p>如果想运行 Demo，则直接点击<code>Run IntegrationDemo</code>；如果想打开对应的 Wwise 工程检查或修改声音设计内容，那么点击<code>Open in Wwise</code>。</p>
 <p>如果想打开源码工程，则点击左边按钮的下拉菜单，之后打开 Demo 所在文件夹，</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/open-demo-code-projects.jpg" class="">
+
 <p>通过文件系统打开对应平台的子文件夹，找到并打开 IDE 工程文件。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/open-demo-code-project-2s.jpg" class="">
-<p>在研究 IntegrationDemo 的时候，推荐对照<a href="https://www.audiokinetic.com/library/edge/?source=SDK&amp;id=index.html" target="_blank" rel="noopener"><code>Wwise SDK Help</code></a>文档来学习，特别是<code>声音引擎集成纵览</code>一节。</p>
+
+<p>在研究 IntegrationDemo 的时候，推荐对照<a href="https://www.audiokinetic.com/library/edge/?source=SDK&id=index.html" target="_blank" rel="noopener"><code>Wwise SDK Help</code></a>文档来学习，特别是<code>声音引擎集成纵览</code>一节。</p>
 <p>不论我们的项目用的是自研引擎还是商业引擎，<code>IntegrationDemo</code>都是我们学习 Wwise 整合代码最好的帮手。这是因为<code>IntegrationDemo</code>是 Wwise SDK 的一部分，Audiokinetic 会持续维护测试这组例程和对应的 Wwise 工程；每当有重要的新功能时，该 Demo 中一般会加入新功能演示。</p>
 <p>更重要的是，假如我们的项目出现了奇怪的问题，开始怀疑是不是 Wwise 的 bug 时，可以首先尝试用 IntegrationDemo 来对照重现问题，Demo 提供的简化环境经过了反复测试，有助于隔离发现应用端的整合问题。Demo 中重现不了的问题往往会暴露出用户端的使用不当。</p>
 <h2 id="2-我们公司大部分机器在内网，怎么安装-Wwise？"><a href="#2-我们公司大部分机器在内网，怎么安装-Wwise？" class="headerlink" title="2. 我们公司大部分机器在内网，怎么安装 Wwise？"></a>2. 我们公司大部分机器在内网，怎么安装 Wwise？</h2><p>我们可以用某台外网机安装需要的 Wwise 组件，然后通过 Launcher 制作离线安装包给内网机使用：</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/offline-installers.jpg" class="">
+
 <p>添加插件为单独步骤，在制作离线包时注意勾选所有需要的插件。</p>
 <p>做好的离线包除了组件文件夹<code>bundle</code>外，会自带一个配套的 Launcher 安装包：</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/offline-installer-2s.jpg" class="">
+
 <p>最后将离线安装包发送到各台内网机上，在内网机上分别装好包里自带的 Launcher，再打开 Launcher 定位到离线包来安装。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/offline-installer-3s.jpg" class="">
+
 <p>注意：Windows 版的 Launcher 只能安装 Windows 版的设计工具，Mac 版类似。</p>
 <h2 id="3-我下载安装了-Wwise，但是我的工程在生成-SoundBank-时报错，说最多只能使用-200-个声音文件，怎么办？"><a href="#3-我下载安装了-Wwise，但是我的工程在生成-SoundBank-时报错，说最多只能使用-200-个声音文件，怎么办？" class="headerlink" title="3. 我下载安装了 Wwise，但是我的工程在生成 SoundBank 时报错，说最多只能使用 200 个声音文件，怎么办？"></a>3. 我下载安装了 Wwise，但是我的工程在生成 SoundBank 时报错，说最多只能使用 200 个声音文件，怎么办？</h2><p>这说明我们的工程没有添加合适的 Wwise 授权码。我们需要打开 Launcher，<strong>登录我们的 Audiokinetic 账号</strong>，在<code>PROJECTS</code>页找到我们的 Wwise 工程，点击钥匙状按钮，接着我们有两个选择：</p>
 <p>1）注册新项目，并等待 Audiokinetic 商务联系人批准项目注册并接收系统邮件取得授权码。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/project-licenses.jpg" class="">
+
 <p>这时我们会来到官网项目注册页面，需要根据向导填好所有信息并提交申请。之后如果确信申请通过了但没有收到系统邮件，则最好检查一下垃圾邮箱。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/project-license-2s.jpg" class="">
+
 <p>2）如果我们的项目确定已经注册了，只是没有导入授权码，则需要注意：每个 Wwise 项目在 Audiokinetic 官网上都有若干管理员（Wwise Project Leader)，他们一般是我们自己项目团队的成员。可以联系管理员把我们的 Audiokinetic 账号加入该项目，之后便可以在 Launcher 里工程的<code>Set Project License</code>菜单中找到对应的项目授权码并授权项目了，<strong>做授权码导入操作时要确保关闭已经打开的工程</strong>。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/project-licenses-2.jpg" class="">
+
+
+
 <h2 id="4-如何安装-Unity-集成？"><a href="#4-如何安装-Unity-集成？" class="headerlink" title="4. 如何安装 Unity 集成？"></a>4. 如何安装 Unity 集成？</h2><p>假设我们的电脑上已经装了 Unity，并且创建了 Unity 工程，而我们现在想给其中某个 Unity 工程安装 Wwise 集成。这时我们需要来到 Launcher 的<code>UNITY</code>页，点开顶部菜单的浏览按钮：</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/unity-browse-projects.jpg" class="">
+
 <p>选中目标 Unity 工程并确认后，在<code>UNITY</code>页的工程列表里就能看到这个工程了。接下来我们有两个选择：</p>
 <p>1）直接从官网下载 Unity 集成并同时安装，</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/unity-integrates.jpg" class="">
+
 <p>2）先下载离线安装包，</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/unity-offline-1s.jpg" class="">
+
 <p>然后通过 Launcher 手动安装。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/unity-offline-2s.jpg" class="">
-<p>注意，无论用哪种方法，安装期间必须<strong>关闭所有打开的 Unity 编辑器</strong>。如果需要定制 Unity 集成，可以在离线安装包中解压出源码包，再<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=pg__building.html" target="_blank" rel="noopener">重新编译 Unity 集成</a>。</p>
+
+<p>注意，无论用哪种方法，安装期间必须<strong>关闭所有打开的 Unity 编辑器</strong>。如果需要定制 Unity 集成，可以在离线安装包中解压出源码包，再<a href="https://www.audiokinetic.com/library/edge/?source=Unity&id=pg__building.html" target="_blank" rel="noopener">重新编译 Unity 集成</a>。</p>
 <p>Unreal Engine 的安装方法与此类似，在<code>UNREAL ENGINE</code>页中完成。</p>
 <h2 id="5-新手怎么学习-Unity-和-Unreal-Engine-集成？"><a href="#5-新手怎么学习-Unity-和-Unreal-Engine-集成？" class="headerlink" title="5. 新手怎么学习 Unity 和 Unreal Engine 集成？"></a>5. 新手怎么学习 Unity 和 Unreal Engine 集成？</h2><p>学习 Unity 集成有两个选择：</p>
-<p>1）通过 Launcher 安装运行 Unity 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=main.html" target="_blank" rel="noopener">官方文档</a>学习。</p>
+<p>1）通过 Launcher 安装运行 Unity 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=Unity&id=main.html" target="_blank" rel="noopener">官方文档</a>学习。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/unity-demos.jpg" class="">
+
 <p>2）通过<a href="https://www.audiokinetic.com/learn/certifications/" target="_blank" rel="noopener">官方免费的认证课程系列</a> 中的 Wwise-301 （以及 Wwise-251 中的一部分）学习，对 Wwise 新手而言这一般意味着你要先学习入门课程 Wwise-101，但可能很多过来人都会告诉你，这是值得的，别问我为什么知道 ^_*</p>
 <p>学习 Unreal 集成， 我们也有两个选择：</p>
-<p>1）通过 Launcher 的<code>UNREAL ENGINE</code>页安装运行 Unreal 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=UE4&amp;id=index.html" target="_blank" rel="noopener">官方文档</a>学习。</p>
+<p>1）通过 Launcher 的<code>UNREAL ENGINE</code>页安装运行 Unreal 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=UE4&id=index.html" target="_blank" rel="noopener">官方文档</a>学习。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/unreal-demos.jpg" class="">
+
 <p>2）通过 Launcher 安装运行 Wwise 的空间音频 Demo：Wwise Audio Lab</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/wal-1s.jpg" class="">
+
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/wal-2s.jpg" class="">
+
+
+
 <h2 id="6-我网速慢，看在线文档不方便，如何在本地查看-Wwise-的音频设计和程序整合文档？"><a href="#6-我网速慢，看在线文档不方便，如何在本地查看-Wwise-的音频设计和程序整合文档？" class="headerlink" title="6. 我网速慢，看在线文档不方便，如何在本地查看 Wwise 的音频设计和程序整合文档？"></a>6. 我网速慢，看在线文档不方便，如何在本地查看 Wwise 的音频设计和程序整合文档？</h2><p>我们可以通过 Launcher 安装离线文档，注意要选择想要的平台。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/offline-doc-1s.jpg" class="">
+
 <p>之后就可以在<code>WWISE</code>页的对应 Wwise 版本下找到各个平台对应的多语言离线文档了。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/offline-doc-2s.jpg" class="">
+
 <p>容易忽略的是：Unity 和 Unreal Engine 集成的离线包中自带了离线文档（<code>.chm</code> 和<code>.html</code>包），解包时不要错过哦～</p>
 <h2 id="7-我感觉碰到了一个-Wwise-的-Bug，该怎么上报？"><a href="#7-我感觉碰到了一个-Wwise-的-Bug，该怎么上报？" class="headerlink" title="7.我感觉碰到了一个 Wwise 的 Bug，该怎么上报？"></a>7.我感觉碰到了一个 Wwise 的 Bug，该怎么上报？</h2><p>我们可以去<code>?</code>页的<code>About</code>，点击<code>Report a Bug...</code>，接着根据向导提供必要信息确认上传即可，支持上传截图、Wwise 工程 zip 包和普通 zip 包。汇报成功后，你会看到类似下图的截图，别问我怎么知道的 :P</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/wwise-bug-report.png" class="">
+
+
+
 <h2 id="8-Launcher-在安装中出现错误或者操作失败怎么办？"><a href="#8-Launcher-在安装中出现错误或者操作失败怎么办？" class="headerlink" title="8. Launcher 在安装中出现错误或者操作失败怎么办？"></a>8. Launcher 在安装中出现错误或者操作失败怎么办？</h2><p>我们可以去<code>?</code>页的<code>About Wwise Launcher...</code>，</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/log-1s.jpg" class="">
+
 <p>找到 Launcher 的完整日志，</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/log-2s.jpg" class="">
+
 <p>然后想办法汇报给 Audiokinetic 的项目技术支持或<a href="https://www.audiokinetic.com/qa/" target="_blank" rel="noopener">社区问答论坛</a>，或者如果你确信是 Bug，参见上一条。</p>
 <p>最常见的问题是网络问题，出这类问题的时候如果开了 VPN，则可以尝试关闭了 VPN 再使用 Launcher。</p>
 <p>有一类特殊问题是通过 Launcher 安装和升级 Unity 集成的时候失败了，这时怎么办呢？</p>
-<p>首先我们需要根据<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=pg__releasenotes.html" target="_blank" rel="noopener">Unity 集成版本说明</a>来确认要安装的 Wwise 版本对应支持的 Unity 版本。</p>
+<p>首先我们需要根据<a href="https://www.audiokinetic.com/library/edge/?source=Unity&id=pg__releasenotes.html" target="_blank" rel="noopener">Unity 集成版本说明</a>来确认要安装的 Wwise 版本对应支持的 Unity 版本。</p>
 <p>如果版本都是对的，则需要打开 Unity 编辑器观察控制台里的错误信息。Wwise Unity 集成安装时需要运行 Unity 程序来做一些初始化或者升级工作，这个过程中 Unity 工程内部可能错误，但这些错误并不会在 Launcher 界面上显示出来，要在 Unity 编辑器中查看。</p>
 <h2 id="9-向-Wwise-工作人员提技术问题时，怎样让沟通更准确高效？"><a href="#9-向-Wwise-工作人员提技术问题时，怎样让沟通更准确高效？" class="headerlink" title="9. 向 Wwise 工作人员提技术问题时，怎样让沟通更准确高效？"></a>9. 向 Wwise 工作人员提技术问题时，怎样让沟通更准确高效？</h2><p>我们在项目档期紧张时遇到 Wwise 相关的技术问题，常常撒腿就找官方技术支持。但是巧妇难为无米之炊，没有客观详实的诊断信息，支持人员也只能来回提问试探，沟通效率可能会不理想。为了高效沟通，我们可以善用 Wwise 的 Profiler（性能分析器）来记录问题过程，利用 Launcher 来制作诊断包，在提问时将诊断包发送给官方技术支持。</p>
 <p>Windows 版本的 Launcher 整合了 Wwise 中的辅助工具<code>Wwise Project Zipper</code>的功能，<strong>支持 Windows 和 macOS</strong>。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/zippers.jpg" class="">
+
 <p>可以将 Wwise 工程及性能分析器日志记录 （profiler session）定制内容后打包。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/zipper-2s.jpg" class="">
+
 <p>之后便可以前往官网项目的技术支持频道将 zip 包作为附件发送给 Audiokinetic 的技术支持了。这样的做法通常可以为我们省去好几轮前期沟通。</p>
 <h2 id="10-怎样了解-Audiokinetic-的新闻和最新技术？"><a href="#10-怎样了解-Audiokinetic-的新闻和最新技术？" class="headerlink" title="10. 怎样了解 Audiokinetic 的新闻和最新技术？"></a>10. 怎样了解 Audiokinetic 的新闻和最新技术？</h2><p>我们打开 Launcher 的首页，便可以看到最新的 Audiokinetic 的英文版新闻和技术博客。</p>
 <img src="/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/home-feedss.jpg" class="">
+
 <p>首页上还有社区问答论坛的最新提问，可以从中学习其他用户的经验。</p>
 <p>如果要看中文版，现在可以直接点击 Launcher 首页右上角的语言列表切换。</p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>越来越多的集成开发环境包括 Unity 和 Unreal Engine 利用独立于编辑器的 Launcher（启动器）作为控制中心程序来管理工程和资源。这样做，一来可以方便用户管理多个引擎版本和工程，避免和操作系统文件管理器中铺天盖地的文件夹和文件类型缠斗，甚至发生零散文件操作引起的意外；二来可以整合引擎开发商提供的一系列服务。在 Wwise 工作流程中，Wwise Launcher 正在扮演类似的角色，并且还在成长中。</p>
@@ -281,7 +324,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/" data-id="ck1ukdrv7000cqanz8wo47zp8" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/" data-id="ck1ukr7t2000exwnzdj5qfgsm" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise-gameaudio/" rel="tag">wwise, gameaudio</a></li></ul>
@@ -326,7 +369,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2018/02/04/why-cant-i-hear-my-sound/" data-id="ck1ukdrv5000aqanz42rj3k4g" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2018/02/04/why-cant-i-hear-my-sound/" data-id="ck1ukr7sz000cxwnzgky4eh0o" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise/" rel="tag">wwise</a></li></ul>
@@ -368,81 +411,112 @@ ga('send', 'pageview');
 </ul>
 <p>从 2016 年起，在 Audiokinetic 官网点击下载 Wwise 的时候，你实际上下载的是 Wwise Launcher（下文简称 Launcher），到现在你应该已经习惯用 Launcher 来下载更新 Wwise 本身甚至管理本机上的多个工程和 Wwise 版本了，但 Launcher 可能还有一些不太明显的功能和注意事项对你会很有用，我们今天就来梳理一下吧！</p>
 <h2 id="1-程序员：哪里有-Wwise-集成／整合方面的例程？"><a href="#1-程序员：哪里有-Wwise-集成／整合方面的例程？" class="headerlink" title="1. 程序员：哪里有 Wwise 集成／整合方面的例程？"></a>1. 程序员：哪里有 Wwise 集成／整合方面的例程？</h2><hr>
-<p>我们可以通过 Launcher 来安装 Wwise 的<a href="https://www.audiokinetic.com/library/edge/?source=SDK&amp;id=soundengine__integration__samplecode.html" target="_blank" rel="noopener"><code>IntegrationDemo</code></a>。如果我们已经安装了 Wwise，但是没有找到这个 Demo，则需要打开 Launcher，找到<code>WWISE</code>页上我们的目标版本，然后修改安装。</p>
+<p>我们可以通过 Launcher 来安装 Wwise 的<a href="https://www.audiokinetic.com/library/edge/?source=SDK&id=soundengine__integration__samplecode.html" target="_blank" rel="noopener"><code>IntegrationDemo</code></a>。如果我们已经安装了 Wwise，但是没有找到这个 Demo，则需要打开 Launcher，找到<code>WWISE</code>页上我们的目标版本，然后修改安装。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/modify-installs.jpg" class="">
+
 <p>勾选左边选项框中的<code>SDK (C++)</code>，和右边的目标平台。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/install-sdk-demos.jpg" class="">
+
 <p>之后点击<code>Install...</code>开始安装。安装结束后切换到<code>SAMPLES</code>页，选中正确的 Wwise 版本（图中为<code>2017.1.4</code>），便可以看到<code>IntegrationDemo</code>了。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/samples-demos.jpg" class="">
+
 <p>如果想运行 Demo，则直接点击<code>Run IntegrationDemo</code>；如果想打开对应的 Wwise 工程检查或修改声音设计内容，那么点击<code>Open in Wwise</code>。</p>
 <p>如果想打开源码工程，则点击左边按钮的下拉菜单，之后打开 Demo 所在文件夹，</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/open-demo-code-projects.jpg" class="">
+
 <p>通过文件系统打开对应平台的子文件夹，找到并打开 IDE 工程文件。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/open-demo-code-project-2s.jpg" class="">
-<p>在研究 IntegrationDemo 的时候，推荐对照<a href="https://www.audiokinetic.com/library/edge/?source=SDK&amp;id=index.html" target="_blank" rel="noopener"><code>Wwise SDK Help</code></a>文档来学习，特别是<code>声音引擎集成纵览</code>一节。</p>
+
+<p>在研究 IntegrationDemo 的时候，推荐对照<a href="https://www.audiokinetic.com/library/edge/?source=SDK&id=index.html" target="_blank" rel="noopener"><code>Wwise SDK Help</code></a>文档来学习，特别是<code>声音引擎集成纵览</code>一节。</p>
 <p>因为<code>IntegrationDemo</code>是 Wwise SDK 的一部分，Audiokinetic 会持续维护测试这组例程和对应的 Wwise 工程；每当有重要的新功能时，该 Demo 中一般会加入新功能演示，所以不论我们的项目用的是自研引擎还是商业引擎比如 Unity／Cocos2d-x，<code>IntegrationDemo</code>都是我们学习 Wwise 整合代码最好的帮手。</p>
 <p>更重要的是，假如我们的项目出现了奇怪的问题，开始怀疑是不是 Wwise 的 bug 时，可以首先尝试用 IntegrationDemo 来对照重现问题，Demo 提供的是高度简化和反复测试过的环境，有助于隔离发现应用端的整合问题。Demo 中重现不了的问题最终往往会证明来自应用端的使用不当。</p>
 <h2 id="2-我们公司大部分机器在内网，怎么安装-Wwise？"><a href="#2-我们公司大部分机器在内网，怎么安装-Wwise？" class="headerlink" title="2. 我们公司大部分机器在内网，怎么安装 Wwise？"></a>2. 我们公司大部分机器在内网，怎么安装 Wwise？</h2><hr>
 <p>我们可以用某台外网机安装需要的 Wwise 组件，然后通过 Launcher 制作离线安装包给内网机使用：</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/offline-installers.jpg" class="">
+
 <p>做好的离线包除了组件文件夹<code>bundle</code>外，会自带一个配套的 Launcher 安装包：</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/offline-installer-2s.jpg" class="">
+
 <p>最后将离线安装包发送到各台内网机上，在内网机上分别装好包里自带的 Launcher，再打开 Launcher 定位到离线包来安装。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/offline-installer-3s.jpg" class="">
+
+
 <h2 id="3-我下载安装了-Wwise，但是我的工程在生成-SoundBank-时报错，说最多只能使用-200-个声音文件，怎么办？"><a href="#3-我下载安装了-Wwise，但是我的工程在生成-SoundBank-时报错，说最多只能使用-200-个声音文件，怎么办？" class="headerlink" title="3. 我下载安装了 Wwise，但是我的工程在生成 SoundBank 时报错，说最多只能使用 200 个声音文件，怎么办？"></a>3. 我下载安装了 Wwise，但是我的工程在生成 SoundBank 时报错，说最多只能使用 200 个声音文件，怎么办？</h2><hr>
 <p>这说明我们的工程没有添加合适的 Wwise 授权码。我们需要打开 Launcher，<strong>登录我们的 Audiokinetic 账号</strong>，在<code>PROJECTS</code>页找到我们的 Wwise 工程，点击钥匙状按钮，这时我们有两个选择：1）注册新项目，并等待 Audiokinetic 商务联系人批准项目注册并接收系统邮件取得授权码。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/project-licenses.jpg" class="">
+
 <p>这时我们会来到官网项目注册页面，需要根据向导填好所有信息并提交申请。之后如果确信申请通过了但没有收到系统邮件，则最好检查一下垃圾邮箱。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/project-license-2s.jpg" class="">
+
 <p>2）如果我们的项目确定已经注册了，只是没有导入授权码，则需要注意：每个 Wwise 项目在 Audiokinetic 官网上都有若干管理员（Wwise Project Leader)，他们一般是我们自己项目团队的成员。可以联系管理员把我们的 Audiokinetic 账号加入该项目，之后便可以在 Launcher 里工程的<code>Set Project License</code>菜单中找到对应的项目授权码并授权项目了，<strong>做授权码导入操作时要确保关闭已经打开的工程</strong>。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/project-licenses-2.jpg" class="">
+
+
 <h2 id="4-如何安装-Unity-集成？"><a href="#4-如何安装-Unity-集成？" class="headerlink" title="4. 如何安装 Unity 集成？"></a>4. 如何安装 Unity 集成？</h2><hr>
 <p>假设我们的电脑上已经装了 Unity，并且创建了 Unity 工程，而我们现在想给其中某个 Unity 工程安装 Wwise 集成。这时我们需要来到 Launcher 的<code>UNITY</code>页，点开顶部菜单的浏览按钮：</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/unity-browse-projects.jpg" class="">
+
 <p>选中目标 Unity 工程并确认后，在<code>UNITY</code>页的工程列表里就能看到这个工程了。接下来我们有两个选择：1）直接从官网下载 Unity 集成并同时安装，</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/unity-integrates.jpg" class="">
+
 <p>或者 2）先下载离线安装包，</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/unity-offline-1s.jpg" class="">
+
 <p>然后通过 Launcher 手动安装。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/unity-offline-2s.jpg" class="">
+
 <p>注意，无论用哪种方法，安装期间必须<strong>关闭所有打开的 Unity 编辑器</strong>。</p>
 <h2 id="5-新手怎么学习-Wwise-Unity-和-Unreal-Engine-集成？"><a href="#5-新手怎么学习-Wwise-Unity-和-Unreal-Engine-集成？" class="headerlink" title="5. 新手怎么学习 Wwise Unity 和 Unreal Engine 集成？"></a>5. 新手怎么学习 Wwise Unity 和 Unreal Engine 集成？</h2><hr>
-<p>学习 Unity 集成可以通过 Launcher 安装运行 Unity 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=main.html" target="_blank" rel="noopener">官方文档</a>学习。</p>
+<p>学习 Unity 集成可以通过 Launcher 安装运行 Unity 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=Unity&id=main.html" target="_blank" rel="noopener">官方文档</a>学习。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/unity-demos.jpg" class="">
-<p>学习 Unreal 集成， 我们有两个选择：1）可以通过 Launcher 的<code>UNREAL ENGINE</code>页安装运行 Unreal 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=UE4&amp;id=index.html" target="_blank" rel="noopener">官方文档</a>学习。</p>
+
+
+<p>学习 Unreal 集成， 我们有两个选择：1）可以通过 Launcher 的<code>UNREAL ENGINE</code>页安装运行 Unreal 集成示例，再对照<a href="https://www.audiokinetic.com/library/edge/?source=UE4&id=index.html" target="_blank" rel="noopener">官方文档</a>学习。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/unreal-demos.jpg" class="">
+
 <p>2）也可以通过 Launcher 安装运行 Wwise 的空间音频 Demo：Wwise Audio Lab</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/wal-1s.jpg" class="">
+
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/wal-2s.jpg" class="">
+
+
 <h2 id="6-我需要根据特定-Wwise-SDK-库版本来重新编译-Wwise-Unity-集成，怎么办？"><a href="#6-我需要根据特定-Wwise-SDK-库版本来重新编译-Wwise-Unity-集成，怎么办？" class="headerlink" title="6. 我需要根据特定 Wwise SDK 库版本来重新编译 Wwise Unity 集成，怎么办？"></a>6. 我需要根据特定 Wwise SDK 库版本来重新编译 Wwise Unity 集成，怎么办？</h2><hr>
 <p>有时候我们等不及官方 Unity 集成补丁，而想基于某个已经下载好的原生 SDK 补丁库来重新构建 Unity 集成， 这时我们需要的是 Unity 集成的源码包，可以在 Launcher 的<code>UNITY</code>页下载离线安装包来取得（见<code>4. 如何安装 Unity 集成？</code>）。</p>
 <p>离线包的格式为 .tar.xz，一般我们需要通过 Launcher 安装集成来解出源码包来。如果想手动解包，则需要安装可以解压<code>XZ</code>和<code>TAR</code>格式的程序。比如在 macOS 上，我们可以通过<a href="https://brew.sh" target="_blank" rel="noopener">Homebrew</a>来安装<code>xz</code>这个包，之后即可通过命令行<code>xz -d</code> 来解包了。源码包的文件一般以<code>_Src.zip</code>结尾。</p>
-<p>重新编译 Unity 集成的方法见<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=pg__building.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<p>重新编译 Unity 集成的方法见<a href="https://www.audiokinetic.com/library/edge/?source=Unity&id=pg__building.html" target="_blank" rel="noopener">官方文档</a>。</p>
 <h2 id="7-我网速慢，看在线文档不方便，如何在本地查看-Wwise-的音频设计和程序整合文档？"><a href="#7-我网速慢，看在线文档不方便，如何在本地查看-Wwise-的音频设计和程序整合文档？" class="headerlink" title="7. 我网速慢，看在线文档不方便，如何在本地查看 Wwise 的音频设计和程序整合文档？"></a>7. 我网速慢，看在线文档不方便，如何在本地查看 Wwise 的音频设计和程序整合文档？</h2><hr>
 <p>我们可以通过 Launcher 安装离线文档，注意要选择想要的平台。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/offline-doc-1s.jpg" class="">
+
 <p>之后就可以在<code>WWISE</code>页的对应 Wwise 版本下找到各个平台对应的多语言离线文档了。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/offline-doc-2s.jpg" class="">
+
+
 <h2 id="8-Launcher-在安装中出现错误或者操作失败怎么办？"><a href="#8-Launcher-在安装中出现错误或者操作失败怎么办？" class="headerlink" title="8. Launcher 在安装中出现错误或者操作失败怎么办？"></a>8. Launcher 在安装中出现错误或者操作失败怎么办？</h2><hr>
 <p>我们可以去<code>?</code>页的<code>About</code>，</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/log-1s.jpg" class="">
+
 <p>找到 Launcher 的完整日志，</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/log-2s.jpg" class="">
+
 <p>然后想办法汇报给 Audiokinetic 的项目技术支持或<a href="https://www.audiokinetic.com/qa/" target="_blank" rel="noopener">社区问答论坛</a>。</p>
 <p>最常见的问题是网络问题，出这类问题的时候如果开了 VPN，则可以尝试关闭了 VPN 再使用 Launcher。</p>
 <p>有一类特殊问题是通过 Launcher 安装和升级 Unity 集成的时候失败了，这时怎么办呢？</p>
-<p>首先我们需要根据<a href="https://www.audiokinetic.com/library/edge/?source=Unity&amp;id=pg__releasenotes.html" target="_blank" rel="noopener">Unity 集成版本说明</a>来确认要安装的 Wwise 版本对应支持的 Unity 版本。</p>
+<p>首先我们需要根据<a href="https://www.audiokinetic.com/library/edge/?source=Unity&id=pg__releasenotes.html" target="_blank" rel="noopener">Unity 集成版本说明</a>来确认要安装的 Wwise 版本对应支持的 Unity 版本。</p>
 <p>如果版本都是对的，则需要打开 Unity 编辑器观察控制台里的错误信息。Wwise Unity 集成安装时需要运行 Unity 程序来做一些初始化或者升级工作，这个过程中 Unity 工程内部可能错误，但这些错误并不会在 Launcher 界面上显示出来，要在 Unity 编辑器中查看。</p>
 <h2 id="9-提出技术支持问题时，怎样让沟通更准确高效？"><a href="#9-提出技术支持问题时，怎样让沟通更准确高效？" class="headerlink" title="9. 提出技术支持问题时，怎样让沟通更准确高效？"></a>9. 提出技术支持问题时，怎样让沟通更准确高效？</h2><hr>
 <p>我们在项目档期紧张时遇到 Wwise 相关的技术问题，首先想到的是请求官方技术支持支援。但是巧妇难为无米之炊，没有客观详实的诊断信息，支持人员也只能来回提问试探，沟通效率可能会不理想。为了提高沟通效率，我们可以善用 Wwise 的 Profiler（性能分析器）来记录问题过程，利用 Launcher 来制作诊断包，在提问时将诊断包发送给官方技术支持。</p>
 <p>Windows 版本的 Launcher 整合了 Wwise 中的辅助工具<code>Wwise Project Zipper</code>的功能（macOS 版暂时没有此功能），</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/zippers.jpg" class="">
+
 <p>可以将 Wwise 工程及性能分析器日志记录 （profiler session）定制内容后打包。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/zipper-2s.jpg" class="">
+
 <p>之后便可以前往官网项目的技术支持频道将 zip 包作为附件发送给 Audiokinetic 的技术支持了。这样的做法通常可以为我们省去好几轮前期沟通。</p>
 <h2 id="10-怎样了解-Audiokinetic-的新闻和最新技术？"><a href="#10-怎样了解-Audiokinetic-的新闻和最新技术？" class="headerlink" title="10. 怎样了解 Audiokinetic 的新闻和最新技术？"></a>10. 怎样了解 Audiokinetic 的新闻和最新技术？</h2><hr>
 <p>我们打开 Launcher 的首页，便可以看到最新的 Audiokinetic 的英文版新闻和技术博客。</p>
 <img src="/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/home-feedss.jpg" class="">
+
 <p>首页上还有社区问答论坛的最新提问，可以从中学习其他用户的经验。</p>
 <p>如果要看中文版，目前可以先点击 Launcher 首页任何链接来到 Audiokinetic 官网，然后切换语言为简体中文。</p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><hr>
@@ -451,7 +525,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/" data-id="ck1ukdrva000eqanzc79z0ksl" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/" data-id="ck1ukr7t7000ixwnz6fzeeynk" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise/" rel="tag">wwise</a></li></ul>
@@ -492,17 +566,25 @@ ga('send', 'pageview');
         <p>本文探讨的所有问题和解决方案都<strong>基于 Wwise 2017.1.x</strong>。不对后续版本负责。</p>
 <h2 id="起因：听一下过渡好难"><a href="#起因：听一下过渡好难" class="headerlink" title="起因：听一下过渡好难"></a>起因：听一下过渡好难</h2><p>利用 Wwise 的互动音乐功能可以用小段音乐编组搭建出动态和互动的曲式和织体，但搭完了之后你还是得用耳朵试听乐段间的过渡，确保衔接在音乐意义上是无缝的。截至 Wwise 2017.1，不少人在这里遇到了麻烦，见下图：</p>
 <!--![](quick-auditioning-music-transitions/mpe.png)-->
+
 <img src="/2017/10/29/quick-auditioning-music-transitions/mpe.png" class="">
+
 <p>这个例子来自 Wwise 自带的示例工程<code>Sample Project</code>（可以从Wwise Launcher 的<code>SAMPLES</code>页下打开），在 Music Playlist Editor 中，<code>Stealth</code>这个 Music Playlist Container 中有一个 Sequence Continuous 模式的 Music Segment 编组，图中正在试听前两个 Music Segment 间的过渡。这时，由于<code>Stealth</code>采用的过渡规则中，Source 段用了<code>Exit source at Exit Cue</code>这条同步规则，见下图：</p>
 <!--![](quick-auditioning-music-transitions/transition-exit-cue.png)-->
+
 <img src="/2017/10/29/quick-auditioning-music-transitions/transition-exit-cue.png" class="">
+
 <p>Exit Cue 一般靠近曲子尾声，所以你必须把<code>Stealth_Seg_01</code>从头听到 Exit Cue 处才能开始试听和<code>Stealth_Seg_02</code>间的过渡，如果曲子很长，这样就很浪费时间；还有更惨的：当要听的过渡在一个很长的连续列表的中间靠后时，即便同步点是 Next Bar 这样近距离的，每次你还都得从最顶上听起。如下图：</p>
 <!--![](quick-auditioning-music-transitions/mpe-mid-seg.png)-->
+
 <img src="/2017/10/29/quick-auditioning-music-transitions/mpe-mid-seg.png" class="">
+
 <p>要听<code>Seg 02b (B)</code>到下一段的过渡时，你每次都得从<code>Seg 01a (A)</code>听起。上图里还比较仁慈，每个段落都只循环了一次，万一有些会循环有限次，万一播着中间接了个电话，… 你懂的。</p>
 <p>于是你又下意识地跑到 Music Segment Editor 界面中想对着波形迅速定位到过渡点附近听，结果发现一次又只能试听一个 Segment，见下图：</p>
 <!--![](quick-auditioning-music-transitions/mse.png)-->
+
 <img src="/2017/10/29/quick-auditioning-music-transitions/mse.png" class="">
+
 <p>所以还是快不起来。</p>
 <p>在别的情况下，也会有类似问题：</p>
 <ul>
@@ -518,7 +600,9 @@ ga('send', 'pageview');
 </ol>
 <p>换句话说：如今主流媒体播放器能做到的一些事情。</p>
 <!--![](quick-auditioning-music-transitions/media-player.png)-->
+
 <img src="/2017/10/29/quick-auditioning-music-transitions/media-player.png" class="">
+
 <p>上图中，如果你想听<code>Say</code>和<code>Architect</code>这两首曲子间的过渡（假设有的话），那么只需要鼠标双击<code>Say</code>这首，然后用底部进度条定位到尾部收听即可。如果要测自循环，则只需要把循环模式调到单曲循环就行了（注：Wwise 中由于有同步点的问题，常规的进度条还不够）。</p>
 <p>相比之下，我们发现：<strong>Wwise 虽然提供了搭建非线性音乐结构的一整套工具，但其 UI 的预览功能不支持线性媒体播放器中的列表定点播放体验。</strong> 当然，反过来大多数线性媒体播放器也不支持 Wwise 提供的众多非线性播放功能。</p>
 <p>在 Wwise 在 UI 上做出改进之前，我们暂时还得面对这个问题。</p>
@@ -538,9 +622,11 @@ ga('send', 'pageview');
 <li>手动操作繁琐，对齐容易出错。</li>
 </ol>
 <p>这个方法大约只适合粗略测单轨循环的情况。如果非要走这条路，倒还不如直接在 DAW 里面对素材做这些工作来得简单。</p>
-<h2 id="方法二：快进播放法"><a href="#方法二：快进播放法" class="headerlink" title="方法二：快进播放法"></a>方法二：快进播放法</h2><p>这个是 <a href="https://www.audiokinetic.com/courses/wwise201/?source=wwise201&amp;id=configuring_multi_group_playlists_setting_randomized_loop_counts" target="_blank" rel="noopener">Wwise 201 认证教程</a> 中推荐的方法，海内外的一些设计师都有这样用的，见下图：</p>
+<h2 id="方法二：快进播放法"><a href="#方法二：快进播放法" class="headerlink" title="方法二：快进播放法"></a>方法二：快进播放法</h2><p>这个是 <a href="https://www.audiokinetic.com/courses/wwise201/?source=wwise201&id=configuring_multi_group_playlists_setting_randomized_loop_counts" target="_blank" rel="noopener">Wwise 201 认证教程</a> 中推荐的方法，海内外的一些设计师都有这样用的，见下图：</p>
 <!--![](quick-auditioning-music-transitions/playbackspeed.png)-->
+
 <img src="/2017/10/29/quick-auditioning-music-transitions/playbackspeed.png" class="">
+
 <p>将父级容器的播放速度调大，那么播放时过渡涉及的 Music Segment 就能快进到过渡点附近。这时候如果想精听，则可以降回原速，除非你告诉我专业人士的耳朵都是 4 倍速的！</p>
 <p>这个方法的优点是：</p>
 <ol>
@@ -556,15 +642,17 @@ ga('send', 'pageview');
 <h2 id="方法三：Seek-法"><a href="#方法三：Seek-法" class="headerlink" title="方法三：Seek 法"></a>方法三：Seek 法</h2><p>这个技巧是海外设计师 Aaron Brown 分享的。基本原理是立足于 Event 及其 Seek（即寻址跳转）这个 Action。跟前两种方法相比，它更能满足本文开始分析的三条需求，但实际操作要绕点路。</p>
 <p>Aaron Brown 的原始分享可以在 Wwise 的非官方 Facebook 群<code>Wwise Wizards &amp; Witches</code>中找到，但是他只给了粗略的示意图，如下图所示：</p>
 <!--![](quick-auditioning-music-transitions/wwise-tips-audition-transitions.jpg)-->
+
 <img src="/2017/10/29/quick-auditioning-music-transitions/wwise-tips-audition-transitions.jpg" class="">
+
 <p>但我实操后发现在 Wwise 2017.1 中上面的方法并不能凑效，要修改一些做法。下面详细讲解一下。</p>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>这个方法是希望避免肉眼定位和等待，实现一键定位到音乐的过渡点附近，按照原速收听过渡。</p>
-<p>Wwise 的 Event 中有 Seek 这个 Action 可以定位到播放文件中的指定位置。<strong>前两种方法其实也做了这个定位，只不过是用肉眼和手工操作来确保的：开始试听过渡的播放点必须要在同步点之前。</strong>而针对这点，Seek Action 只需设好跳转位置的数值就可以。并且，它还有服务于互动音乐的<a href="https://www2.audiokinetic.com/library/edge/?source=Help&amp;id=event_actions_list#bp1307910" target="_blank" rel="noopener">一条诱人的特性</a>：</p>
+<p>Wwise 的 Event 中有 Seek 这个 Action 可以定位到播放文件中的指定位置。<strong>前两种方法其实也做了这个定位，只不过是用肉眼和手工操作来确保的：开始试听过渡的播放点必须要在同步点之前。</strong>而针对这点，Seek Action 只需设好跳转位置的数值就可以。并且，它还有服务于互动音乐的<a href="https://www2.audiokinetic.com/library/edge/?source=Help&id=event_actions_list#bp1307910" target="_blank" rel="noopener">一条诱人的特性</a>：</p>
 <ul>
 <li>Seek Action 的 Seek Percent（按百分比跳转）模式下，跳转是相对于 Entry Cue 和 Exit Cue 进行的。</li>
 </ul>
 <p>打个比方，不管这些 Cue 设定在 Music Segment 的什么位置，即使我们把跳转设在 99% 处（即 Seek Percent 为 99%），它也绝对不会超出 Exit Cue 而误入 Post-Exit 段；对于单曲循环的情况，跳转百分比位置是相对循环区间来算的。有了这个条件，我们就可以放心定义跳转点来一键空降到过渡点附近了。</p>
-<p>不过 Seek Action 还有<a href="https://www2.audiokinetic.com/library/edge/?source=Help&amp;id=event_actions_list#seek_seekall_notes_and_restrictions" target="_blank" rel="noopener">一条重要的限制</a>：</p>
+<p>不过 Seek Action 还有<a href="https://www2.audiokinetic.com/library/edge/?source=Help&id=event_actions_list#seek_seekall_notes_and_restrictions" target="_blank" rel="noopener">一条重要的限制</a>：</p>
 <ul>
 <li>Music Playlist Container 和 Motion 对象不支持 Seek。</li>
 </ul>
@@ -580,22 +668,33 @@ ga('send', 'pageview');
 <h3 id="做法示例"><a href="#做法示例" class="headerlink" title="做法示例"></a>做法示例</h3><p>我们还是以 Wwise 安装包自带的<code>Sample Project</code>为例来说明 Seek 法的具体操作。简单起见，我们就挑选下图中选中的两个 Music Segment 来举例：</p>
 <!--![](quick-auditioning-music-transitions/sample-segments.png)
 -->
+
 <img src="/2017/10/29/quick-auditioning-music-transitions/sample-segments.png" class="">
+
 <p>这两个 Segment 也是<code>Stealth</code>这个 Music Playlist Container 中顺序播放的相邻对象（见本文第一张图），采用的过渡同步点为 Exit Cue。</p>
 <p><strong>首先，创建一个专用的 Music Switch Container，把<code>Steath_Seg_01</code>和<code>Steath_Seg_02</code>复制到它下面。</strong>见下图：</p>
 <!--![](quick-auditioning-music-transitions/sample-dup-msc.png)-->
+
 <img src="/2017/10/29/quick-auditioning-music-transitions/sample-dup-msc.png" class="">
+
 <p>创建新的 Music Switch Container 是有原因的：在指定 Music Switch Container 的状态路径的时候，路径对应播放对象只能是该 Music Switch Container 的直接子对象，也就是说之前位于<code>Stealth</code>下面的对象如果不挪出来就无法直接关联到 State 上面去；而如果复制到原 Music Switch Container 下面，就又会污染设计。所以比较好的做法是直接创建一个新的 Music Switch Container。</p>
 <p>这个专用容器的过渡规则一般只需要用默认的<code>Any to Any</code>规则就可以，但要注意默认会播放源段的 Post-Exit 和目标段的 Pre-Entry，不启用淡变。当然，你完全可以按需要来定制整条规则。这里我们重点强调 Exit Cue 的情况。</p>
 <p><strong>接着，创建一个新的 State Group，然后为两个 Music Segment 各创建一个 State。</strong>见下图：</p>
 <!--![](quick-auditioning-music-transitions/sample-states.png)-->
+
 <img src="/2017/10/29/quick-auditioning-music-transitions/sample-states.png" class="">
+
 <p><strong>下一步，回到测试专用的 Music Switch Container，设置好状态路径，让上面的 State 和 Music Segment 一一对应。</strong>见下图：</p>
 <!--![](quick-auditioning-music-transitions/sample-paths.png)-->
+
 <img src="/2017/10/29/quick-auditioning-music-transitions/sample-paths.png" class="">
+
 <p><strong>最后，我们创建测试事件</strong>。里面依序包含如下 Action：</p>
 <!--![](quick-auditioning-music-transitions/sample-event.png)-->
+
 <img src="/2017/10/29/quick-auditioning-music-transitions/sample-event.png" class="">
+
+
 <ul>
 <li>我们让第一个 Set State Action（状态初始化）比 Play Action 稍早一点执行，确保在播放之前状态已经初始化成源状态，播放源 Segment。这里我们把 Play Action 的 Delay 设为<code>0.01</code>， Set State 的 Delay 为 <code>0</code>。</li>
 <li>Seek Action 也比播放略提前，Seek 模式为<code>Seek Percent</code>，位置为<code>90%</code>。你可以视需要修改这个位置。注意：Aaron Brown 在 Wwise 2016.2 中采用 Seek All 这个 Action，Scope 设为 Global，但经测试发现在 Wwise 2017.1 中这个做法无效，要使用 Seek 才行。</li>
@@ -618,7 +717,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/" data-id="ck1ukdrvb000iqanzg7hf3v7l" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/" data-id="ck1ukr7sw000axwnzfhfn31r6" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise-interactivemusic/" rel="tag">wwise, interactivemusic</a></li></ul>
@@ -657,12 +756,13 @@ ga('send', 'pageview');
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="Wwise-2017-1-的空间音频新功能"><a href="#Wwise-2017-1-的空间音频新功能" class="headerlink" title="Wwise 2017.1 的空间音频新功能"></a>Wwise 2017.1 的空间音频新功能</h2><img src="/2017/03/13/GDC17-Audio-Spatial-Audio-2/sa-wwise-wal.jpg" class="" title="全新 Spatial Audio 测试地图：Wwise Audio Lab">
+
 <p>上篇说到微软的 Project Triton 未来的方向恰好与 Wwise 2017.1 的一些新功能不谋而合，简单地说，Wwise</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-Audio-Spatial-Audio-2/" data-id="ck1ukdrux0002qanz8mjzcq3l" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-Audio-Spatial-Audio-2/" data-id="ck1ukr7sl0002xwnz971hfh4c" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/" rel="tag">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a></li></ul>
@@ -705,6 +805,7 @@ ga('send', 'pageview');
 <p>不巧，玩家极易通过生活经验察觉这类设计错误，后果严重，参见《刺客信条：大革命》中曾出现的<a href="http://forums.ubi.com/showthread.php/973716-AC-Unity-Sound-Bug-Forums" target="_blank" rel="noopener">全局 bug</a>。音频设计界早就希望能像物理渲染界一样自动化这个过程，为创意设计赢得时间。</p>
 <p>演讲中放出的<em>最终</em>解决方案：</p>
 <img src="/2017/03/13/GDC17-%E9%9F%B3%E9%A2%91%E8%A7%81%E9%97%BB%EF%BC%881%EF%BC%89-%E7%A9%BA%E9%97%B4%E9%9F%B3%E9%A2%91-Spatial-Audio/sa-triton-game-integration.jpg" class="" title="Triton 系统整合示意图">
+
 <ul>
 <li>离线预处理：在游戏地图中自动选取采样位置，对各个位置上的发声体-听者结对（emitter-listener pair）根据几何数据自动做 3D 声波传播模拟并生成原始声学数据库；</li>
 <li>解析：从原始声学数据自动提炼出一组感知参数值：直达波能量、反射波能量、反射波衰减率（wetness）和混响衰减率；</li>
@@ -719,6 +820,7 @@ ga('send', 'pageview');
 </ul>
 <h3 id="经历"><a href="#经历" class="headerlink" title="经历"></a>经历</h3><p>很多学术报告大概也就到此为止了，让一部分听众感觉高山仰止，另一部分不知所云。然而这次两位主讲人–微软研究院的 Nikunj Raghuvanshi 和 Coalition 工作室的 John Tennant –继续披露了研发和产品化的详细经过，以机器人领域的<a href="http://baike.baidu.com/item/恐怖谷理论" target="_blank" rel="noopener"><em>恐怖谷</em></a>现象为纲，讲述了从真实到艺术真实的探索（微信游戏音频群里尾巴老师语），体现了对基础研究和产品化过程深刻的理解，是演讲中我个人最喜欢的部分。</p>
 <img src="/2017/03/13/GDC17-%E9%9F%B3%E9%A2%91%E8%A7%81%E9%97%BB%EF%BC%881%EF%BC%89-%E7%A9%BA%E9%97%B4%E9%9F%B3%E9%A2%91-Spatial-Audio/sa-triton-uncanny-valley.jpg" class="">
+
 <p>从 2011 年的 V1.0 到 2014 年的 V2.0 直到最终版，项目经历了标准的恐怖谷历程：</p>
 <ol>
 <li>V1.0 中初尝预处理甜头后，发现一些问题亟待解决，比如区分室内外和消除混响效果中的浑浊；</li>
@@ -750,7 +852,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-%E9%9F%B3%E9%A2%91%E8%A7%81%E9%97%BB%EF%BC%881%EF%BC%89-%E7%A9%BA%E9%97%B4%E9%9F%B3%E9%A2%91-Spatial-Audio/" data-id="ck1ukdruz0004qanz2pvh3kh5" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/03/13/GDC17-%E9%9F%B3%E9%A2%91%E8%A7%81%E9%97%BB%EF%BC%881%EF%BC%89-%E7%A9%BA%E9%97%B4%E9%9F%B3%E9%A2%91-Spatial-Audio/" data-id="ck1ukr7sr0006xwnzf1i0cid0" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/conference-gdc17-reverb-obstruction-occlusion-spatialaudio/" rel="tag">conference, gdc17, reverb, obstruction-occlusion, spatialaudio</a></li></ul>
@@ -797,7 +899,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2017/01/15/migs-2016/" data-id="ck1ukdrv20007qanz1ja00wxi" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2017/01/15/migs-2016/" data-id="ck1ukr7st0007xwnzcsb52sal" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/conference/" rel="tag">conference</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machinelearning/" rel="tag">machinelearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/proceduralaudio/" rel="tag">proceduralaudio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reverb/" rel="tag">reverb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wwise/" rel="tag">wwise</a></li></ul>
@@ -842,7 +944,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kakyoism.github.io/2016/12/25/Hello-Hexo-%E4%BD%A0%E5%A5%BD-Hexo/" data-id="ck1ukdrv10006qanz22r81vk5" class="article-share-link">分享</a>
+      <a data-url="http://kakyoism.github.io/2016/12/25/Hello-Hexo-%E4%BD%A0%E5%A5%BD-Hexo/" data-id="ck1ukr7so0004xwnz5pig3hq3" class="article-share-link">分享</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
