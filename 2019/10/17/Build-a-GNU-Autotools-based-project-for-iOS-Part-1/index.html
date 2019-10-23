@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="kkBeep">
 <meta property="og:description" content="The open-source movement started way before the rise of the mobile scene, leaving enormous great free libraries and components lying around. Lots of the reusable codebases are usually only “a build aw">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-23T08:45:13.912Z">
+<meta property="og:updated_time" content="2019-10-23T08:49:17.710Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="kkBeep" type="application/atom+xml">
@@ -139,7 +139,7 @@ ga('send', 'pageview');
 <h3 id="Compiler-Executables"><a href="#Compiler-Executables" class="headerlink" title="Compiler Executables"></a>Compiler Executables</h3><p>I lost most of my time to this. I started out by using the autotools compiler environment variables this way:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CC=clang</span><br></pre></td></tr></table></figure>
 
-<p>To my surprise, I then always ended up with <code>x86_64</code> instead of <code>arm64</code> as my arm builds. The correct way is shown in the solution above. Before getting there, I was on the wrong track:  Fiddling with the architecture triplets that I copied from the Internet, unsure whether or not they could be trusted. I’ve tried numerous triplets, i.e., arch-vendor-os, to no avail. GNU is not big on documentation. The closest standard triplet lists I could find are:</p>
+<p>To my surprise, I then always ended up with builds holding <code>x86_64</code> instead of <code>arm64</code>. The correct way is now shown in the solution above. Before getting there, I was on the wrong track:  Fiddling with the architecture triplets that I copied from the Internet, unsure whether or not they could be trusted. I’ve tried numerous triplets, i.e., arch-vendor-os, to no avail. GNU is not big on documentation. The closest standard triplet lists I could find are:</p>
 <ul>
 <li><a href="http://git.savannah.gnu.org/cgit/libtool.git/tree/doc/PLATFORMS" target="_blank" rel="noopener">Libtool platforms</a></li>
 <li><a href="http://llvm.org/doxygen/classllvm_1_1Triple.html" target="_blank" rel="noopener">LLVM’s llvm::Triple Class</a></li>
