@@ -186,7 +186,7 @@ Without adding `--disabled-shared`, autotools generate both dynamic and static l
 
 ## Conclusions
 
-Autotools try to hide away compiler and OS details behind the magic `configure` command and its obscure options. In the Desktop era, the dirty work was done so well that all I needed was following the default trilogy steps. It's only when I get down to the biz myself that I realize what it takes to support a new platform. Although the new build systems like CMakes improve the cross-platform build environment,  the mobile devs inevitably bump into dinosaur autotools-based codebases, rigged with traps. Patience in research is the only cure, IMHO. 
+Autotools try to hide away compiler and OS details behind the magic `configure` command and its obscure options. In the Desktop era, the dirty work was done so well that all I needed was following the default trilogy steps. It's only until I get down to the dirty biz myself that I realize how much it takes to support a new platform. Although the new build systems like CMakes improve the cross-platform build environment,  the mobile devs inevitably bump into dinosaur autotools-based codebases, rigged with traps. Patience in research is the only cure, IMHO. 
 
 In Part 2 (schedule TBD), I'll build a Framework for iOS using autotools.
 
