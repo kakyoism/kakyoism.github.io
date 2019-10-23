@@ -148,12 +148,12 @@ I lost most of my time to this. I started out by using the autotools compiler en
 CC=clang
 ```
 
-To my surprise, I then always ended up with `x86_64` instead of `arm64` as my arm builds. The correct way is shown in the solution above. Before getting there, I was on the wrong track:  Fiddling with the architecture triplets that I copied from the Internet, unsure whether or not they could be trusted. I've tried numerous triplets, i.e., arch-vendor-os, to no avail. GNU is not big on documentation. The closest standard triplet lists I could find are:
+To my surprise, I then always ended up with builds holding `x86_64` instead of `arm64`. The correct way is now shown in the solution above. Before getting there, I was on the wrong track:  Fiddling with the architecture triplets that I copied from the Internet, unsure whether or not they could be trusted. I've tried numerous triplets, i.e., arch-vendor-os, to no avail. GNU is not big on documentation. The closest standard triplet lists I could find are:
 
 - [Libtool platforms](http://git.savannah.gnu.org/cgit/libtool.git/tree/doc/PLATFORMS)
 - [LLVM's llvm::Triple Class](http://llvm.org/doxygen/classllvm_1_1Triple.html)
 
-It proved that none of them help with my situation.
+These proved useless in my situation.
 
  To make it worse, `config.guess`  always gives me the wrong `x86_64` as well:
 
