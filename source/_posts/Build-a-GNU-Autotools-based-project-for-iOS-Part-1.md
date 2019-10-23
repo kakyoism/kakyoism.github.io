@@ -138,17 +138,17 @@ Architectures in the fat file: /path/to/mylib/_build/universal/libmylib.a are: x
 
 ## The Lessons Learned
 
-I feel obliged to write down the major gotchas that may be help in the future
+I feel obliged to write down the major gotchas that may help in the future.
 
 ### Compiler Executables
 
-I lost most of my time to this. I started by using the autotools compiler environment variables this way:
+I lost most of my time to this. I started out by using the autotools compiler environment variables this way:
 
 ```sh
 CC=clang
 ```
 
-I then always ended up with `x86_64` instead of `arm64` as my arm builds. The correct way is shown in the solution. Before getting there, I was on the wrong track of distrusting the architecture triplets that I copied from the Internet. I've tried numerous triplets, i.e., arch-vendor-os, to no avail. GNU is not famous on giving you a list of standard names that just work. The closest lists I could find are:
+To my surprise, I then always ended up with `x86_64` instead of `arm64` as my arm builds. The correct way is shown in the solution above. Before getting there, I was on the wrong track:  Fiddling with the architecture triplets that I copied from the Internet, unsure whether or not they could be trusted. I've tried numerous triplets, i.e., arch-vendor-os, to no avail. GNU is not big on documentation. The closest standard triplet lists I could find are:
 
 - [Libtool platforms](http://git.savannah.gnu.org/cgit/libtool.git/tree/doc/PLATFORMS)
 - [LLVM's llvm::Triple Class](http://llvm.org/doxygen/classllvm_1_1Triple.html)
