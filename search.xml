@@ -37,11 +37,11 @@
 
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lipo -info /path/to/mylib/_build/universal/libmylib.a</span><br><span class="line">Architectures <span class="keyword">in</span> the fat file: /path/to/mylib/_build/universal/libmylib.a are: x86_64 arm64 arm64e</span><br></pre></td></tr></table></figure>
 
-<h2 id="The-Lessons-Learned"><a href="#The-Lessons-Learned" class="headerlink" title="The Lessons Learned"></a>The Lessons Learned</h2><p>I feel obliged to write down the major gotchas that may be help in the future</p>
-<h3 id="Compiler-Executables"><a href="#Compiler-Executables" class="headerlink" title="Compiler Executables"></a>Compiler Executables</h3><p>I lost most of my time to this. I started by using the autotools compiler environment variables this way:</p>
+<h2 id="The-Lessons-Learned"><a href="#The-Lessons-Learned" class="headerlink" title="The Lessons Learned"></a>The Lessons Learned</h2><p>I feel obliged to write down the major gotchas that may help in the future.</p>
+<h3 id="Compiler-Executables"><a href="#Compiler-Executables" class="headerlink" title="Compiler Executables"></a>Compiler Executables</h3><p>I lost most of my time to this. I started out by using the autotools compiler environment variables this way:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CC=clang</span><br></pre></td></tr></table></figure>
 
-<p>I then always ended up with <code>x86_64</code> instead of <code>arm64</code> as my arm builds. The correct way is shown in the solution. Before getting there, I was on the wrong track of distrusting the architecture triplets that I copied from the Internet. I’ve tried numerous triplets, i.e., arch-vendor-os, to no avail. GNU is not famous on giving you a list of standard names that just work. The closest lists I could find are:</p>
+<p>To my surprise, I then always ended up with <code>x86_64</code> instead of <code>arm64</code> as my arm builds. The correct way is shown in the solution above. Before getting there, I was on the wrong track:  Fiddling with the architecture triplets that I copied from the Internet, unsure whether or not they could be trusted. I’ve tried numerous triplets, i.e., arch-vendor-os, to no avail. GNU is not big on documentation. The closest standard triplet lists I could find are:</p>
 <ul>
 <li><a href="http://git.savannah.gnu.org/cgit/libtool.git/tree/doc/PLATFORMS" target="_blank" rel="noopener">Libtool platforms</a></li>
 <li><a href="http://llvm.org/doxygen/classllvm_1_1Triple.html" target="_blank" rel="noopener">LLVM’s llvm::Triple Class</a></li>
