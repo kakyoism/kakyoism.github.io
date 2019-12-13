@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
-  
-  
-    
-    <entry>
-      <title><![CDATA[Building a GNU-Autotools-based Project for iOS: Part 1]]></title>
-      <url>http://kakyoism.github.io/2019/10/17/Build-a-GNU-Autotools-based-project-for-iOS-Part-1/</url>
-      <content type="html"><![CDATA[<p>The open-source movement started way before the rise of the mobile scene, leaving enormous great free libraries and components lying around. Lots of the reusable codebases are usually only “a build away” from becoming mobile-ready. One of the most popular build systems for the open-source projects is GNU Autotools.</p>
+  <entry>
+    <title>Building a GNU-Autotools-based Project for iOS: Part 1</title>
+    <url>/2019/10/17/Build-a-GNU-Autotools-based-project-for-iOS-Part-1/</url>
+    <content><![CDATA[<p>The open-source movement started way before the rise of the mobile scene, leaving enormous great free libraries and components lying around. Lots of the reusable codebases are usually only “a build away” from becoming mobile-ready. One of the most popular build systems for the open-source projects is GNU Autotools.</p>
 <p>Recently I tried to build a few renowned C/C++ open-source projects for iOS, only to find that:</p>
 <ol>
 <li>Nothing works out of the box;</li>
@@ -22,7 +19,7 @@
 </ul>
 <p>If you can’t get my solution working for your own projects, e.g., when it’s based on a more recent environment, it’s quite possible that you need a next-gen tip.</p>
 <h2 id="The-Working-Solution"><a href="#The-Working-Solution" class="headerlink" title="The Working Solution"></a>The Working Solution</h2><p>For the impatient, here is the build script to place in the root folder of your autotool-based project</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Build for iOS 64bit-ARM variants and iOS Simulator</span></span><br><span class="line"><span class="comment"># - Place the script at project root</span></span><br><span class="line"><span class="comment"># - Customize MIN_IOS_VERSION and other flags as needed</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># Test Environment</span></span><br><span class="line"><span class="comment"># - macOS 10.14.6</span></span><br><span class="line"><span class="comment"># - iOS 13.1</span></span><br><span class="line"><span class="comment"># - Xcode 11.1</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">Build</span></span>() &#123;</span><br><span class="line">    <span class="comment"># Ensure -fembed-bitcode builds, as workaround for libtool macOS bug</span></span><br><span class="line">    <span class="built_in">export</span> MACOSX_DEPLOYMENT_TARGET=<span class="string">"10.4"</span></span><br><span class="line">    <span class="comment"># Get the correct toolchain for target platforms</span></span><br><span class="line">    <span class="built_in">export</span> CC=$(xcrun --find --sdk <span class="string">"<span class="variable">$&#123;SDK&#125;</span>"</span> clang)</span><br><span class="line">    <span class="built_in">export</span> CXX=$(xcrun --find --sdk <span class="string">"<span class="variable">$&#123;SDK&#125;</span>"</span> clang++)</span><br><span class="line">    <span class="built_in">export</span> CPP=$(xcrun --find --sdk <span class="string">"<span class="variable">$&#123;SDK&#125;</span>"</span> cpp)</span><br><span class="line">    <span class="built_in">export</span> CFLAGS=<span class="string">"<span class="variable">$&#123;HOST_FLAGS&#125;</span> <span class="variable">$&#123;OPT_FLAGS&#125;</span>"</span></span><br><span class="line">    <span class="built_in">export</span> CXXFLAGS=<span class="string">"<span class="variable">$&#123;HOST_FLAGS&#125;</span> <span class="variable">$&#123;OPT_FLAGS&#125;</span>"</span></span><br><span class="line">    <span class="built_in">export</span> LDFLAGS=<span class="string">"<span class="variable">$&#123;HOST_FLAGS&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    EXEC_PREFIX=<span class="string">"<span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM&#125;</span>"</span></span><br><span class="line">    ./configure \</span><br><span class="line">        --host=<span class="string">"<span class="variable">$&#123;CHOST&#125;</span>"</span> \</span><br><span class="line">        --prefix=<span class="string">"<span class="variable">$&#123;PREFIX&#125;</span>"</span> \</span><br><span class="line">        --<span class="built_in">exec</span>-prefix=<span class="string">"<span class="variable">$&#123;EXEC_PREFIX&#125;</span>"</span> \</span><br><span class="line">        --<span class="built_in">enable</span>-static \</span><br><span class="line">        --<span class="built_in">disable</span>-shared  <span class="comment"># Avoid Xcode loading dylibs even when staticlibs exist</span></span><br><span class="line"></span><br><span class="line">    make clean</span><br><span class="line">    mkdir -p <span class="string">"<span class="variable">$&#123;PLATFORMS&#125;</span>"</span> &amp;&gt; /dev/null</span><br><span class="line">    make V=1 -j<span class="string">"<span class="variable">$&#123;MAKE_JOBS&#125;</span>"</span> --debug=j</span><br><span class="line">    make install</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"HI"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Locations</span></span><br><span class="line">ScriptDir=<span class="string">"<span class="variable">$( cd "$( dirname "$0" )</span>"</span> &amp;&amp; <span class="built_in">pwd</span> )<span class="string">"</span></span><br><span class="line"><span class="string">cd - &amp;&gt; /dev/null</span></span><br><span class="line"><span class="string">PREFIX="</span><span class="variable">$&#123;ScriptDir&#125;</span><span class="string">"/_build</span></span><br><span class="line"><span class="string">PLATFORMS="</span><span class="variable">$&#123;PREFIX&#125;</span><span class="string">"/platforms</span></span><br><span class="line"><span class="string">UNIVERSAL="</span><span class="variable">$&#123;PREFIX&#125;</span><span class="string">"/universal</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Compiler options</span></span><br><span class="line"><span class="string">OPT_FLAGS="</span>-O3 -g3 -fembed-bitcode<span class="string">"</span></span><br><span class="line"><span class="string">MAKE_JOBS=8</span></span><br><span class="line"><span class="string">MIN_IOS_VERSION=8.0</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Build for platforms</span></span><br><span class="line"><span class="string">SDK="</span>iphoneos<span class="string">"</span></span><br><span class="line"><span class="string">PLATFORM="</span>arm<span class="string">"</span></span><br><span class="line"><span class="string">PLATFORM_ARM=<span class="variable">$&#123;PLATFORM&#125;</span></span></span><br><span class="line"><span class="string">ARCH_FLAGS="</span>-arch arm64 -arch arm64e<span class="string">"  # -arch armv7 -arch armv7s</span></span><br><span class="line"><span class="string">HOST_FLAGS="</span><span class="variable">$&#123;ARCH_FLAGS&#125;</span> -miphoneos-version-min=<span class="variable">$&#123;MIN_IOS_VERSION&#125;</span> -isysroot $(xcrun --sdk <span class="variable">$&#123;SDK&#125;</span> --show-sdk-path)<span class="string">"</span></span><br><span class="line"><span class="string">CHOST="</span>arm-apple-darwin<span class="string">"</span></span><br><span class="line"><span class="string">Build</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">SDK="</span>iphonesimulator<span class="string">"</span></span><br><span class="line"><span class="string">PLATFORM="</span>x86_64-sim<span class="string">"</span></span><br><span class="line"><span class="string">PLATFORM_ISIM=<span class="variable">$&#123;PLATFORM&#125;</span></span></span><br><span class="line"><span class="string">ARCH_FLAGS="</span>-arch x86_64<span class="string">"</span></span><br><span class="line"><span class="string">HOST_FLAGS="</span><span class="variable">$&#123;ARCH_FLAGS&#125;</span> -mios-simulator-version-min=<span class="variable">$&#123;MIN_IOS_VERSION&#125;</span> -isysroot $(xcrun --sdk <span class="variable">$&#123;SDK&#125;</span> --show-sdk-path)<span class="string">"</span></span><br><span class="line"><span class="string">CHOST="</span>x86_64-apple-darwin<span class="string">"</span></span><br><span class="line"><span class="string">Build</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Create universal binary</span></span><br><span class="line"><span class="string">cd "</span><span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM_ARM&#125;</span>/lib<span class="string">"</span></span><br><span class="line"><span class="string">LIB_NAME=`find . -iname *.a`</span></span><br><span class="line"><span class="string">cd -</span></span><br><span class="line"><span class="string">mkdir -p "</span><span class="variable">$&#123;UNIVERSAL&#125;</span><span class="string">" &amp;&gt; /dev/null</span></span><br><span class="line"><span class="string">lipo -create -output "</span><span class="variable">$&#123;UNIVERSAL&#125;</span>/<span class="variable">$&#123;LIB_NAME&#125;</span><span class="string">" "</span><span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM_ARM&#125;</span>/lib/<span class="variable">$&#123;LIB_NAME&#125;</span><span class="string">" "</span><span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM_ISIM&#125;</span>/lib/<span class="variable">$&#123;LIB_NAME&#125;</span><span class="string">"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">echo "</span>BYE<span class="string">"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#! /bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Build for iOS 64bit-ARM variants and iOS Simulator</span></span><br><span class="line"><span class="comment"># - Place the script at project root</span></span><br><span class="line"><span class="comment"># - Customize MIN_IOS_VERSION and other flags as needed</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># Test Environment</span></span><br><span class="line"><span class="comment"># - macOS 10.14.6</span></span><br><span class="line"><span class="comment"># - iOS 13.1</span></span><br><span class="line"><span class="comment"># - Xcode 11.1</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">Build</span></span>() &#123;</span><br><span class="line">    <span class="comment"># Ensure -fembed-bitcode builds, as workaround for libtool macOS bug</span></span><br><span class="line">    <span class="built_in">export</span> MACOSX_DEPLOYMENT_TARGET=<span class="string">"10.4"</span></span><br><span class="line">    <span class="comment"># Get the correct toolchain for target platforms</span></span><br><span class="line">    <span class="built_in">export</span> CC=$(xcrun --find --sdk <span class="string">"<span class="variable">$&#123;SDK&#125;</span>"</span> clang)</span><br><span class="line">    <span class="built_in">export</span> CXX=$(xcrun --find --sdk <span class="string">"<span class="variable">$&#123;SDK&#125;</span>"</span> clang++)</span><br><span class="line">    <span class="built_in">export</span> CPP=$(xcrun --find --sdk <span class="string">"<span class="variable">$&#123;SDK&#125;</span>"</span> cpp)</span><br><span class="line">    <span class="built_in">export</span> CFLAGS=<span class="string">"<span class="variable">$&#123;HOST_FLAGS&#125;</span> <span class="variable">$&#123;OPT_FLAGS&#125;</span>"</span></span><br><span class="line">    <span class="built_in">export</span> CXXFLAGS=<span class="string">"<span class="variable">$&#123;HOST_FLAGS&#125;</span> <span class="variable">$&#123;OPT_FLAGS&#125;</span>"</span></span><br><span class="line">    <span class="built_in">export</span> LDFLAGS=<span class="string">"<span class="variable">$&#123;HOST_FLAGS&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    EXEC_PREFIX=<span class="string">"<span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM&#125;</span>"</span></span><br><span class="line">    ./configure \</span><br><span class="line">        --host=<span class="string">"<span class="variable">$&#123;CHOST&#125;</span>"</span> \</span><br><span class="line">        --prefix=<span class="string">"<span class="variable">$&#123;PREFIX&#125;</span>"</span> \</span><br><span class="line">        --<span class="built_in">exec</span>-prefix=<span class="string">"<span class="variable">$&#123;EXEC_PREFIX&#125;</span>"</span> \</span><br><span class="line">        --<span class="built_in">enable</span>-static \</span><br><span class="line">        --<span class="built_in">disable</span>-shared  <span class="comment"># Avoid Xcode loading dylibs even when staticlibs exist</span></span><br><span class="line"></span><br><span class="line">    make clean</span><br><span class="line">    mkdir -p <span class="string">"<span class="variable">$&#123;PLATFORMS&#125;</span>"</span> &amp;&gt; /dev/null</span><br><span class="line">    make V=1 -j<span class="string">"<span class="variable">$&#123;MAKE_JOBS&#125;</span>"</span> --debug=j</span><br><span class="line">    make install</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"HI"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Locations</span></span><br><span class="line">ScriptDir=<span class="string">"<span class="variable">$( cd "$( dirname "$0" )</span>"</span> &amp;&amp; <span class="built_in">pwd</span> )<span class="string">"</span></span><br><span class="line"><span class="string">cd - &amp;&gt; /dev/null</span></span><br><span class="line"><span class="string">PREFIX="</span><span class="variable">$&#123;ScriptDir&#125;</span><span class="string">"/_build</span></span><br><span class="line"><span class="string">PLATFORMS="</span><span class="variable">$&#123;PREFIX&#125;</span><span class="string">"/platforms</span></span><br><span class="line"><span class="string">UNIVERSAL="</span><span class="variable">$&#123;PREFIX&#125;</span><span class="string">"/universal</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Compiler options</span></span><br><span class="line"><span class="string">OPT_FLAGS="</span>-O3 -g3 -fembed-bitcode<span class="string">"</span></span><br><span class="line"><span class="string">MAKE_JOBS=8</span></span><br><span class="line"><span class="string">MIN_IOS_VERSION=8.0</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Build for platforms</span></span><br><span class="line"><span class="string">SDK="</span>iphoneos<span class="string">"</span></span><br><span class="line"><span class="string">PLATFORM="</span>arm<span class="string">"</span></span><br><span class="line"><span class="string">PLATFORM_ARM=<span class="variable">$&#123;PLATFORM&#125;</span></span></span><br><span class="line"><span class="string">ARCH_FLAGS="</span>-arch arm64 -arch arm64e<span class="string">"  # -arch armv7 -arch armv7s</span></span><br><span class="line"><span class="string">HOST_FLAGS="</span><span class="variable">$&#123;ARCH_FLAGS&#125;</span> -miphoneos-version-min=<span class="variable">$&#123;MIN_IOS_VERSION&#125;</span> -isysroot $(xcrun --sdk <span class="variable">$&#123;SDK&#125;</span> --show-sdk-path)<span class="string">"</span></span><br><span class="line"><span class="string">CHOST="</span>arm-apple-darwin<span class="string">"</span></span><br><span class="line"><span class="string">Build</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">SDK="</span>iphonesimulator<span class="string">"</span></span><br><span class="line"><span class="string">PLATFORM="</span>x86_64-sim<span class="string">"</span></span><br><span class="line"><span class="string">PLATFORM_ISIM=<span class="variable">$&#123;PLATFORM&#125;</span></span></span><br><span class="line"><span class="string">ARCH_FLAGS="</span>-arch x86_64<span class="string">"</span></span><br><span class="line"><span class="string">HOST_FLAGS="</span><span class="variable">$&#123;ARCH_FLAGS&#125;</span> -mios-simulator-version-min=<span class="variable">$&#123;MIN_IOS_VERSION&#125;</span> -isysroot $(xcrun --sdk <span class="variable">$&#123;SDK&#125;</span> --show-sdk-path)<span class="string">"</span></span><br><span class="line"><span class="string">CHOST="</span>x86_64-apple-darwin<span class="string">"</span></span><br><span class="line"><span class="string">Build</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Create universal binary</span></span><br><span class="line"><span class="string">cd "</span><span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM_ARM&#125;</span>/lib<span class="string">"</span></span><br><span class="line"><span class="string">LIB_NAME=`find . -iname *.a`</span></span><br><span class="line"><span class="string">cd -</span></span><br><span class="line"><span class="string">mkdir -p "</span><span class="variable">$&#123;UNIVERSAL&#125;</span><span class="string">" &amp;&gt; /dev/null</span></span><br><span class="line"><span class="string">lipo -create -output "</span><span class="variable">$&#123;UNIVERSAL&#125;</span>/<span class="variable">$&#123;LIB_NAME&#125;</span><span class="string">" "</span><span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM_ARM&#125;</span>/lib/<span class="variable">$&#123;LIB_NAME&#125;</span><span class="string">" "</span><span class="variable">$&#123;PLATFORMS&#125;</span>/<span class="variable">$&#123;PLATFORM_ISIM&#125;</span>/lib/<span class="variable">$&#123;LIB_NAME&#125;</span><span class="string">"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">echo "</span>BYE<span class="string">"</span></span><br></pre></td></tr></table></figure>
 
 
 <h2 id="The-Expected-Results"><a href="#The-Expected-Results" class="headerlink" title="The Expected Results"></a>The Expected Results</h2><p>Assuming you are at the project root, run the script and you should get:</p>
@@ -31,15 +28,15 @@
 <li>The universal binary for all architectures combined</li>
 </ul>
 <p>Running a <code>lipo</code> check on the universal binary should give you something like these:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lipo -info /path/to/mylib/_build/arm/lib/libmylib.a</span><br><span class="line">Architectures <span class="keyword">in</span> the fat file: /path/to/mylib/_build/arm/lib/libmylib.a are: arm64 arm64e</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ lipo -info /path/to/mylib/_build/arm/lib/libmylib.a</span><br><span class="line">Architectures <span class="keyword">in</span> the fat file: /path/to/mylib/_build/arm/lib/libmylib.a are: arm64 arm64e</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lipo -info /path/to/mylib/_build/x86_64-sim/lib/libmylib.a</span><br><span class="line">Non-fat file: /path/to/mylib/_build/x86_64-sim/lib/libmylib.a is architecture: x86_64</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ lipo -info /path/to/mylib/_build/x86_64-sim/lib/libmylib.a</span><br><span class="line">Non-fat file: /path/to/mylib/_build/x86_64-sim/lib/libmylib.a is architecture: x86_64</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lipo -info /path/to/mylib/_build/universal/libmylib.a</span><br><span class="line">Architectures <span class="keyword">in</span> the fat file: /path/to/mylib/_build/universal/libmylib.a are: x86_64 arm64 arm64e</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ lipo -info /path/to/mylib/_build/universal/libmylib.a</span><br><span class="line">Architectures <span class="keyword">in</span> the fat file: /path/to/mylib/_build/universal/libmylib.a are: x86_64 arm64 arm64e</span><br></pre></td></tr></table></figure>
 
 <h2 id="The-Lessons-Learned"><a href="#The-Lessons-Learned" class="headerlink" title="The Lessons Learned"></a>The Lessons Learned</h2><p>I feel obliged to write down the major gotchas that may help in the future.</p>
 <h3 id="Compiler-Executables"><a href="#Compiler-Executables" class="headerlink" title="Compiler Executables"></a>Compiler Executables</h3><p>I lost most of my time to this. I started out by using the autotools compiler environment variables this way:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CC=clang</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">CC=clang</span><br></pre></td></tr></table></figure>
 
 <p>To my surprise, I then always ended up with builds holding <code>x86_64</code> instead of <code>arm64</code>. The correct way is now shown in the solution above. Before getting there, I was on the wrong track:  Fiddling with the architecture triplets that I copied from the Internet, unsure whether or not they could be trusted. I’ve tried numerous triplets, i.e., arch-vendor-os, to no avail. GNU is not big on documentation. The closest standard triplet lists I could find are:</p>
 <ul>
@@ -48,15 +45,15 @@
 </ul>
 <p>These proved useless in my situation.</p>
 <p> To make it worse, <code>config.guess</code>  always gives me the wrong <code>x86_64</code> as well:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./config.guess</span><br><span class="line">x86_64-apple-darwin18.7.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ ./config.guess</span><br><span class="line">x86_64-apple-darwin18.7.0</span><br></pre></td></tr></table></figure>
 
 <p>Knowing that autotools is just a wrapper over the real compilers, I’ve also tried to understand how the compiler works behind autotools. I created an Xcode project and watched the IDE build log, hunting for clues on magic flags. This proved useless as well, including the intriguing clang flag <code>-target arm64-apple-ios13.1</code>, not to be confused with the <code>--target</code> flag for <code>configure</code>.</p>
 <p>The cross-compile idea also made me tweak the build/host/target combination over and over, only to find that having <code>--host</code> alone will suffice, the rest is implied by the assigned toolchain variables and flags.</p>
 <h3 id="Bitcode"><a href="#Bitcode" class="headerlink" title="Bitcode"></a>Bitcode</h3><p>Since iOS 9, <a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/AppThinning/AppThinning.html#//apple_ref/doc/uid/TP40012582-CH35-SW2" target="_blank" rel="noopener">enabling bitcode is required for library providers</a>. However, to enabling bitcode without causing compiler errors such as:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ld: -bind_at_load and -bitcode_bundle (Xcode setting ENABLE_BITCODE=YES) cannot be used together</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ld: -bind_at_load and -bitcode_bundle (Xcode setting ENABLE_BITCODE=YES) cannot be used together</span><br></pre></td></tr></table></figure>
 
 <p>I have to put in a trick to signify the build machine version, which works around a supposed <code>libtool</code> bug:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> MACOSX_DEPLOYMENT_TARGET=<span class="string">"10.4"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> MACOSX_DEPLOYMENT_TARGET=<span class="string">"10.4"</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="Shared-libs"><a href="#Shared-libs" class="headerlink" title="Shared libs"></a>Shared libs</h3><p>Without adding <code>--disabled-shared</code>, autotools generate both dynamic and static libs for the project. This turns out to cue Xcode to try to load shared libs first (CRASH) even when I have not specified <code>-l</code> for the dylibs. So <code>--disabled-shared</code> is mandatory for using static libs.</p>
 <h2 id="Conclusions"><a href="#Conclusions" class="headerlink" title="Conclusions"></a>Conclusions</h2><p>Autotools try to hide away compiler and OS details behind the magic <code>configure</code> command and its obscure options. In the Desktop era, the dirty work was done so well that all I needed was following the default trilogy steps. After this trip, I realized how much it takes to support a new platform on the build system end. Although the new build systems like CMakes improve the cross-platform build environment,  the mobile devs inevitably bump into dinosaur autotools-based codebases, rigged with traps. Patience in research is the only cure, IMHO. </p>
@@ -68,20 +65,14 @@
 <li><a href="https://stackoverflow.com/q/28679461/987846" target="_blank" rel="noopener">Shared Libs</a></li>
 </ul>
 ]]></content>
-      
-        
-        <tags>
-            
-            <tag> build, iOS </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[十条你得知道的 Wwise Launcher 用法（2019 版）]]></title>
-      <url>http://kakyoism.github.io/2019/07/08/%25E4%25BD%25A0%25E5%25BE%2597%25E7%259F%25A5%25E9%2581%2593%25E7%259A%2584-Wwise-Launcher/</url>
-      <content type="html"><![CDATA[<p>注：本文基于 2018 年初在 Audiokinetic 公众号上发表的文章《十一条你可能不知道的 Wwise  Launcher 用法》，由作者针对软件更新做了改动，<strong>不影响操作的截图沿用旧版本</strong>。</p>
+      <tags>
+        <tag>build, iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>十条你得知道的 Wwise Launcher 用法（2019 版）</title>
+    <url>/2019/07/08/%E4%BD%A0%E5%BE%97%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/</url>
+    <content><![CDATA[<p>注：本文基于 2018 年初在 Audiokinetic 公众号上发表的文章《十一条你可能不知道的 Wwise  Launcher 用法》，由作者针对软件更新做了改动，<strong>不影响操作的截图沿用旧版本</strong>。</p>
 <p>本文基于以下环境</p>
 <ul>
 <li>Wwise Launcher: 2019.5.0.905</li>
@@ -201,20 +192,14 @@
 <p>如果要看中文版，现在可以直接点击 Launcher 首页右上角的语言列表切换。</p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>越来越多的集成开发环境包括 Unity 和 Unreal Engine 利用独立于编辑器的 Launcher（启动器）作为控制中心程序来管理工程和资源。这样做，一来可以方便用户管理多个引擎版本和工程，避免和操作系统文件管理器中铺天盖地的文件夹和文件类型缠斗，甚至发生零散文件操作引起的意外；二来可以整合引擎开发商提供的一系列服务。在 Wwise 工作流程中，Wwise Launcher 正在扮演类似的角色，并且还在成长中。</p>
 ]]></content>
-      
-        
-        <tags>
-            
-            <tag> wwise, gameaudio </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[为什么我听不到声音？]]></title>
-      <url>http://kakyoism.github.io/2018/02/04/why-cant-i-hear-my-sound/</url>
-      <content type="html"><![CDATA[<p>本文基于以下软件版本：</p>
+      <tags>
+        <tag>wwise, gameaudio</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>为什么我听不到声音？</title>
+    <url>/2018/02/04/why-cant-i-hear-my-sound/</url>
+    <content><![CDATA[<p>本文基于以下软件版本：</p>
 <ul>
 <li>Wwise Launcher: 2018.1.24.738</li>
 <li>Wwise: 2017.1.4.640</li>
@@ -222,20 +207,14 @@
 </ul>
 <p>hello!</p>
 ]]></content>
-      
-        
-        <tags>
-            
-            <tag> wwise </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[十条你可能不知道的 Wwise Launcher 用法]]></title>
-      <url>http://kakyoism.github.io/2018/01/04/%25E4%25BD%25A0%25E6%2589%2580%25E4%25B8%258D%25E7%259F%25A5%25E9%2581%2593%25E7%259A%2584-Wwise-Launcher/</url>
-      <content type="html"><![CDATA[<p>本文基于以下软件版本：</p>
+      <tags>
+        <tag>wwise</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>十条你可能不知道的 Wwise Launcher 用法</title>
+    <url>/2018/01/04/%E4%BD%A0%E6%89%80%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Wwise-Launcher/</url>
+    <content><![CDATA[<p>本文基于以下软件版本：</p>
 <ul>
 <li>Wwise Launcher: 2017.11.30.720</li>
 <li>Wwise: 2017.1.4.6407</li>
@@ -354,20 +333,14 @@
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><hr>
 <p>越来越多的集成开发环境包括 Unity 和 Unreal Engine 利用独立于编辑器的 Launcher（启动器）作为控制中心程序来管理工程和资源。这样做，一来可以方便用户管理多个引擎版本和工程，避免和操作系统文件管理器中铺天盖地的文件夹和文件类型缠斗，甚至发生零散文件操作引起的意外；二来可以整合引擎开发商提供的一系列服务。在 Wwise 工作流程中，Wwise Launcher 正在扮演类似的角色，并且还在成长中。</p>
 ]]></content>
-      
-        
-        <tags>
-            
-            <tag> wwise </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[快速试听 Wwise 互动音乐的过渡]]></title>
-      <url>http://kakyoism.github.io/2017/10/29/quick-auditioning-music-transitions/</url>
-      <content type="html"><![CDATA[<p>本文探讨的所有问题和解决方案都<strong>基于 Wwise 2017.1.x</strong>。不对后续版本负责。</p>
+      <tags>
+        <tag>wwise</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>快速试听 Wwise 互动音乐的过渡</title>
+    <url>/2017/10/29/quick-auditioning-music-transitions/</url>
+    <content><![CDATA[<p>本文探讨的所有问题和解决方案都<strong>基于 Wwise 2017.1.x</strong>。不对后续版本负责。</p>
 <h2 id="起因：听一下过渡好难"><a href="#起因：听一下过渡好难" class="headerlink" title="起因：听一下过渡好难"></a>起因：听一下过渡好难</h2><p>利用 Wwise 的互动音乐功能可以用小段音乐编组搭建出动态和互动的曲式和织体，但搭完了之后你还是得用耳朵试听乐段间的过渡，确保衔接在音乐意义上是无缝的。截至 Wwise 2017.1，不少人在这里遇到了麻烦，见下图：</p>
 <!--![](quick-auditioning-music-transitions/mpe.png)-->
 
@@ -518,49 +491,31 @@
 <p>除以上三种方法之外，还可以用 WAAPI 做后端来写一个简单的媒体播放器播放列表界面来达到传统的体验。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本文针对很多人提到的“听一下过渡好难”的痛点，总结了一下在不编程或自己写第三方 UI 的情况下，现有能加速试听过渡的方案，希望能给大家一点帮助，权当抛砖引玉，欢迎大家指正和探讨其它可能的技巧和方案。</p>
 ]]></content>
-      
-        <categories>
-            
-            <category> GameAudio </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> wwise, interactivemusic </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[GDC17 音频见闻 - 空间音频 Spatial Audio（2）]]></title>
-      <url>http://kakyoism.github.io/2017/03/13/GDC17-Audio-Spatial-Audio-2/</url>
-      <content type="html"><![CDATA[<h2 id="Wwise-2017-1-的空间音频新功能"><a href="#Wwise-2017-1-的空间音频新功能" class="headerlink" title="Wwise 2017.1 的空间音频新功能"></a>Wwise 2017.1 的空间音频新功能</h2><img src="/2017/03/13/GDC17-Audio-Spatial-Audio-2/sa-wwise-wal.jpg" class="" title="全新 Spatial Audio 测试地图：Wwise Audio Lab">
+      <categories>
+        <category>GameAudio</category>
+      </categories>
+      <tags>
+        <tag>wwise, interactivemusic</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GDC17 音频见闻 - 空间音频 Spatial Audio（2）</title>
+    <url>/2017/03/13/GDC17-Audio-Spatial-Audio-2/</url>
+    <content><![CDATA[<h2 id="Wwise-2017-1-的空间音频新功能"><a href="#Wwise-2017-1-的空间音频新功能" class="headerlink" title="Wwise 2017.1 的空间音频新功能"></a>Wwise 2017.1 的空间音频新功能</h2><img src="/2017/03/13/GDC17-Audio-Spatial-Audio-2/sa-wwise-wal.jpg" class="" title="全新 Spatial Audio 测试地图：Wwise Audio Lab">
 
 <p>上篇说到微软的 Project Triton 未来的方向恰好与 Wwise 2017.1 的一些新功能不谋而合，简单地说，Wwise</p>
 ]]></content>
-      
-        <categories>
-            
-            <category> GameAudio </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> conference, gdc17, reverb, obstruction-occlusion, spatialaudio </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[GDC17 音频见闻 - 空间音频 Spatial Audio（1）]]></title>
-      <url>http://kakyoism.github.io/2017/03/13/GDC17-%25E9%259F%25B3%25E9%25A2%2591%25E8%25A7%2581%25E9%2597%25BB%25EF%25BC%25881%25EF%25BC%2589-%25E7%25A9%25BA%25E9%2597%25B4%25E9%259F%25B3%25E9%25A2%2591-Spatial-Audio/</url>
-      <content type="html"><![CDATA[<h2 id="《Gears-of-War-4》中的环境声学预处理技术"><a href="#《Gears-of-War-4》中的环境声学预处理技术" class="headerlink" title="《Gears of War 4》中的环境声学预处理技术"></a>《Gears of War 4》中的环境声学预处理技术</h2><p>继 Binaural 和 Ambisonics 之后，今年 GDC 上的空间音频热门关键字多了<em>混响</em>（Reverberation）、<em>声障和声笼</em>（Obstruction &amp; Occlusion）这些环境声学概念，标志着对沉浸音频体验发起的又一次冲锋。这些游戏音频界的旧瓶里最受瞩目的新酒之一当数微软研究院和《战争机器4》（GoW4）开发组的 <a href="http://schedule.gdconf.com/session/gears-of-war-4-project-triton-pre-computed-environmental-wave-acoustics" target="_blank" rel="noopener">Project Triton</a>，即通过预先演算声波传播物理参数来辅助人工设计的环境声学效果方案。本次的演讲实际上是微软已启动六年之久系列研究的首次产品化成果。演讲幻灯片<a href="http://www.nikunjr.com/Projects/Triton/Triton-GDC2017.pptx" target="_blank" rel="noopener">已放出</a>。以下尝试稍加总结。</p>
+      <categories>
+        <category>GameAudio</category>
+      </categories>
+      <tags>
+        <tag>conference, gdc17, reverb, obstruction-occlusion, spatialaudio</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GDC17 音频见闻 - 空间音频 Spatial Audio（1）</title>
+    <url>/2017/03/13/GDC17-%E9%9F%B3%E9%A2%91%E8%A7%81%E9%97%BB%EF%BC%881%EF%BC%89-%E7%A9%BA%E9%97%B4%E9%9F%B3%E9%A2%91-Spatial-Audio/</url>
+    <content><![CDATA[<h2 id="《Gears-of-War-4》中的环境声学预处理技术"><a href="#《Gears-of-War-4》中的环境声学预处理技术" class="headerlink" title="《Gears of War 4》中的环境声学预处理技术"></a>《Gears of War 4》中的环境声学预处理技术</h2><p>继 Binaural 和 Ambisonics 之后，今年 GDC 上的空间音频热门关键字多了<em>混响</em>（Reverberation）、<em>声障和声笼</em>（Obstruction &amp; Occlusion）这些环境声学概念，标志着对沉浸音频体验发起的又一次冲锋。这些游戏音频界的旧瓶里最受瞩目的新酒之一当数微软研究院和《战争机器4》（GoW4）开发组的 <a href="http://schedule.gdconf.com/session/gears-of-war-4-project-triton-pre-computed-environmental-wave-acoustics" target="_blank" rel="noopener">Project Triton</a>，即通过预先演算声波传播物理参数来辅助人工设计的环境声学效果方案。本次的演讲实际上是微软已启动六年之久系列研究的首次产品化成果。演讲幻灯片<a href="http://www.nikunjr.com/Projects/Triton/Triton-GDC2017.pptx" target="_blank" rel="noopener">已放出</a>。以下尝试稍加总结。</p>
 <h3 id="成果"><a href="#成果" class="headerlink" title="成果"></a>成果</h3><p>这乍一看很学术范的技术主要是为了解决游戏环境声学设计中的一大痛点：传统设计方法依赖在游戏地图中手工标注或绘制声学区域，再挂接音频效果器来实现室内混响和声障／声笼效果；音频中间件如 Wwise 的效果器控制参数一般是够用的，但在游戏中手工标注的工作量巨大且容易出错，实际开发工期紧，很难打磨调优。</p>
 <p>不巧，玩家极易通过生活经验察觉这类设计错误，后果严重，参见《刺客信条：大革命》中曾出现的<a href="http://forums.ubi.com/showthread.php/973716-AC-Unity-Sound-Bug-Forums" target="_blank" rel="noopener">全局 bug</a>。音频设计界早就希望能像物理渲染界一样自动化这个过程，为创意设计赢得时间。</p>
 <p>演讲中放出的<em>最终</em>解决方案：</p>
@@ -609,26 +564,17 @@
 </a></li>
 </ul>
 ]]></content>
-      
-        <categories>
-            
-            <category> GameAudio </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> conference, gdc17, reverb, obstruction-occlusion, spatialaudio </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[补记 MIGS 2016 上的演讲见闻]]></title>
-      <url>http://kakyoism.github.io/2017/01/15/migs-2016/</url>
-      <content type="html"><![CDATA[<p>最近一次的<a href="http://www.migs16.com/en/" target="_blank" rel="noopener">蒙特利尔国际游戏峰会 MIGS 2016</a>过去一阵子了，只有3岁的 MIGS 在规模上无法跟 GDC 这样的老字号相提并论，不过每年还是有些有用的技术演讲，在此追记一下自己去过那几场的要点，主要是音频专场。<a id="more"></a></p>
+      <categories>
+        <category>GameAudio</category>
+      </categories>
+      <tags>
+        <tag>conference, gdc17, reverb, obstruction-occlusion, spatialaudio</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>补记 MIGS 2016 上的演讲见闻</title>
+    <url>/2017/01/15/migs-2016/</url>
+    <content><![CDATA[<p>最近一次的<a href="http://www.migs16.com/en/" target="_blank" rel="noopener">蒙特利尔国际游戏峰会 MIGS 2016</a>过去一阵子了，只有3岁的 MIGS 在规模上无法跟 GDC 这样的老字号相提并论，不过每年还是有些有用的技术演讲，在此追记一下自己去过那几场的要点，主要是音频专场。<a id="more"></a></p>
 <img src="/2017/01/15/migs-2016/migs16-01.jpg" class="">
 
 <h2 id="Leonard-Paul-“用-Pure-Data-为游戏实现-Procedural-Audio”"><a href="#Leonard-Paul-“用-Pure-Data-为游戏实现-Procedural-Audio”" class="headerlink" title="Leonard Paul “用 Pure Data 为游戏实现 Procedural Audio”"></a><a href="http://www.migs16.com/en/events/procedural-game-audio-with-pure-data/" target="_blank" rel="noopener">Leonard Paul “用 Pure Data 为游戏实现 Procedural Audio”</a></h2><img src="/2017/01/15/migs-2016/migs16-02.jpg" class="">
@@ -692,53 +638,29 @@
 <p><img src="https://tctechcrunch2011.files.wordpress.com/2016/09/trash2.jpg?w=738" alt=""></p>
 <p><a href="https://techcrunch.com/2016/09/13/auto-trash-sorts-garbage-automatically-at-the-techcrunch-disrupt-hackathon/" target="_blank" rel="noopener">自动垃圾分类</a></p>
 ]]></content>
-      
-        <categories>
-            
-            <category> GameAudio </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> conference </tag>
-            
-            <tag> wwise </tag>
-            
-            <tag> proceduralaudio </tag>
-            
-            <tag> reverb </tag>
-            
-            <tag> machinelearning </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[第一天]]></title>
-      <url>http://kakyoism.github.io/2016/12/25/Hello-Hexo-%25E4%25BD%25A0%25E5%25A5%25BD-Hexo/</url>
-      <content type="html"><![CDATA[<p>之前玩公众号，但发现在引用外链和离线写作方面有限制。很多时候我期待的是自由外链引用、离线为主、一键发布、迭代迁移方便的博客流程。</p>
+      <categories>
+        <category>GameAudio</category>
+      </categories>
+      <tags>
+        <tag>wwise</tag>
+        <tag>conference</tag>
+        <tag>proceduralaudio</tag>
+        <tag>reverb</tag>
+        <tag>machinelearning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>第一天</title>
+    <url>/2016/12/25/Hello-Hexo-%E4%BD%A0%E5%A5%BD-Hexo/</url>
+    <content><![CDATA[<p>之前玩公众号，但发现在引用外链和离线写作方面有限制。很多时候我期待的是自由外链引用、离线为主、一键发布、迭代迁移方便的博客流程。</p>
 <p>GitHub 的静态站点系统 <a href="https://pages.github.com" target="_blank" rel="noopener">GitHub Pages</a> 支持按照软件开发流程来管理博客，通过纯文本标记格式比如 <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener">Markdown</a> 写作存为本地文件，再一键发布到远程。</p>
 <p>所以来 GitHub 试试。</p>
 ]]></content>
-      
-        <categories>
-            
-            <category> Writing </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> github </tag>
-            
-        </tags>
-        
-    </entry>
-    
-  
-  
+      <categories>
+        <category>Writing</category>
+      </categories>
+      <tags>
+        <tag>github</tag>
+      </tags>
+  </entry>
 </search>
